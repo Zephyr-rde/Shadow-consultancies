@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shadow Consultancies - Education Consultancy in Bangalore</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Open+Sans:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #0a2463; /* Deep blue */
+            --accent-color: #f9a826; /* Bright gold */
+            --bg-color: #f5f5f7; /* Light gray */
+            --text-color: #333333;
+            --white: #ffffff;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Open Sans', sans-serif;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            line-height: 1.6;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 28px;
+            background-color: var(--accent-color);
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+        
+        .logo {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: 24px;
+            color: var(--primary-color);
+        }
+        
+        .logo span {
+            color: var(--accent-color);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 30px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: var(--accent-color);
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(10, 36, 99, 0.8), rgba(10, 36, 99, 0.9)), url('https://source.unsplash.com/random/1600x900/?university') no-repeat center center/cover;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            color: var(--white);
+            text-align: center;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .hero p {
+            font-size: 20px;
+            margin-bottom: 30px;
+        }
+        
+        /* Sections Common Styles */
+        section {
+            padding: 100px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-title h2 {
+            font-size: 36px;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+        
+        .section-title p {
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* About Section */
+        .about {
+            background-color: var(--white);
+        }
+        
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+        
+        .about-img {
+            flex: 1;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .about-img img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .about-text {
+            flex: 1;
+        }
+        
+        .about-text h3 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+        
+        /* Services Section */
+        .services .services-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .service-box {
+            background-color: var(--white);
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+        
+        .service-box:hover {
+            transform: translateY(-10px);
+        }
+        
+        .service-box h3 {
+            font-size: 22px;
+            margin: 20px 0 15px;
+            color: var(--primary-color);
+        }
+        
+        .service-icon {
+            font-size: 40px;
+            color: var(--accent-color);
+        }
+        
+        /* Testimonials Section */
+        .testimonials {
+            background-color: var(--white);
+        }
+        
+        .testimonials-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .testimonial-box {
+            background-color: var(--bg-color);
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+        
+        .testimonial-author {
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+        
+        /* Contact Section */
+        .contact-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+        
+        .contact-info h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+        
+        .contact-info p {
+            margin-bottom: 10px;
+        }
+        
+        .contact-info .contact-details {
+            margin: 20px 0;
+        }
+        
+        .contact-details div {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: 'Open Sans', sans-serif;
+        }
+        
+        .contact-form textarea {
+            height: 150px;
+            resize: vertical;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 50px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-col h4 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-col h4::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--accent-color);
+        }
+        
+        .footer-col ul {
+            list-style: none;
+        }
+        
+        .footer-col ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-col ul li a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-col ul li a:hover {
+            color: var(--accent-color);
+            padding-left: 5px;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="#" class="logo">Shadow <span>Consultancies</span></a>
+                <ul class="nav-links">
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#testimonials">Testimonials</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Your Future Starts Here</h1>
+                <p>Shadow Consultancies helps 2nd PUC students in Bangalore find their ideal college pathway with stress-free admissions guidance and exclusive perks.</p>
+                <a href="#contact" class="btn">Get Started</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="section-title">
+                <h2>About Us</h2>
+                <p>Your trusted education partner in Bangalore</p>
+            </div>
+            <div class="about-content">
+                <div class="about-img">
+                    <img src="https://source.unsplash.com/random/600x400/Students" alt="College students">
+                </div>
+                <div class="about-text">
+                    <h3>We Guide Your Educational Journey</h3>
+                    <p>Shadow Consultancies was founded with a singular mission: to make college admissions stress-free for 2nd PUC students in Bangalore. We understand the challenges and anxieties that come with this pivotal life decision.</p>
+                    <p>With our deep expertise and special partnership with Marvadi University in Gujarat, we offer unique opportunities that other consultancies simply can't match. Our team of dedicated education experts works tirelessly to match each student with the perfect college for their academic goals and personal growth.</p>
+                    <p>We believe that every student deserves personalized guidance, transparent advice, and extra perks that make their college journey smoother—from free flight tickets to placement support after graduation.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Services</h2>
+                <p>Comprehensive support for your educational journey</p>
+            </div>
+            <div class="services-container">
+                <div class="service-box">
+                    <div class="service-icon">📝</div>
+                    <h3>College Admissions Guidance</h3>
+                    <p>Personalized counseling to identify the perfect college match based on your academic profile, interests, and career goals, with special focus on prestigious Marvadi University.</p>
+                </div>
+                <div class="service-box">
+                    <div class="service-icon">✈️</div>
+                    <h3>Free Flight Tickets</h3>
+                    <p>We provide complimentary flight tickets for students admitted through our consultancy, making the transition to Marvadi University in Gujarat seamless and stress-free.</p>
+                </div>
+                <div class="service-box">
+                    <div class="service-icon">🎓</div>
+                    <h3>Application Assistance</h3>
+                    <p>End-to-end support with application procedures, documentation, and interview preparation to maximize your chances of admission to your dream college.</p>
+                </div>
+                <div class="service-box">
+                    <div class="service-icon">💼</div>
+                    <h3>Placement Support</h3>
+                    <p>Our commitment extends beyond admissions. We provide career guidance and placement assistance to ensure you're well-prepared for your professional journey after graduation.</p>
+                </div>
+                <div class="service-box">
+                    <div class="service-icon">🏢</div>
+                    <h3>Campus Visits</h3>
+                    <p>Organized tours to Marvadi University campus to help you experience the facilities, academic environment, and student life before making your final decision.</p>
+                </div>
+                <div class="service-box">
+                    <div class="service-icon">💰</div>
+                    <h3>Scholarship Guidance</h3>
+                    <p>Expert advice on available scholarships, financial aid options, and assistance with applications to make quality education more affordable.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="testimonials">
+        <div class="container">
+            <div class="section-title">
+                <h2>Testimonials</h2>
+                <p>What our students and parents say about us</p>
+            </div>
+            <div class="testimonials-container">
+                <div class="testimonial-box">
+                    <p class="testimonial-text">"Shadow Consultancies made my college application journey seamless. Their guidance was invaluable, and the free flight ticket was an unexpected bonus that eased my transition to Marvadi University."</p>
+                    <p class="testimonial-author">- Priya S., Student at Marvadi University</p>
+                </div>
+                <div class="testimonial-box">
+                    <p class="testimonial-text">"As parents, we were worried about sending our daughter to Gujarat for studies. The team at Shadow Consultancies addressed all our concerns and supported us throughout the process."</p>
+                    <p class="testimonial-author">- Ramesh & Sunita K., Parents</p>
+                </div>
+                <div class="testimonial-box">
+                    <p class="testimonial-text">"Their placement support is unmatched. Even after I graduated, they continued to help with job placements. I'm now working at a top firm thanks to their network."</p>
+                    <p class="testimonial-author">- Karan M., Recent Graduate</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-title">
+                <h2>Contact Us</h2>
+                <p>Let's make your college dreams a reality</p>
+            </div>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h3>Get in Touch</h3>
+                    <p>We're here to guide you through your college journey. Reach out to us with any questions or to schedule a free consultation.</p>
+                    <div class="contact-details">
+                        <div>
+                            <span>📱</span>
+                            <p>+91 9876543210</p>
+                        </div>
+                        <div>
+                            <span>📧</span>
+                            <p>info@shadowconsultancies.com</p>
+                        </div>
+                        <div>
+                            <span>📍</span>
+                            <p>123 Education Street, Bangalore, Karnataka, India</p>
+                        </div>
+                    </div>
+                    <p>Office Hours: Monday to Saturday, 10:00 AM to 7:00 PM</p>
+                </div>
+                <div class="contact-form">
+                    <form action="#" method="POST">
+                        <input type="text" name="name" placeholder="Your Name" required>
+                        <input type="email" name="email" placeholder="Your Email" required>
+                        <input type="tel" name="phone" placeholder="Your Phone Number" required>
+                        <textarea name="message" placeholder="Your Message" required></textarea>
+                        <button type="submit" class="btn">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <h4>Shadow Consultancies</h4>
+                    <p>Your trusted partner for stress-free college admissions in Bangalore, specializing in placements at Marvadi University.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#testimonials">Testimonials</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col"></div>
