@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio - Ray</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Montserrat:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0a1220, #132740, #0a1220, #1a305a);
+            background-size: 400% 400%;
+            animation: gradient 20s ease infinite;
+            color: #e9f0f7;
+            min-height: 100vh;
+            overflow-x: hidden;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        /* Background gradient animation */
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Night Sky Background */
+        .night-sky {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            background: linear-gradient(to bottom, #0a1220 0%, #132740 50%, #1a305a 100%);
+            overflow: hidden;
+        }
+
+        /* Stars */
+        .star {
+            position: absolute;
+            background: #ffffff;
+            border-radius: 50%;
+            opacity: 0;
+            animation: twinkle var(--duration, 4s) infinite ease-in-out var(--delay, 0s);
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0; transform: scale(0.5); }
+            50% { opacity: var(--brightness, 0.8); transform: scale(1); }
+        }
+
+        /* Shooting Star */
+        .shooting-star {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 4px;
+            background: #ffffff;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.1),
+                        0 0 0 8px rgba(255, 255, 255, 0.1),
+                        0 0 20px rgba(255, 255, 255, 0.7);
+            animation: shooting 6s linear infinite;
+            opacity: 0;
+        }
+
+        .shooting-star::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 100px;
+            height: 1px;
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0.8), transparent);
+            right: 1px;
+        }
+
+        @keyframes shooting {
+            0% {
+                transform: translate(calc(0vw - 50%), calc(10vh - 50%)) rotate(215deg);
+                opacity: 1;
+            }
+            5%, 100% {
+                transform: translate(calc(100vw - 50%), calc(90vh - 50%)) rotate(215deg);
+                opacity: 0;
+            }
+        }
+
+        /* Aurora Effect */
+       /* Enhanced Aurora Effect */
+.aurora {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 50vh;
+    background: linear-gradient(0deg, rgba(26, 48, 90, 0.4) 0%, transparent 80%);
+    z-index: 1;
+    filter: blur(15px) brightness(1.3);
+    opacity: 0.7;
+    transform-origin: bottom;
+    animation: aurora-wave 15s ease infinite;
+    mix-blend-mode: screen;
+}
+
+.aurora::before, .aurora::after {
+    content: '';
+    position: absolute;
+    left: -50%;
+    right: -50%;
+    height: 100%;
+    background: linear-gradient(90deg, 
+        rgba(26, 255, 140, 0.4) 0%, 
+        rgba(64, 156, 255, 0.4) 25%, 
+        rgba(180, 85, 255, 0.5) 50%, 
+        rgba(255, 70, 200, 0.4) 75%, 
+        rgba(26, 255, 140, 0.4) 100%);
+    animation: aurora-colors 12s linear infinite;
+    box-shadow: 0 0 30px rgba(120, 220, 255, 0.3);
+}
+
+.aurora::after {
+    top: 30%;
+    height: 60%;
+    background: linear-gradient(90deg, 
+        rgba(120, 255, 175, 0.4) 0%, 
+        rgba(30, 110, 255, 0.5) 33%, 
+        rgba(200, 120, 255, 0.6) 66%, 
+        rgba(120, 255, 175, 0.4) 100%);
+    animation-duration: 18s;
+    animation-delay: -6s;
+    filter: brightness(1.2);
+}
+
+.aurora::before {
+    animation-duration: 15s;
+}
+
+/* Add additional layer for more complexity */
+.aurora::before {
+    content: '';
+    position: absolute;
+    top: -20%;
+    left: -50%;
+    right: -50%;
+    height: 80%;
+    background: linear-gradient(90deg, 
+        rgba(90, 220, 255, 0.3) 0%,
+        rgba(170, 140, 255, 0.4) 50%,
+        rgba(90, 220, 255, 0.3) 100%);
+    animation: aurora-wave-alt 12s ease-in-out infinite, aurora-colors 20s linear infinite;
+}
+
+@keyframes aurora-wave {
+    0%, 100% { transform: scaleY(1); }
+    50% { transform: scaleY(1.3); }
+}
+
+@keyframes aurora-wave-alt {
+    0%, 100% { transform: scaleY(1) skewX(0deg); }
+    33% { transform: scaleY(1.1) skewX(5deg); }
+    66% { transform: scaleY(0.9) skewX(-5deg); }
+}
+
+@keyframes aurora-colors {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(50%); }
+}
+
+
+       
+
+        /* Loader */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #0a1522;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.8s ease, visibility 0.8s;
+        }
+
+        .loader.fade-out {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader-spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(0, 153, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: #0077cc;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Header and Navigation */
+        header {
+            padding: 2rem 0;
+            position: relative;
+            z-index: 10;
+        }
+
+        .logo-container {
+            text-align: center;
+            margin: 0 auto;
+            max-width: 300px;
+            transition: transform 0.3s ease;
+        }
+
+        .logo-container:hover {
+            transform: scale(1.05);
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 4.5rem;
+            letter-spacing: 3px;
+            background: linear-gradient(135deg, #0077cc, #ffffff, #d4af37);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            display: inline-block;
+            padding: 0.5rem;
+            position: relative;
+        }
+
+        .logo::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 25%;
+            width: 50%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #0077cc, transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        /* Particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            animation: float-particle 20s linear infinite;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+        }
+
+        .gold-particle {
+            position: absolute;
+            background: rgba(255, 215, 0, 0.7);
+            border-radius: 50%;
+            width: 5px;
+            height: 5px;
+            animation: float-gold-particle 18s linear infinite;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
+        }
+
+        @keyframes float-particle {
+            0% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+            10% { opacity: 0.8; }
+            90% { opacity: 0.8; }
+            100% {
+                transform: translateY(-1000px) translateX(100px);
+                opacity: 0;
+            }
+        }
+
+        @keyframes float-gold-particle {
+            0% {
+                transform: translateY(100vh) translateX(0);
+                opacity: 0;
+            }
+            10% { opacity: 0.8; }
+            90% { opacity: 0.8; }
+            100% {
+                transform: translateY(-100px) translateX(100px);
+                opacity: 0;
+            }
+        }
+
+        /* Main Container */
+        .container {
+            width: 92%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 0;
+            min-height: calc(100vh - 200px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            z-index: 5;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Content Box */
+        .content-box {
+            background: transparent;
+            backdrop-filter: blur(2px);
+            border-radius: 20px;
+            border: 5px solid rgba(16, 30, 46, 0.75);
+            padding: 3.5rem;
+            width: 100%;
+            max-width: 900px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3), 0 0 20px rgba(0, 119, 204, 0.2);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-12px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* Titles and Subtitles */
+        .title {
+            font-family: 'Black caviar', serif;
+            font-size: clamp(2.8rem, 8vw, 4.8rem);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-align: center;
+            background: linear-gradient(135deg, #ffffff, #77b5ef, #d4af37);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 10px rgba(0, 119, 204, 0.3);
+        }
+
+        .subtitle {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.2rem, 4vw, 1.7rem);
+            margin-bottom: 2.5rem;
+            opacity: 0.95;
+            text-align: center;
+            font-weight: 400;
+            color: #d4e6f7;
+        }
+
+        /* Version Title */
+        .version-title {
+            text-align: center;
+            display: block;
+            margin: 0 auto 2rem auto;
+            font-size: 1.4rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            color: #77b5ef;
+            position: relative;
+            padding-bottom: 10px;
+            width: fit-content;
+        }
+
+        .version-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 20%;
+            width: 60%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #77b5ef, transparent);
+        }
+
+        /* Buttons */
+        .buttons {
+            display: flex;
+            gap: 2.2rem;
+            margin: 1.5rem 0 2.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            width: 100%;
+        }
+
+        .btn {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1.7rem 1.5rem;
+            width: 210px;
+            background: rgba(9, 25, 43, 0.8);
+            color: white;
+            border: 2px solid rgba(0, 119, 204, 0.6);
+            border-radius: 14px;
+            text-decoration: none;
+            font-size: 1.15rem;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #0077cc, #005599);
+            opacity: 0;
+            z-index: -1;
+            transition: opacity 0.4s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 15px 35px rgba(0, 51, 102, 0.4);
+            border-color: rgba(0, 153, 255, 0.8);
+        }
+
+        .btn:hover::before {
+            opacity: 1;
+        }
+
+        .btn:active {
+            transform: translateY(-5px) scale(1.01);
+        }
+
+        .btn-icon {
+            font-size: 2.4rem;
+            margin-bottom: 1rem;
+            color: #0077cc;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .btn:hover .btn-icon {
+            color: #ffffff;
+            transform: scale(1.1);
+        }
+
+        .btn-text {
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .btn-subtext {
+            font-size: 0.85rem;
+            opacity: 0.8;
+            margin-top: 0.6rem;
+            transition: opacity 0.3s ease;
+        }
+        
+        .btn:hover .btn-subtext {
+            opacity: 1;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            font-size: 0.95rem;
+            opacity: 0.8;
+            position: relative;
+            z-index: 5;
+            background: rgba(9, 19, 35, 0.3);
+            margin-top: 2rem;
+            backdrop-filter: blur(5px);
+        }
+
+        footer p {
+            transition: opacity 0.3s ease;
+        }
+        
+        footer p:hover {
+            opacity: 1;
+        }
+
+        /* Media Queries - Enhanced for better responsiveness */
+        @media (max-width: 992px) {
+            .content-box {
+                padding: 2.5rem 2rem;
+            }
+            
+            .buttons {
+                gap: 1.8rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 3.5rem;
+            }
+            
+            .content-box {
+                padding: 2rem 1.5rem;
+            }
+            
+            .buttons {
+                gap: 1.5rem;
+            }
+            
+            .btn {
+                width: 190px;
+                padding: 1.4rem 1.2rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .logo {
+                font-size: 3rem;
+            }
+            
+            .content-box {
+                padding: 1.8rem 1.2rem;
+            }
+            
+            .buttons {
+                flex-direction: column;
+                align-items: center;
+                gap: 1.2rem;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 280px;
+                padding: 1.5rem;
+            }
+            
+            .title {
+                font-size: 2.5rem;
+            }
+            
+            .subtitle {
+                font-size: 1.1rem;
+                margin-bottom: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loader">
+        <div class="loader-spinner"></div>
+    </div>
+
+    <!-- Night Sky Background -->
+    <div class="night-sky" id="night-sky">
+        <div class="aurora"></div>
+    </div>
+    
+    <!-- Particles Background -->
+    <div class="particles" id="particles"></div>
+    
+    <!-- Header -->
+    <header>
+        <div class="logo-container">
+            <div class="logo">Ray</div>
+        </div>
+    </header>
+    
+    <!-- Main Content -->
+    <div class="container">
+        <div class="content-box">
+            <h1 class="title">My Portfolio</h1>
+            <p class="subtitle">Innovation, Creativity &amp; Technical Excellence</p>
+            
+            <h3 class="version-title">Explore My Projects</h3>
+            <div class="buttons">
+                <a href="homepage.html" class="btn">
+                    <i class="fas fa-gem btn-icon"></i>
+                    <span class="btn-text">Version 1</span>
+                    <span class="btn-subtext">Classic Interface</span>
+                </a>
+                <a href="homepage2.html" class="btn">
+                    <i class="fas fa-rocket btn-icon"></i>
+                    <span class="btn-text">Version 2</span>
+                    <span class="btn-subtext">Modern Interface</span>
+                </a>
+                <a href="Atheeq.html" class="btn">
+                    <i class="fas fa-leaf btn-icon"></i>
+                    <span class="btn-text">Ecofertilize</span>
+                    <span class="btn-subtext">Friendly Interface</span>
+                </a>
+                <a href="Atheeq2.html" class="btn">
+                    <i class="fas fa-seedling btn-icon"></i>
+                    <span class="btn-text">Ecogrow</span>
+                    <span class="btn-subtext">Hightech Interface</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer>
+        <p>© 2025 Ray's Portfolio | All Rights Reserved</p>
+    </footer>
+
+    <script>
+        // Fade out loader once the page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                document.querySelector('.loader').classList.add('fade-out');
+            }, 1200);
+            
+            // Create night sky with stars
+            createNightSky();
+            
+            // Create particles
+            createParticles();
+        });
+
+        // Create floating particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = window.innerWidth < 768 ? 30 : 60;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                particle.style.top = Math.random() * 100 + 'vh';
+                particle.style.left = Math.random() * 100 + 'vw';
+                
+                // Varied particle sizes and opacity
+                const size = Math.random() * 4 + 1;
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                particle.style.opacity = Math.random() * 0.5 + 0.3;
+                
+                particle.style.animationDuration = Math.random() * 25 + 15 + 's';
+                particle.style.animationDelay = Math.random() * 5 + 's';
+                particlesContainer.appendChild(particle);
+            }
+            
+            // Add gold particles
+            for (let i = 0; i < 15; i++) {
+                const goldParticle = document.createElement('div');
+                goldParticle.classList.add('gold-particle');
+                goldParticle.style.top = Math.random() * 100 + 'vh';
+                goldParticle.style.left = Math.random() * 100 + 'vw';
+                
+                const size = Math.random() * 5 + 2;
+                goldParticle.style.width = size + 'px';
+                goldParticle.style.height = size + 'px';
+                
+                goldParticle.style.animationDuration = Math.random() * 20 + 15 + 's';
+                goldParticle.style.animationDelay = Math.random() * 5 + 's';
+                particlesContainer.appendChild(goldParticle);
+            }
+        }
+
+        // Create night sky with stars and shooting stars
+        function createNightSky() {
+            const nightSky = document.getElementById('night-sky');
+            
+            // Create twinkling stars
+            for (let i = 0; i < 150; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.width = Math.random() * 3 + 1 + 'px';
+                star.style.height = star.style.width;
+                star.style.top = Math.random() * 100 + 'vh';
+                star.style.left = Math.random() * 100 + 'vw';
+                star.style.setProperty('--brightness', Math.random() * 0.5 + 0.5);
+                star.style.setProperty('--duration', Math.random() * 5 + 2 + 's');
+                star.style.setProperty('--delay', Math.random() * 5 + 's');
+                nightSky.appendChild(star);
+            }
+            
+            // Create and animate shooting stars
+            setInterval(() => {
+                const shootingStar = document.createElement('div');
+                shootingStar.className = 'shooting-star';
+                nightSky.appendChild(shootingStar);
+                
+                // Remove the shooting star after animation completes
+                setTimeout(() => {
+                    shootingStar.remove();
+                }, 6000);
+            }, 8000); // New shooting star every 8 seconds
+        }
+    </script>
+</body>
+</html>

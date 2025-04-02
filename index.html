@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shadow Consultancies</title>
+    <title>My Portfolio - Ray</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Montserrat:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="index.css">
+   <link rel="stylesheet" href="index.css">
 </head>
 <body>
     <!-- Loading Screen -->
@@ -16,62 +16,49 @@
         <div class="loader-spinner"></div>
     </div>
 
-    <!-- Particles Background -->
-    <div class="particles" id="particles"></div>
-    <div class="particles gold-particle" id="particles"></div>
+    <!-- Lotus Background -->
+    <div class="lotus-background">
+        <canvas id="lotusCanvas"></canvas>
+    </div>
+    
+    <!-- Floating particles container -->
+    <div id="particles-container"></div>
+    
+    <!-- Blood drips container -->
+    <div id="blood-container"></div>
     
     <!-- Header -->
     <header>
-        <div class="logo">
-            <svg id="logo-svg" width="220" height="40" viewBox="0 0 220 40">
-                <defs>
-                    <linearGradient id="logo-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stop-color="#0077cc" />
-                        <stop offset="50%" stop-color="#ffffff" />
-                        <stop offset="100%" stop-color="#d4af37" />
-                    </linearGradient>
-                    <filter id="glow">
-                        <feGaussianBlur stdDeviation="2.5" result="blur" />
-                        <feMerge>
-                            <feMergeNode in="blur" />
-                            <feMergeNode in="SourceGraphic" />
-                        </feMerge>
-                    </filter>
-                </defs>
-                <text x="5" y="28" font-family="'Cormorant Garamond', serif" font-weight="700" font-size="22" fill="url(#logo-gradient)" filter="url(#glow)">
-                    Shadow Consultancies
-                </text>
-            </svg>
+        <div class="logo-container">
+            <div class="logo">Ray</div>
         </div>
     </header>
     
     <!-- Main Content -->
     <div class="container">
         <div class="content-box">
-            <h1 class="title">Shadow Consultancies</h1>
-            <p class="subtitle">Educational Excellence &amp; Strategic Guidance</p>
+            <h1 class="title">My Portfolio</h1>
+            <p class="subtitle">Innovation, Creativity &amp; Technical Excellence</p>
             
-            <div class="proverb-container"></div>
-            
-            <h3 class="version-title">Choose Your Experience</h3>
+            <h3 class="version-title">Explore My Projects</h3>
             <div class="buttons">
-                <a href="homepage.html" class="btn">
+                <a href="homepage.html" class="btn" style="--i: 1">
                     <i class="fas fa-gem btn-icon"></i>
                     <span class="btn-text">Version 1</span>
-                    <span class="btn-subtext">Classic Experience</span>
+                    <span class="btn-subtext">Classic Interface</span>
                 </a>
-                <a href="homepage2.html" class="btn">
+                <a href="homepage2.html" class="btn" style="--i: 2">
                     <i class="fas fa-rocket btn-icon"></i>
                     <span class="btn-text">Version 2</span>
                     <span class="btn-subtext">Modern Interface</span>
                 </a>
-                <a href="Atheeq.html" class="btn">
-                    <i class="fas fa-rocket btn-icon"></i>
+                <a href="Atheeq.html" class="btn" style="--i: 3">
+                    <i class="fas fa-leaf btn-icon"></i>
                     <span class="btn-text">Ecofertilize</span>
-                    <span class="btn-subtext">Modern Interface</span>
+                    <span class="btn-subtext">Friendly Interface</span>
                 </a>
-                <a href="Atheeq2.html" class="btn">
-                    <i class="fas fa-rocket btn-icon"></i>
+                <a href="Atheeq2.html" class="btn" style="--i: 4">
+                    <i class="fas fa-seedling btn-icon"></i>
                     <span class="btn-text">Ecogrow</span>
                     <span class="btn-subtext">Hightech Interface</span>
                 </a>
@@ -81,91 +68,632 @@
     
     <!-- Footer -->
     <footer>
-        <p>© 2025 Shadow Consultancies | All Rights Reserved</p>
+        <p>© 2025 Ray's Portfolio | All Rights Reserved</p>
     </footer>
 
     <script>
-        // Fade out loader once the page loads
         document.addEventListener('DOMContentLoaded', () => {
+            // Initialize lotus background
+            initLotusBackground();
+            
+            // Create floating particles
+            createParticles();
+            
+            // Create blood drip effect
+            createBloodDrips();
+            
+            // Fade out loader
             setTimeout(() => {
                 document.querySelector('.loader').classList.add('fade-out');
-            }, 1200);
+            }, 1800);
+            
+            // Add 3D tilt effect to buttons
+            const buttons = document.querySelectorAll('.btn');
+            buttons.forEach(btn => {
+                btn.addEventListener('mousemove', e => {
+                    const rect = btn.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    
+                    const xc = rect.width / 2;
+                    const yc = rect.height / 2;
+                    
+                    const dx = x - xc;
+                    const dy = y - yc;
+                    
+                    btn.style.transform = `perspective(1000px) rotateX(${-dy / 10}deg) rotateY(${dx / 10}deg) translateY(-10px) scale(1.03)`;
+                });
+                
+                btn.addEventListener('mouseleave', () => {
+                    btn.style.transform = '';
+                });
+            });
         });
-
-        // Create floating particles
-        const particlesContainer = document.getElementById('particles');
-        const particleCount = window.innerWidth < 768 ? 25 : 50;
         
-        for (let i = 0; i < particleCount; i++) {
-            const particle = document.createElement('div');
-            particle.classList.add('particle');
-            particle.style.top = Math.random() * 100 + 'vh';
-            particle.style.left = Math.random() * 100 + 'vw';
+        // Create blood drip effect
+        function createBloodDrips() {
+            const container = document.getElementById('blood-container');
+            const dripCount = Math.min(Math.floor(window.innerWidth / 50), 30);
             
-            // Varied particle sizes and opacity
-            const size = Math.random() * 6 + 2;
-            particle.style.width = size + 'px';
-            particle.style.height = size + 'px';
-            particle.style.opacity = Math.random() * 0.4 + 0.2;
-            
-            particle.style.animationDuration = Math.random() * 25 + 10 + 's';
-            particle.style.animationDelay = Math.random() * 5 + 's';
-            particlesContainer.appendChild(particle);
-        }
-
-        // Educational proverbs
-        const proverbs = [
-            {quote: "Education is not the filling of a pail, but the lighting of a fire.", author: "William Butler Yeats"},
-            {quote: "The beautiful thing about learning is that no one can take it away from you.", author: "B.B. King"},
-            {quote: "Education is the passport to the future, for tomorrow belongs to those who prepare for it today.", author: "Malcolm X"},
-            {quote: "The roots of education are bitter, but the fruit is sweet.", author: "Aristotle"},
-            {quote: "An investment in knowledge pays the best interest.", author: "Benjamin Franklin"},
-            {quote: "The mind is not a vessel to be filled, but a fire to be kindled.", author: "Plutarch"},
-            {quote: "Education is the most powerful weapon which you can use to change the world.", author: "Nelson Mandela"},
-            {quote: "Knowledge is power. Information is liberating. Education is the premise of progress.", author: "Kofi Annan"},
-            {quote: "The purpose of education is to replace an empty mind with an open one.", author: "Malcolm Forbes"}
-        ];
-        
-        document.addEventListener('DOMContentLoaded', function() {
-            const proverbContainer = document.querySelector('.proverb-container');
-            let currentProverb = 0;
-            
-            function createProverbElement(index) {
-                const proverb = document.createElement('div');
-                proverb.className = 'proverb';
-                proverb.innerHTML = `"${proverbs[index].quote}" <span class="proverb-author">— ${proverbs[index].author}</span>`;
-                return proverb;
+            for (let i = 0; i < dripCount; i++) {
+                const drip = document.createElement('div');
+                drip.className = 'blood-drip';
+                
+                const posX = Math.random() * window.innerWidth;
+                const height = Math.random() * 120 + 60;
+                const delay = Math.random() * 5;
+                const duration = Math.random() * 10 + 10;
+                
+                drip.style.left = `${posX}px`;
+                drip.style.height = `${height}px`;
+                drip.style.opacity = Math.random() * 0.5 + 0.3;
+                drip.style.animation = `bloodDrip ${duration}s ${delay}s infinite`;
+                
+                container.appendChild(drip);
             }
             
-            function showNextProverb() {
-                // Remove any active proverb with a fade-out transition
-                const oldProverb = proverbContainer.querySelector('.proverb.active');
-                if (oldProverb) {
-                    oldProverb.classList.remove('active');
-                    setTimeout(() => {
-                        oldProverb.remove();
-                    }, 1500);
+            // Add blood drip animation
+            const bloodDripKeyframes = `
+                @keyframes bloodDrip {
+                    0%, 100% {
+                        height: 0;
+                        top: 0;
+                        opacity: 0;
+                    }
+                    10% {
+                        opacity: 0.7;
+                    }
+                    30%, 40% {
+                        height: ${Math.random() * 150 + 100}px;
+                        top: 0;
+                        opacity: 0.7;
+                    }
+                    70%, 100% {
+                        height: ${Math.random() * 100 + 50}px;
+                        top: 100%;
+                        opacity: 0;
+                    }
+                }
+            `;
+            
+            const styleSheet = document.createElement('style');
+            styleSheet.type = 'text/css';
+            styleSheet.innerText = bloodDripKeyframes;
+            document.head.appendChild(styleSheet);
+        }
+        
+        // Create floating particles
+        function createParticles() {
+            const container = document.getElementById('particles-container');
+            const particleCount = window.innerWidth < 768 ? 40 : 70;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                const size = Math.random() * 6 + 2;
+                const posX = Math.random() * window.innerWidth;
+                const posY = Math.random() * window.innerHeight;
+                const duration = Math.random() * 40 + 20;
+                const delay = Math.random() * 10;
+                
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${posX}px`;
+                particle.style.top = `${posY}px`;
+                particle.style.opacity = Math.random() * 0.5 + 0.2;
+                
+                particle.style.animation = `float-particle ${duration}s ${delay}s infinite linear`;
+                container.appendChild(particle);
+            }
+        }
+        
+        // Custom animation for floating particles
+        const floatParticleKeyframes = `
+            @keyframes float-particle {
+                0% {
+                    transform: translateY(0) translateX(0) rotate(0deg);
+                }
+                33% {
+                    transform: translateY(-100px) translateX(100px) rotate(120deg);
+                }
+                66% {
+                    transform: translateY(-200px) translateX(-50px) rotate(240deg);
+                }
+                100% {
+                    transform: translateY(-300px) translateX(0) rotate(360deg);
+                }
+            }
+        `;
+        
+        const styleSheet = document.createElement('style');
+        styleSheet.type = 'text/css';
+        styleSheet.innerText = floatParticleKeyframes;
+        document.head.appendChild(styleSheet);
+        
+        // Enhanced lotus background with evenly spread lotuses and center black lotus
+        function initLotusBackground() {
+            const canvas = document.getElementById('lotusCanvas');
+            const ctx = canvas.getContext('2d');
+            
+            // Set canvas size
+            function resizeCanvas() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+            
+            resizeCanvas();
+            window.addEventListener('resize', resizeCanvas);
+            
+            // Background lotuses - evenly distributed
+            const lotusCount = 12; // More lotuses for better distribution
+            const lotuses = [];
+            
+            // Grid spacing for even distribution
+            const gridCols = 4;
+            const gridRows = 3;
+            const cellWidth = canvas.width / gridCols;
+            const cellHeight = canvas.height / gridRows;
+            
+            // Create evenly distributed lotuses
+            for (let row = 0; row < gridRows; row++) {
+                for (let col = 0; col < gridCols; col++) {
+                    // Calculate cell center with some random offset
+                    const baseX = cellWidth * col + cellWidth / 2;
+                    const baseY = cellHeight * row + cellHeight / 2;
+                    
+                    // Add random variation within the cell
+                    const x = baseX + (Math.random() - 0.5) * cellWidth * 0.5;
+                    const y = baseY + (Math.random() - 0.5) * cellHeight * 0.5;
+                    
+                    lotuses.push({
+                        x: x,
+                        y: y,
+                        scale: 0.4 + Math.random() * 0.4, // Smaller scale for background lotuses
+                        rotation: Math.random() * Math.PI * 2,
+                        petals: [],
+                        petalCount: 10 + Math.floor(Math.random() * 6),
+                        bloomSpeed: 0.5 + Math.random() * 0.5,
+                        bloomPhase: Math.random() * Math.PI * 2,
+                        ripples: [],
+                        color: Math.random() > 0.5 ? 'red' : 'darkred', // Varying colors
+                        isCenter: false
+                    });
+                }
+            }
+            
+            // Add the large black lotus in the center
+            const centerLotus = {
+                x: canvas.width / 2,
+                y: canvas.height / 2,
+                scale: 1.5, // 1.5x larger than regular lotuses
+                rotation: 0,
+                petals: [],
+                petalCount: 16, // More petals for the center lotus
+                bloomSpeed: 0.3, // Slower bloom for dramatic effect
+                bloomPhase: 0,
+                ripples: [],
+                color: 'black',
+                isCenter: true,
+                pulsePhase: 0
+            };
+            
+            lotuses.push(centerLotus);
+            
+            // Create petals for each lotus
+            lotuses.forEach(lotus => {
+                for (let i = 0; i < lotus.petalCount; i++) {
+                    const angle = (i / lotus.petalCount) * Math.PI * 2;
+                    lotus.petals.push({
+                        angle,
+                        length: (150 + Math.random() * 30) * lotus.scale,
+                        width: (70 + Math.random() * 20) * lotus.scale,
+                        offset: Math.random() * 1000,
+                        curve: 0.3 + Math.random() * 0.2
+                    });
                 }
                 
-                currentProverb = (currentProverb + 1) % proverbs.length;
-                const newProverb = createProverbElement(currentProverb);
-                proverbContainer.appendChild(newProverb);
-                // Trigger animation after short delay
-                setTimeout(() => {
-                    newProverb.classList.add('active');
-                }, 100);
+                // Create initial ripples
+                if (!lotus.isCenter) {
+                    for (let i = 0; i < 3; i++) {
+                        createRipple(lotus);
+                    }
+                } else {
+                    // More ripples for center lotus
+                    for (let i = 0; i < 5; i++) {
+                        createRipple(lotus);
+                    }
+                }
+            });
+            
+            function createRipple(lotus) {
+                const distance = Math.random() * 100 * lotus.scale + 50 * lotus.scale;
+                const angle = Math.random() * Math.PI * 2;
+                
+                lotus.ripples.push({
+                    x: lotus.x + Math.cos(angle) * distance,
+                    y: lotus.y + Math.sin(angle) * distance,
+                    radius: 5 * lotus.scale,
+                    maxRadius: (30 + Math.random() * 50) * lotus.scale,
+                    speed: (0.5 + Math.random() * 0.5) * lotus.scale,
+                    opacity: 0.8
+                });
             }
             
-            // Display the first proverb immediately
-            const firstProverb = createProverbElement(currentProverb);
-            proverbContainer.appendChild(firstProverb);
-            setTimeout(() => {
-                firstProverb.classList.add('active');
-            }, 100);
+            // Animation variables
+            let time = 0;
+            const bloomingLoop = 10000; // total loop time in ms
             
-            // Change the proverb every 7 seconds
-            setInterval(showNextProverb, 7000);
-        });
+            // Draw dark water background
+            function drawWater() {
+                // Create a very dark background gradient
+                const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+                gradient.addColorStop(0, 'rgba(10, 0, 0, 1)');
+                gradient.addColorStop(0.5, 'rgba(20, 0, 0, 0.9)');
+                gradient.addColorStop(1, 'rgba(30, 0, 0, 0.8)');
+                
+                ctx.fillStyle = gradient;
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                
+                // Add subtle blood texture
+                ctx.globalAlpha = 0.03;
+                for (let i = 0; i < 20; i++) {
+                    ctx.beginPath();
+                    ctx.arc(
+                        Math.random() * canvas.width,
+                        Math.random() * canvas.height,
+                        Math.random() * 300 + 50,
+                        0,
+                        Math.PI * 2
+                    );
+                    ctx.fillStyle = i % 2 === 0 ? 'rgba(100, 0, 0, 0.5)' : 'rgba(50, 0, 0, 0.5)';
+                    ctx.fill();
+                }
+                ctx.globalAlpha = 1;
+            }
+            
+            // Draw lotus flower with enhanced details
+            function drawLotus(lotus, bloomFactor) {
+                const { x, y, scale, rotation, petals, color, isCenter } = lotus;
+                
+                // Special effects for center lotus
+                if (isCenter) {
+                    // Pulsing glow for center lotus
+                    lotus.pulsePhase += 0.01;
+                    const glowSize = 50 + Math.sin(lotus.pulsePhase) * 20;
+                    
+                    // Draw dark glow around center lotus
+                    const glow = ctx.createRadialGradient(
+                        x, y, 10 * scale,
+                        x, y, glowSize * scale
+                    );
+                    glow.addColorStop(0, 'rgba(0, 0, 0, 0.7)');
+                    glow.addColorStop(0.6, 'rgba(80, 0, 0, 0.3)');
+                    glow.addColorStop(1, 'rgba(0, 0, 0, 0)');
+                    
+                    ctx.fillStyle = glow;
+                    ctx.beginPath();
+                    ctx.arc(x, y, glowSize * scale, 0, Math.PI * 2);
+                    ctx.fill();
+                    
+                    // Blood drips from center lotus
+                    if (Math.random() < 0.05) {
+                        lotus.ripples.push({
+                            x: x + (Math.random() - 0.5) * 100 * scale,
+                            y: y + (Math.random() - 0.5) * 100 * scale,
+                            radius: 3 * scale,
+                            maxRadius: 15 * scale,
+                            speed: 0.3 * scale,
+                            opacity: 0.9,
+                            color: '#8a0000'
+                        });
+                    }
+                }
+                
+                // Draw lotus petals
+                for (let i = 0; i < petals.length; i++) {
+                    const petal = petals[i];
+                    const angle = petal.angle + rotation;
+                    
+                    // Special bloom for center lotus
+                    let petalBloomFactor = bloomFactor;
+                    if (isCenter) {
+                        // Make center lotus fluctuate more dramatically
+                        petalBloomFactor = 0.7 + Math.sin(time / 2000 + i / 3) * 0.3;
+                    }
+                    
+                    // Calculate petal opening based on bloomFactor
+                    const openAmount = Math.sin(petalBloomFactor * Math.PI) * petal.length;
+                    
+                    // Starting point at the center
+                    const startX = x;
+                    const startY = y;
+                    
+                    // Control points for the curve
+                    const cp1x = startX + Math.cos(angle) * (openAmount * 0.3);
+                    const cp1y = startY + Math.sin(angle) * (openAmount * 0.3);
+                    
+                    const cp2x = startX + Math.cos(angle) * (openAmount * 0.7);
+                    const cp2y = startY + Math.sin(angle) * (openAmount * 0.7);
+                    
+                    // End point
+                    const endX = startX + Math.cos(angle) * openAmount;
+                    const endY = startY + Math.sin(angle) * openAmount;
+                    
+                    // Width control points
+                    const widthFactor = petal.width * (0.5 + petalBloomFactor * 0.5);
+                    
+                    // Draw petal
+                    ctx.beginPath();
+                    ctx.moveTo(startX, startY);
+                    
+                    // Create more realistic petal curve
+                    const curve = petal.curve;
+                    
+                    // First side of petal
+                    ctx.bezierCurveTo(
+                        cp1x - Math.sin(angle) * widthFactor * 0.3, 
+                        cp1y + Math.cos(angle) * widthFactor * 0.3,
+                        cp2x - Math.sin(angle) * widthFactor * 0.7, 
+                        cp2y + Math.cos(angle) * widthFactor * 0.7,
+                        endX - Math.sin(angle) * widthFactor * curve, 
+                        endY + Math.cos(angle) * widthFactor * curve
+                    );
+                    
+                    // Petal tip curve
+                    ctx.quadraticCurveTo(
+                        endX, 
+                        endY,
+                        endX + Math.sin(angle) * widthFactor * curve, 
+                        endY - Math.cos(angle) * widthFactor * curve
+                    );
+                    
+                    // Second side of petal
+                    ctx.bezierCurveTo(
+                        cp2x + Math.sin(angle) * widthFactor * 0.7, 
+                        cp2y - Math.cos(angle) * widthFactor * 0.7,
+                        cp1x + Math.sin(angle) * widthFactor * 0.3, 
+                        cp1y - Math.cos(angle) * widthFactor * 0.3,
+                        startX, startY
+                    );
+                    
+                    // Enhanced gradient for petal with darker colors
+                    const petalGradient = ctx.createLinearGradient(
+                        startX, startY,
+                        endX, endY
+                    );
+                    
+                    // Colors based on lotus type
+                    if (color === 'black') {
+                        // For black center lotus
+                        petalGradient.addColorStop(0, 'rgba(0, 0, 0, 0.95)');
+                        petalGradient.addColorStop(0.7, `rgba(30, 0, 0, 0.9)`);
+                        petalGradient.addColorStop(1, `rgba(60, 0, 0, 0.8)`);
+                    } else if (color === 'darkred') {
+                        // For dark red lotuses
+                        petalGradient.addColorStop(0, `rgba(80, 0, 0, 0.9)`);
+                        petalGradient.addColorStop(0.7, `rgba(100, 0, 0, 0.8)`);
+                        petalGradient.addColorStop(1, `rgba(120, 0, 0, 0.7)`);
+                    } else {
+                        // For red lotuses
+                        petalGradient.addColorStop(0, `rgba(120, 0, 0, 0.9)`);
+                        petalGradient.addColorStop(0.7, `rgba(150, 0, 0, 0.8)`);
+                        petalGradient.addColorStop(1, `rgba(180, 0, 0, 0.7)`);
+                    }
+                    
+                    ctx.fillStyle = petalGradient;
+                    ctx.fill();
+                    
+                    // Add veins to petals
+                    const veinColor = color === 'black' ? 'rgba(80, 0, 0, 0.7)' : 'rgba(60, 0, 0, 0.5)';
+                    ctx.strokeStyle = veinColor;
+                    ctx.lineWidth = 0.5 * scale;
+                    
+                    // Main vein
+                    ctx.beginPath();
+                    ctx.moveTo(startX, startY);
+                    ctx.lineTo(endX, endY);
+                    ctx.stroke();
+                    
+                    // Side veins
+                    const veinsCount = 3;
+                    for (let v = 1; v <= veinsCount; v++) {
+                        const vPos = v / (veinsCount + 1);
+                        const vX = startX + (endX - startX) * vPos;
+                        const vY = startY + (endY - startY) * vPos;
+                        
+                        const vLength = widthFactor * 0.7 * vPos;
+                        
+                        ctx.beginPath();
+                        ctx.moveTo(vX, vY);
+                        ctx.lineTo(
+                            vX + Math.sin(angle + Math.PI/4) * vLength,
+                            vY - Math.cos(angle + Math.PI/4) * vLength
+                        );
+                        ctx.stroke();
+                        
+                        ctx.beginPath();
+                        ctx.moveTo(vX, vY);
+                        ctx.lineTo(
+                            vX - Math.sin(angle - Math.PI/4) * vLength,
+                            vY + Math.cos(angle - Math.PI/4) * vLength
+                        );
+                        ctx.stroke();
+                    }
+                    
+                    // Add subtle highlight to petal edges
+                    if (color === 'black') {
+                        ctx.strokeStyle = 'rgba(130, 0, 0, 0.4)';
+                    } else {
+                        ctx.strokeStyle = 'rgba(200, 50, 50, 0.3)';
+                    }
+                    ctx.lineWidth = 1 * scale;
+                    ctx.stroke();
+                    
+                    // Add blood drops on center lotus petals
+                    if (isCenter && Math.random() < 0.02) {
+                        const dropX = startX + (endX - startX) * (0.4 + Math.random() * 0.5);
+                        const dropY = startY + (endY - startY) * (0.4 + Math.random() * 0.5);
+                        
+                        ctx.beginPath();
+                        ctx.arc(dropX, dropY, (2 + Math.random() * 3) * scale, 0, Math.PI * 2);
+                        ctx.fillStyle = 'rgba(150, 0, 0, 0.8)';
+                        ctx.fill();
+                        
+                        // Blood drip effect
+                        ctx.beginPath();
+                        ctx.moveTo(dropX, dropY);
+                        ctx.lineTo(dropX + Math.random() * 10 - 5, dropY + (5 + Math.random() * 10));
+                        ctx.strokeStyle = 'rgba(150, 0, 0, 0.6)';
+                        ctx.lineWidth = (1 + Math.random()) * scale;
+                        ctx.stroke();
+                    }
+                }
+                
+                // Draw lotus center with more detail
+                ctx.beginPath();
+                ctx.arc(x, y, 20 * scale, 0, Math.PI * 2);
+                
+                let centerColor1, centerColor2, centerColor3;
+                
+                if (color === 'black') {
+                    centerColor1 = 'rgba(0, 0, 0, 1)';
+                    centerColor2 = 'rgba(30, 0, 0, 0.9)';
+                    centerColor3 = 'rgba(50, 0, 0, 0.8)';
+                } else if (color === 'darkred') {
+                    centerColor1 = 'rgba(60, 0, 0, 1)';
+                    centerColor2 = 'rgba(30, 0, 0, 0.9)';
+                    centerColor3 = 'rgba(10, 0, 0, 0.8)';
+                } else {
+                    centerColor1 = 'rgba(80, 0, 0, 1)';
+                    centerColor2 = 'rgba(40, 0, 0, 0.9)';
+                    centerColor3 = 'rgba(20, 0, 0, 0.8)';
+                }
+                
+                const centerGradient = ctx.createRadialGradient(
+                    x, y, 5 * scale,
+                    x, y, 20 * scale
+                );
+                centerGradient.addColorStop(0, centerColor1);
+                centerGradient.addColorStop(0.7, centerColor2);
+                centerGradient.addColorStop(1, centerColor3);
+                ctx.fillStyle = centerGradient;
+                ctx.fill();
+                
+                // Add texture to center
+                const dotColor = color === 'black' ? 'rgba(100, 0, 0, 0.3)' : 'rgba(200, 50, 50, 0.2)';
+                ctx.fillStyle = dotColor;
+                for (let i = 0; i < 12; i++) {
+                    const dotAngle = i * Math.PI / 6;
+                    const dotRadius = 10 * scale;
+                    ctx.beginPath();
+                    ctx.arc(
+                        x + Math.cos(dotAngle) * dotRadius,
+                        y + Math.sin(dotAngle) * dotRadius,
+                        2 * scale,
+                        0,
+                        Math.PI * 2
+                    );
+                    ctx.fill();
+                }
+                
+                // Draw ripples
+                let rippleColor;
+                if (color === 'black') {
+                    rippleColor = 'rgba(120, 0, 0, 0.6)';
+                } else if (color === 'darkred') {
+                    rippleColor = 'rgba(150, 20, 20, 0.5)';
+                } else {
+                    rippleColor = 'rgba(180, 30, 30, 0.5)';
+                }
+                
+                ctx.strokeStyle = rippleColor;
+                
+                lotus.ripples.forEach((ripple, index) => {
+                    ctx.beginPath();
+                    ctx.arc(ripple.x, ripple.y, ripple.radius, 0, Math.PI * 2);
+                    ctx.lineWidth = 1 * scale;
+                    ctx.globalAlpha = ripple.opacity;
+                    ctx.stroke();
+                    
+                    // Update ripple
+                    ripple.radius += ripple.speed;
+                    ripple.opacity -= 0.004;
+                    
+                    // Remove faded ripples
+                    if (ripple.opacity <= 0 || ripple.radius >= ripple.maxRadius) {
+                        lotus.ripples.splice(index, 1);
+                        
+                        // Create new ripple to replace the old one
+                        if (Math.random() > 0.3 || lotus.isCenter) {
+                            createRipple(lotus);
+                        }
+                    }
+                });
+                
+                ctx.globalAlpha = 1;
+            }
+            
+            // Animation loop
+            function animate() {
+                // Update time
+                time += 16;
+                
+                // Clear canvas
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                // Update lotus centers (except center lotus)
+                lotuses.forEach(lotus => {
+                    if (!lotus.isCenter) {
+                        // Gentle floating motion
+                        lotus.x += Math.sin(time / 3000 + lotus.bloomPhase) * 0.3;
+                        lotus.y += Math.cos(time / 2800 + lotus.bloomPhase) * 0.2;
+                        
+                        // Keep lotuses on screen
+                        if (lotus.x < -100) lotus.x = canvas.width + 100;
+                        if (lotus.x > canvas.width + 100) lotus.x = -100;
+                        if (lotus.y < -100) lotus.y = canvas.height + 100;
+                        if (lotus.y > canvas.height + 100) lotus.y = -100;
+                    }
+                });
+                
+                // Draw the scene
+                drawWater();
+                
+                // Draw lotuses from back to front
+                lotuses.sort((a, b) => {
+                    // Always draw center lotus last (on top)
+                    if (a.isCenter) return 1;
+                    if (b.isCenter) return -1;
+                    return a.scale - b.scale;
+                }).forEach(lotus => {
+                    // Calculate bloom factor with offset phase
+                    const normalizedTime = (time / bloomingLoop + lotus.bloomPhase) % 1;
+                    let bloomFactor;
+                    
+                    if (normalizedTime < 0.5) {
+                        // Opening phase (0 to 1)
+                        bloomFactor = normalizedTime * 2;
+                    } else {
+                        // Closing phase (1 to 0)
+                        bloomFactor = 2 - normalizedTime * 2;
+                    }
+                    
+                    drawLotus(lotus, bloomFactor);
+                    
+                    // Random chance to create new ripples
+                    if (Math.random() < 0.01 || (lotus.isCenter && Math.random() < 0.05)) {
+                        createRipple(lotus);
+                    }
+                });
+                
+                // Continue animation loop
+                requestAnimationFrame(animate);
+            }
+            
+            // Start animation
+            animate();
+        }
     </script>
 </body>
 </html>
