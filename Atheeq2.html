@@ -1,0 +1,1703 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoGrow - Food Waste to Fertilizer</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Poppins:wght@300;400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <style>
+        :root {
+            --primary-green: #2e8b57;
+            --light-green: #98d4aa;
+            --dark-green: #1a5336;
+            --earth-brown: #8b4513;
+            --light-brown: #d2b48c;
+            --off-white: #f8f9fa;
+            --transition: all 0.3s ease-in-out;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--off-white);
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* Leaf pattern background overlay */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://www.transparenttextures.com/patterns/clean-textile.png');
+            opacity: 0.07;
+            z-index: -1;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--dark-green);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        section {
+            padding: 100px 0;
+        }
+
+        /* Navigation */
+        header {
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.4s ease;
+        }
+
+        header.scrolled {
+            padding: 5px 0;
+            background-color: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 70px;
+            transition: var(--transition);
+            
+        }
+
+        .logo h1 {
+            margin-left: 10px;
+            font-size: 1.8rem;
+            color: var(--primary-green);
+            transition: var(--transition);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark-green);
+            font-weight: 500;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-green);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-green);
+            bottom: -5px;
+            left: 0;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Mobile menu overlay */
+        .mobile-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(46, 139, 87, 0.97);
+            z-index: 2000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.5s ease;
+        }
+
+        .mobile-nav.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .mobile-nav-links {
+            list-style: none;
+            text-align: center;
+        }
+
+        .mobile-nav-links li {
+            margin-bottom: 30px;
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 0.4s ease;
+        }
+
+        .mobile-nav.active .mobile-nav-links li {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .mobile-nav.active .mobile-nav-links li:nth-child(1) {
+            transition-delay: 0.1s;
+        }
+
+        .mobile-nav.active .mobile-nav-links li:nth-child(2) {
+            transition-delay: 0.2s;
+        }
+
+        .mobile-nav.active .mobile-nav-links li:nth-child(3) {
+            transition-delay: 0.3s;
+        }
+
+        .mobile-nav.active .mobile-nav-links li:nth-child(4) {
+            transition-delay: 0.4s;
+        }
+
+        .mobile-nav.active .mobile-nav-links li:nth-child(5) {
+            transition-delay: 0.5s;
+        }
+
+        .mobile-nav.active .mobile-nav-links li:nth-child(6) {
+            transition-delay: 0.6s;
+        }
+
+        .mobile-nav.active .mobile-nav-links li:nth-child(7) {
+            transition-delay: 0.7s;
+        }
+
+        .mobile-nav-links a {
+            color: white;
+            font-size: 2rem;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .mobile-nav-links a:hover {
+            color: var(--light-brown);
+        }
+
+        .close-menu {
+            position: absolute;
+            top: 40px;
+            right: 40px;
+            font-size: 2rem;
+            color: white;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .close-menu:hover {
+            transform: rotate(90deg);
+            color: var(--light-brown);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1500651230702-0e2d8a49d4ad?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            position: relative;
+            margin-top: 0;
+        }
+
+        .hero-content {
+            max-width: 700px;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            color: white;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: var(--primary-green);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            border: 2px solid var(--primary-green);
+            transition: var(--transition);
+        }
+
+        .cta-button:hover {
+            background-color: transparent;
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .scroll-down {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
+                transform: translateY(0) translateX(-50%);
+            }
+
+            40% {
+                transform: translateY(-20px) translateX(-50%);
+            }
+
+            60% {
+                transform: translateY(-10px) translateX(-50%);
+            }
+        }
+
+        /* Highlights Section */
+        .highlights {
+            background-color: white;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        .section-title h2 {
+            font-size: 2.2rem;
+            display: inline-block;
+        }
+
+        .section-title h2::after {
+            content: '';
+            display: block;
+            width: 70px;
+            height: 3px;
+            background-color: var(--primary-green);
+            margin: 15px auto 0;
+        }
+
+        .section-subtitle {
+            margin-top: 15px;
+            font-size: 1.1rem;
+            color: #666;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .highlights-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .highlight-box {
+            width: 30%;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .highlight-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--light-green);
+            z-index: -1;
+            transform: scaleY(0);
+            transform-origin: bottom;
+            transition: var(--transition);
+            opacity: 0.1;
+        }
+
+        .highlight-box:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .highlight-box:hover::before {
+            transform: scaleY(1);
+        }
+
+        .highlight-icon {
+            font-size: 3rem;
+            color: var(--primary-green);
+            margin-bottom: 20px;
+        }
+
+        .highlight-box h3 {
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        .highlight-box p {
+            line-height: 1.6;
+        }
+
+        /* Stats Section */
+        .stats {
+            background-color: var(--primary-green);
+            color: white;
+            padding: 80px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stats::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://www.transparenttextures.com/patterns/clean-textile.png');
+            opacity: 0.1;
+        }
+
+        .stats-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
+            width: 30%;
+            min-width: 200px;
+            margin: 15px 0;
+            position: relative;
+        }
+
+        .stat-item::after {
+            content: '';
+            position: absolute;
+            right: -50px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 1px;
+            height: 70px;
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .stat-item:last-child::after {
+            display: none;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+        }
+
+        /* About Section */
+        .about {
+            background-color: var(--off-white);
+        }
+
+        .about-container {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 50px;
+        }
+
+        .about-content {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .about-image {
+            flex: 1;
+            min-width: 300px;
+            position: relative;
+        }
+
+        .about-image img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .mission-vision {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .mission-box,
+        .vision-box {
+            flex: 1;
+            min-width: 250px;
+            padding: 25px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+        }
+
+        .mission-box:hover,
+        .vision-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .mission-box h3,
+        .vision-box h3 {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .mission-box h3 i,
+        .vision-box h3 i {
+            margin-right: 10px;
+            color: var(--primary-green);
+        }
+
+        /* Products Section */
+        .products {
+            background-color: white;
+        }
+
+        .products-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .product-card {
+            flex: 1;
+            min-width: 300px;
+            background-color: var(--off-white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-image {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .product-card:hover .product-image img {
+            transform: scale(1.1);
+        }
+
+        .product-details {
+            padding: 25px;
+        }
+
+        .product-details h3 {
+            margin-bottom: 10px;
+        }
+
+        .product-price {
+            color: var(--primary-green);
+            font-weight: 600;
+            font-size: 1.2rem;
+            margin: 15px 0;
+        }
+
+        .product-button {
+            display: inline-block;
+            background-color: var(--primary-green);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .product-button:hover {
+            background-color: var(--dark-green);
+            transform: translateY(-3px);
+        }
+
+        /* How It Works Section */
+        .how-it-works {
+            background-color: var(--off-white);
+            position: relative;
+        }
+
+        .process-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-top: 40px;
+            position: relative;
+        }
+
+        .process-line {
+            position: absolute;
+            top: 25px;
+            left: 25px;
+            right: 25px;
+            height: 2px;
+            background-color: var(--light-green);
+            z-index: 0;
+        }
+
+        .process-step {
+            width: 30%;
+            position: relative;
+            padding: 30px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+            z-index: 1;
+        }
+
+        .process-step:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .step-number {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary-green);
+            color: white;
+            border-radius: 50%;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .process-step h3 {
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        .process-step p {
+            line-height: 1.6;
+        }
+
+        /* Impact Section */
+        .impact {
+            background-color: white;
+        }
+
+        .impact-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+        }
+
+        .impact-content {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .impact-content h3 {
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+
+        .impact-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 25px;
+        }
+
+        .impact-icon {
+            background-color: rgba(46, 139, 87, 0.1);
+            color: var(--primary-green);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-right: 20px;
+            flex-shrink: 0;
+        }
+
+        .impact-text h4 {
+            margin-bottom: 10px;
+        }
+
+        .impact-graphic {
+            flex: 1;
+            min-width: 300px;
+            position: relative;
+        }
+
+        .impact-graphic img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Testimonials Section */
+        .testimonials {
+            background-color: var(--off-white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .testimonial-container {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            /* Firefox */
+            -ms-overflow-style: none;
+            /* IE and Edge */
+            padding: 20px 0;
+        }
+
+        .testimonial-container::-webkit-scrollbar {
+            display: none;
+            /* Chrome, Safari and Opera */
+        }
+
+        .testimonial-card {
+            flex: 0 0 auto;
+            width: 500px;
+            margin-right: 30px;
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            scroll-snap-align: start;
+            transition: var(--transition);
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .testimonial-quote {
+            font-size: 1.2rem;
+            font-style: italic;
+            color: #555;
+            margin-bottom: 20px;
+            position: relative;
+            line-height: 1.6;
+        }
+
+        .testimonial-quote::before,
+        .testimonial-quote::after {
+            content: '"';
+            font-size: 3rem;
+            color: var(--light-green);
+            position: absolute;
+        }
+
+        .testimonial-quote::before {
+            top: -20px;
+            left: -15px;
+        }
+
+        .testimonial-quote::after {
+            bottom: -40px;
+            right: -15px;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            margin-top: 30px;
+        }
+
+        .author-image {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-right: 15px;
+        }
+
+        .author-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .author-info h4 {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+
+        .author-info p {
+            font-size: 0.9rem;
+            color: #777;
+        }
+
+        .testimonial-nav {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .testimonial-dot {
+            width: 12px;
+            height: 12px;
+            background-color: var(--light-green);
+            border-radius: 50%;
+            margin: 0 8px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .testimonial-dot.active {
+            background-color: var(--primary-green);
+            transform: scale(1.4);
+        }
+
+        /* Blog Section */
+        .blog {
+            background-color: white;
+        }
+
+        .blog-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .blog-card {
+            flex: 1;
+            min-width: 300px;
+            background-color: var(--off-white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+        }
+
+        .blog-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .blog-image {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .blog-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .blog-card:hover .blog-image img {
+            transform: scale(1.1);
+        }
+
+        .blog-content {
+            padding: 25px;
+        }
+
+        .blog-date {
+            font-size: 0.9rem;
+            color: #777;
+            margin-bottom: 10px;
+        }
+
+        .blog-title {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+        }
+
+        .blog-excerpt {
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .read-more {
+            display: inline-block;
+            color: var(--primary-green);
+            font-weight: 500;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .read-more:hover {
+            color: var(--dark-green);
+            text-decoration: underline;
+        }
+
+        .view-all-btn {
+            display: block;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        /* Contact Preview */
+        .contact-preview {
+            background: linear-gradient(rgba(46, 139, 87, 0.9), rgba(46, 139, 87, 0.9)), url('https://images.unsplash.com/photo-1557499305-bd68da733f44?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            padding: 100px 0;
+            color: white;
+            text-align: center;
+        }
+
+        .contact-preview h2 {
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        .contact-preview p {
+            max-width: 700px;
+            margin: 0 auto 30px;
+            font-size: 1.1rem;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark-green);
+            color: white;
+            padding: 60px 0 20px;
+        }
+
+        .footer-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .footer-column {
+            width: 24%;
+            margin-bottom: 30px;
+        }
+
+        .footer-column h3 {
+            color: white;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+            font-size: 1.3rem;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--primary-green);
+        }
+
+        .footer-column p {
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #ddd;
+            text-decoration: none;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+        }
+
+        .footer-links a i {
+            margin-right: 10px;
+            font-size: 0.8rem;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-green);
+            padding-left: 5px;
+        }
+
+        .social-links {
+            display: flex;
+            margin-top: 20px;
+        }
+
+        .social-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            margin-right: 10px;
+            transition: var(--transition);
+        }
+
+        .social-icon:hover {
+            background-color: var(--primary-green);
+            transform: translateY(-5px);
+        }
+
+        .footer-form input,
+        .footer-form button {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: none;
+        }
+
+        .footer-form input {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .footer-form input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .footer-form button {
+            background-color: var(--primary-green);
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .footer-form button:hover {
+            background-color: white;
+            color: var(--primary-green);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 30px;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media screen and (max-width: 1024px) {
+
+            .highlight-box,
+            .process-step {
+                width: 45%;
+            }
+
+            .footer-column {
+                width: 48%;
+            }
+
+            .stat-item::after {
+                display: none;
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .highlight-box,
+            .process-step {
+                width: 100%;
+            }
+
+            .process-line {
+                display: none;
+            }
+
+            .stat-item {
+                width: 48%;
+            }
+
+            .footer-column {
+                width: 100%;
+            }
+
+            section {
+                padding: 60px 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgdmlld0JveD0iMCAwIDI1MCAyNTAiPjxkZXNjPkNyZWF0ZWQgd2l0aCBTbmFwPC9kZXNjPjxkZWZzPjwvZGVmcz48ZyB0cmFuc2Zvcm09Im1hdHJpeCgwLjA0MTMsMCwwLDAuMDQxMyw1Ni4wNzI2LDEzNC4yNzM4KSI+PGcgdHJhbnNmb3JtPSJtYXRyaXgoMTMuNzA1OSwwLDAsMTMuNzA1OSwtMTA3MC41MzI0LC0yOTY1Ljk1NjQpIj4KPGcgaWQ9ImdTbTkwN3pvaXFqYSI+Cgk8cGF0aCBkPSJNMzk4LjYzODc5LDIwMC4wMDA1MmwtMzYuNzgwODUtNjcuMDQ0MjhsLTIxLjM5OTI5LTczLjQxNTQxbC03My40MTU5Mi0yMS4zOTk2MUwyMDAuNTA2NTYsMS42MzkxNUwyMDAsMS4zNjE3MgoJCWwtNjcuMDQzNDQsMzYuNzgwMDFMNTkuNTQxMzQsNTkuNTQwODNMMzguMTQxODYsMTMyLjk1NTJMMS42Mzg2NCwxOTkuNDkzOTRsLTAuMjc3NDMsMC41MDY1OGwzNi43ODA3Miw2Ny4wNDQ1M2wyMS4zOTk0Miw3My40MTQxMgoJCWw3My40MTQ4OSwyMS4zOTkzNWw2Ni41MzcyLDM2LjUwMjMyTDIwMCwzOTguNjM4MjhsNjcuMDQxNzItMzYuNzc5MjRsNzMuNDE2OTMtMjEuMzk5ODdsMjEuMzk4NjUtNzMuNDEzMDlsMzYuNTA0MDYtNjYuNTM5CgkJTDM5OC42Mzg3OSwyMDAuMDAwNTJ6IE0zNjUuNDkyODYsMjQ3LjA1Mjg5bC04LjcxMDQyLTI5Ljg4MzA2bDkuMTQxMi0xNi42NjI3NWwwLjI3NzQ0LTAuNTA2NTZsLTkuNDE4Ny0xNy4xNjg4MWw4LjcxMDY2LTI5Ljg4MzgyCgkJTDM3OS4yMDc5OCwyMDBMMzY1LjQ5Mjg2LDI0Ny4wNTI4OXogTTM4MC4zMDM5NiwyMDMuNzYwMjFsNC44MTMwOCwxNi41MTIyMWwtMTcuOTEyOTYsMzIuNjUxMmwtMC42MTUxNy0yLjExMDUyCgkJTDM4MC4zMDM5NiwyMDMuNzYwMjF6IE0zNDUuMjMxOTMsMzE2LjU2MjQ0bC0xNS4wNzgxMiw4LjI3MjAzbDIzLjU3MjE3LTQyLjk2Njk1bDEuOTI3MDktMS4wNTczMUwzNDUuMjMxOTMsMzE2LjU2MjQ0egoJCSBNMzI2LjcxODc1LDMyNi43MTg5M2wtNDIuOTY3MDEsMjMuNTcyMDVsMTQuOTcwOTgtMjcuMjg5MzRsMTguNzk5NjgtNS40Nzk3N2w1LjQ3OTYxLTE4Ljc5OTIybDI3LjI4OTE1LTE0Ljk3MDY3CgkJTDMyNi43MTg3NSwzMjYuNzE4OTN6IE0zMjQuODM0MjksMzMwLjE1MzkzbC04LjI3MjMxLDE1LjA3ODU4bC0zNS43NTIyMywxMC40MjEwOGwxLjA1NzgzLTEuOTI4MTNMMzI0LjgzNDI5LDMzMC4xNTM5M3oKCQkgTTIwMCwzNzkuMjA4NDRsLTQ3LjA1MjUxLTEzLjcxNTA2bDI5Ljg4MzEzLTguNzEwNTRsMTYuNjYyODEsOS4xNDEzM0wyMDAsMzY2LjIwMTZsMTYuOTk0NTEtOS4zMjMyMWwzMC4wMDI4Miw4LjYzMTE2CgkJTDIwMCwzNzkuMjA4NDR6IE0yNTAuNzgyMzMsMzY2LjU5ODQ1bDIuMTI4NDMsMC42MTIxNWwtMzIuNjM5OTUsMTcuOTA2NTZsLTE2LjUxMDY4LTQuODEyNjJMMjUwLjc4MjMzLDM2Ni41OTg0NXoKCQkgTTE5Ni4yMzk4NywzODAuMzA0NTNsLTE2LjUxMDgyLDQuODEyNjJsLTMyLjY1MTUtMTcuOTEyNzJsMi4xMDk3Ni0wLjYxNDk2TDE5Ni4yMzk4NywzODAuMzA0NTN6IE03My4yODAzNSwzMjYuNzE4OTMKCQlsLTIzLjU3MjM2LTQyLjk2NzQ3bDI3LjI4OTQ3LDE0Ljk3MDk1bDUuNTI3NCwxOC45NjI4NmwwLjE2MjM1LDAuNTU1ODhsMTguOTcyMzUsNS40NTc5MmwxNC41ODg3MSwyNi41OTI0NEw3My4yODAzNSwzMjYuNzE4OTN6CgkJIE0xMTguMTMyNjEsMzUzLjcyNjIzbDEuMDU3NDQsMS45MjczN2wtMzUuNzUzMjctMTAuNDIxNmwtOC4yNzE5Ny0xNS4wNzgwNkwxMTguMTMyNjEsMzUzLjcyNjIzeiBNNDQuMzQ2NDcsMjgwLjgxMDIxCgkJbDEuOTI3MDUsMS4wNTcwNGwyMy41NzE5OCw0Mi45Njc0N2wtMTUuMDc3MzUtOC4yNzE1MUw0NC4zNDY0NywyODAuODEwMjF6IE0yMC43OTExMywyMDBsMTMuNzE1MTItNDcuMDUxNjFsOC43MTA0NiwyOS44ODI4CgkJbC05LjE0MTM4LDE2LjY2Mjc1bC0wLjI3NzQzLDAuNTA2NThsOS40MTg3NSwxNy4xNjg1M2wtOC43MTA0NywyOS44ODI1NUwyMC43OTExMywyMDB6IE0zMy40MTAxNCwyNTAuODExOGwtMC42MTUyOSwyLjExMDUzCgkJbC0xNy45MTI2LTMyLjY1MDk0bDQuODEyODktMTYuNTExMThMMzMuNDEwMTQsMjUwLjgxMTh6IE0xOS42OTUxNSwxOTYuMjM5NzlsLTQuODEyNy0xNi41MTA2N2wxNy45MTI2Ni0zMi42NTEybDAuNjE1MSwyLjExMDI4CgkJTDE5LjY5NTE1LDE5Ni4yMzk3OXogTTU0Ljc2ODE0LDgzLjQzNjc5bDE1LjA3NzM1LTguMjcxNTJsLTIzLjU3MTkxLDQyLjk2NzQ4bC0xLjkyNzExLDEuMDU3MDZMNTQuNzY4MTQsODMuNDM2Nzl6CgkJIE03My4yODA0OCw3My4yODEwNmw0Mi45Njc5OS0yMy41NzI1NWwtMTQuOTcxMjYsMjcuMjg5ODVMODIuNDc3Niw4Mi40NzgxMmwtNS40Nzk4MSwxOC43OTkyMmwtMjcuMjg5NDcsMTQuOTcxMTkKCQlMNzMuMjgwNDgsNzMuMjgxMDZ6IE03NS4xNjQ4Miw2OS44NDYwNmw4LjI3MTk3LTE1LjA3ODA2bDM1Ljc1MzMzLTEwLjQyMTZsLTEuMDU3NDUsMS45Mjc2Mkw3NS4xNjQ4Miw2OS44NDYwNnoKCQkgTTI0Ny4wNTE5OSwzNC41MDYzN2wtMjkuODgyOTMsOC43MTA1M2wtMTYuNjYyNDktOS4xNDEwNkwyMDAsMzMuNzk4NDJsLTE3LjE2ODgxLDkuNDE4NzRsLTI5Ljg4MzE4LTguNzEwNTNsNDcuMDUyNTEtMTMuNzE1MDYKCQlMMjQ3LjA1MTk5LDM0LjUwNjM3eiBNMzI2LjcxODYzLDczLjI4MTA2bDIzLjU3MjI0LDQyLjk2Njk2bC0yNy4yODg5MS0xNC45NzA5NGwtNS40Nzk1NS0xOC43OTg5NmwtMTguNzk5OTMtNS40ODAwMQoJCWwtMTQuOTcwODMtMjcuMjg5MDlMMzI2LjcxODYzLDczLjI4MTA2eiBNMjgxLjg2NzM3LDQ2LjI3NDAybC0xLjA1NzYyLTEuOTI3NjJsMzUuNzUyMjMsMTAuNDIxMDlsOC4yNzIxNiwxNS4wNzgzMgoJCUwyODEuODY3MzcsNDYuMjc0MDJ6IE0zNTUuNjUzMDgsMTE5LjE4OThsLTEuOTI3NzMtMS4wNTc4M2wtMjMuNTcxNzgtNDIuOTY2NzFsMTUuMDc4MzcsOC4yNzIyOUwzNTUuNjUzMDgsMTE5LjE4OTh6CgkJIE0zMDcuMzIzNywzMDcuMzIzNzZsMTMuMDY4ODgtNy4xNjk0OWwtNC41Njc2MywxNS42NzAxN2wtMTUuNjcwNjIsNC41Njc4MUwzMDcuMzIzNywzMDcuMzIzNzZ6IE0yOTcuMjk2MTQsMzIxLjIyNTMxCgkJbC0zMi42NzIzNiw5LjUyMzhsMzkuMjY1MDUtMjEuNTQwODlMMjk3LjI5NjE0LDMyMS4yMjUzMXogTTMwOS4yMDc5MiwzMDMuODg5MjhsMjEuNTQxMzUtMzkuMjY2MDhsLTkuNTIzNjIsMzIuNjczCgkJTDMwOS4yMDc5MiwzMDMuODg5Mjh6IE0zMDUuNzczMDQsMzA1Ljc3MzVsLTUwLjQ4NjIxLDI3LjY5NzAybC01NS42NTYxNiwxNi4yMjMyMWwtNTMuMjkwMDUtMTUuMzMwMjlsLTUyLjExNDMxLTI4LjU5MDE4CgkJbC0yNy42OTg0OS01MC40ODg0bC0xNi4xMTQ2My01NS4yODQ1OWwxNi4xMTUyNy01NS4yODU2MUw5NC4yMjY3LDk0LjIyNjVsNTAuNDg2ODUtMjcuNjk3MjdsNTUuMjg2MTktMTYuMTE1Nmw1NS4yODY5NywxNi4xMTU2CgkJbDUwLjQ4NjY2LDI3LjY5NzI3bDI3LjY5NzU3LDUwLjQ4Nzg4bDE2LjExNDksNTUuMjg2MTNsLTE2LjExNDY5LDU1LjI4NTFMMzA1Ljc3MzA0LDMwNS43NzM1eiBNMTk5LjYzNTM2LDM1MS44ODQ2NwoJCWwxNC40ODg5MSw0LjE2ODEyTDIwMCwzNjMuODAxM2wtMTQuMzExNi03Ljg1MTI2TDE5OS42MzUzNiwzNTEuODg0Njd6IE0xODMuMDc5MDksMzU0LjUxODQzbC0yOC4zNDc4MS0xNS41NTE3M2w0MS4xMTkxNiwxMS44MjkwNAoJCUwxODMuMDc5MDksMzU0LjUxODQzeiBNMjAzLjQxNTYsMzUwLjc4MjY1bDQzLjM0NTM0LTEyLjYzNDYxbC0zMC4wMTg2OSwxNi40NjgyOUwyMDMuNDE1NiwzNTAuNzgyNjV6IE05Mi42NzYwNCwzMDcuMzIzNzYKCQlsNy41NTc0LDEzLjc3NTdsLTE1Ljg1MDgxLTQuNTU5ODhsLTQuNzc2MjItMTYuMzg1ODNMOTIuNjc2MDQsMzA3LjMyMzc2eiBNNzguNzczMzQsMjk3LjI5NTcybC05LjUyNDA3LTMyLjY3NDMyCgkJbDIxLjU0MjM3LDM5LjI2NzY0TDc4Ljc3MzM0LDI5Ny4yOTU3MnogTTk2LjExMDcyLDMwOS4yMDgyMmw0MS4wMjgzNSwyMi41MDgzbC0zNC4wNTQ2NS05Ljc5Njg4TDk2LjExMDcyLDMwOS4yMDgyMnoKCQkgTTQ4LjIyMTE3LDIwMGwtNC4xNzE3MiwxNC4zMTE3OGwtNy44NTEyNi0xNC4zMTEyNmw3Ljg1MTUyLTE0LjMxMThMNDguMjIxMTcsMjAweiBNNDUuNDgxMSwxODMuMDc5NjFsMTYuMzY5OTctMjkuODM4ODgKCQlsLTEyLjUzMzkyLDQyLjk5OTMzTDQ1LjQ4MTEsMTgzLjA3OTYxeiBNNDkuMzE3MjEsMjAzLjc2MDIxbDEyLjUzNDA1LDQzLjAwMDM1bC0xNi4zNzAyOS0yOS44MzkzOUw0OS4zMTcyMSwyMDMuNzYwMjF6CgkJIE05Mi42NzYxMSw5Mi42NzYyNGwtMTMuMDY4NzUsNy4xNjk1bDQuNTY3Ny0xNS42NzAxN2wxNS42NzA0OS00LjU2NzgzTDkyLjY3NjExLDkyLjY3NjI0eiBNMTAyLjcwMzc5LDc4Ljc3NDY4bDMyLjY3MjgzLTkuNTIzOAoJCUw5Ni4xMTA5Nyw5MC43OTE3N0wxMDIuNzAzNzksNzguNzc0Njh6IE05MC43OTE4Myw5Ni4xMTA5N2wtMjEuNTQxNDcsMzkuMjY1ODVsOS41MjM4OC0zMi42NzMwM0w5MC43OTE4Myw5Ni4xMTA5N3oKCQkgTTE5OS45OTk3NCw0OC4yMjE2OWwtMTQuMzExMjYtNC4xNzE3MkwyMDAsMzYuMTk4N2wxNC4zMTEzNCw3Ljg1MTI3TDE5OS45OTk3NCw0OC4yMjE2OXogTTIxNi45MjA1OSw0NS40ODEzbDI5Ljg0MDIzLDE2LjM3MDY4CgkJbC00My4wMDA5My0xMi41MzQ0NEwyMTYuOTIwNTksNDUuNDgxM3ogTTE5Ni4yMzk2MSw0OS4zMTc1NGwtNDMuMDAwMDMsMTIuNTM0MThsMjkuODM5NTctMTYuMzcwMTZMMTk2LjIzOTYxLDQ5LjMxNzU0egoJCSBNMzA3LjMyMzA2LDkyLjY3NTcybC03LjE2OTA3LTEzLjA2Nzk4bDE1LjY3MDk2LDQuNTY3ODNsNC41Njc1LDE1LjY2OTkxTDMwNy4zMjMwNiw5Mi42NzU3MnogTTMyMS4yMjU1OSwxMDIuNzAzNzkKCQlsOS41MjQxMSwzMi42NzQ4MWwtMjEuNTQyMy0zOS4yNjgxNEwzMjEuMjI1NTksMTAyLjcwMzc5eiBNMzAzLjg4OTA0LDkwLjc5MTc3bC0zOS4yNjQzMS0yMS41NDAzOGwzMi42NzE3NSw5LjUyMzI5CgkJTDMwMy44ODkwNCw5MC43OTE3N3ogTTM1MC42ODE4OCwyMDMuNzYwNzFsMy44MzYxMiwxMy4xNjA0NmwtMTYuMzY5NiwyOS44Mzg2MUwzNTAuNjgxODgsMjAzLjc2MDcxeiBNMzUxLjc3NzkyLDIwMC4wMDA1MgoJCWw0LjE3MTYtMTQuMzExNTRsNy44NTEyNiwxNC4zMTE1NGwtNy44NTEzMiwxNC4zMTEyNkwzNTEuNzc3OTIsMjAwLjAwMDUyeiBNMzUwLjY4MTk1LDE5Ni4yNDAzMWwtMTIuNTMzNjYtNDIuOTk5ODMKCQlsMTYuMzY5NzgsMjkuODM5MTNMMzUwLjY4MTk1LDE5Ni4yNDAzMXogTTMzNS40MjcwMywxNDMuOTA0NjlsLTExLjU5MTk1LTM5Ljc2OTMybDI4LjM0MDI0LDE1LjU0NzY0bDcuNzI2OTMsMTQuMDg0NDQKCQlsNC40OTQ3NSwxNS40MjAyM2wtOS4wNDYxNCwzMS4wMzQ2NUwzMzUuNDI3MDMsMTQzLjkwNDY5eiBNMjk1Ljg2NDk2LDc2LjE2NTMxbC0zOS43NjYzMy0xMS41OTE0NGwtMzYuMzIwMjUtMTkuOTI1MzcKCQlsMzEuMDMzNjgtOS4wNDYwMmwxNS40MTg1LDQuNDk0MTFsMTQuMDg2ODgsNy43MjgyMkwyOTUuODY0OTYsNzYuMTY1MzF6IE0xNDkuMTg3OTQsMzUuNjAyNzRsMzEuMDMzOTQsOS4wNDYwMWwtMzYuMzE5MDUsMTkuOTI0NjEKCQlsLTM5Ljc2NzQ2LDExLjU5MTY5bDE1LjU0ODE1LTI4LjM0MTAxbDE0LjA4NDMzLTcuNzI2NjhMMTQ5LjE4Nzk0LDM1LjYwMjc0eiBNNzYuMTY0NzMsMTA0LjEzNTM4bC0xMS41OTE3NiwzOS43Njc1MgoJCWwtMTkuOTI0ODYsMzYuMzE4OTJsLTkuMDQ1ODItMzEuMDMzNjJsNC40OTUwMS0xNS40MjA3NWw3LjcyNjU1LTE0LjA4MzkzTDc2LjE2NDczLDEwNC4xMzUzOHogTTQ0LjY0ODExLDIxOS43NzgxOAoJCWwxOS45MjQ2MSwzNi4zMTg2NWwxMS41OTE2MiwzOS43Njc1NWwtMjguMzQwODgtMTUuNTQ3OTFsLTcuNzI1ODUtMTQuMDgyNjRsLTQuNDk1MzktMTUuNDIyMjdMNDQuNjQ4MTEsMjE5Ljc3ODE4egoJCSBNMTA0LjUxMDU1LDMyNC41MTkyOWw0MS4wMTkyOSwxMS44MDAyNmwzNC42OTE0NSwxOS4wMzE5NWwtMzEuMDMzODcsOS4wNDYwMmwtMTUuNDE4OTMtNC40OTQ2M2wtMTQuMDg1MTYtNy43MjY5MwoJCUwxMDQuNTEwNTUsMzI0LjUxOTI5eiBNMjE5LjYxMjYzLDM1NS40NDIybDM2LjQ4NDk0LTIwLjAxNTgxbDM5Ljc2Ny0xMS41OTE0M2wtMTUuNTQ3ODgsMjguMzQwNDhsLTE0LjA4NjEyLDcuNzI3OTcKCQlsLTE1LjQ1Mjc5LDQuNTA0MTJMMjE5LjYxMjYzLDM1NS40NDIyeiBNMzIzLjgzNTE0LDI5NS44NjQ2MmwxMS41OTE0OS0zOS43NjcyN2wxOS45MjQzNS0zNi4zMTgxNWw5LjA0NTg0LDMxLjAzMzYzCgkJbC00LjQ5NDkzLDE1LjQyMDk5bC03LjcyNjE3LDE0LjA4MzE2TDMyMy44MzUxNCwyOTUuODY0NjJ6IE0zNjYuNTg5MDgsMTQ5LjE4NzY4bDAuNjE1MTEtMi4xMTA1MmwxNy45MTI2NiwzMi42NTA5MgoJCWwtNC44MTI5LDE2LjUxMTdMMzY2LjU4OTA4LDE0OS4xODc2OHogTTM2NS43NzI3NCwxNDQuNDY4MDNsLTAuMjc5NjMsMC45NTk0NGwtMC45MTM3My0zLjEzNDY5TDM2NS43NzI3NCwxNDQuNDY4MDN6CgkJIE0zNTUuNjA5OCwxMjEuNTY3MjJsMC44NzY0LDAuNDgwNjJsMC42OTQ0OSwyLjM4MjgxTDM1NS42MDk4LDEyMS41NjcyMnogTTM0NC4zOTg3NCw4MC41NzkyNmwtMTYuMTI5NjctOC44NDg5OAoJCWwtOC44NDg3OS0xNi4xMjk0N2wxOS4zNDA5MSw1LjYzNzQ4TDM0NC4zOTg3NCw4MC41NzkyNnogTTI3Ny45NTIxNSw0My41MTMzNGwwLjQ4MDk2LDAuODc2NzNsLTIuODY0NTktMS41NzE1OQoJCUwyNzcuOTUyMTUsNDMuNTEzMzR6IE0yNTQuNTcyMjcsMzQuNTA2MzdsMC45NTg4LTAuMjc5NDhsMi4xNzM5MiwxLjE5MjQzTDI1NC41NzIyNywzNC41MDYzN3ogTTI1Mi45MjE4OCwzMi43OTUzCgkJbC0yLjEwOTYyLDAuNjE0OTdsLTY4LjQ3Mzk0LTE5Ljk1OTAzTDIwMCwzLjc2MkwyNTIuOTIxODgsMzIuNzk1M3ogTTE3OS43MjkwNSwxNC44ODI4M2wxNi41MTEzOCw0LjgxMjY0bC01My45NDcwMSwxNS43MjQ2MgoJCUwxNzkuNzI5MDUsMTQuODgyODN6IE0xMjEuNTY3NzMsNDQuMzg5NTZsMC40ODA2OS0wLjg3NjIxbDIuMzgyMy0wLjY5NDM1TDEyMS41Njc3Myw0NC4zODk1NnogTTYxLjIzODgsNjEuMjM4MjlsMTkuMzM5NjktNS42MzcyMgoJCWwtOC44NDg2LDE2LjEyOTQ3bC0xNi4xMjg2Myw4Ljg0ODIxTDYxLjIzODgsNjEuMjM4Mjl6IE00My41MTMzNCwxMjIuMDQ4MWwwLjg3NTc3LTAuNDgwMzdsLTEuNTY5ODYsMi44NjEzOEw0My41MTMzNCwxMjIuMDQ4MXoKCQkgTTM0LjUwNjE4LDE0NS40Mjc5OWwtMC4yNzk2MS0wLjk1OTQ0bDEuMTkzNC0yLjE3NTI2TDM0LjUwNjE4LDE0NS40Mjc5OXogTTEzLjQ1MDk4LDE4Mi4zMzg1TDE4LjU5OTExLDIwMGwtNS4xNDgzMiwxNy42NjIwMgoJCWwtOS42ODkzLTE3LjY2MTVMMTMuNDUwOTgsMTgyLjMzODV6IE0zNC4yMjYzMSwyNTUuNTMxNzFsMC4yNzk4MS0wLjk1OTk2bDAuOTE0MjMsMy4xMzYyM0wzNC4yMjYzMSwyNTUuNTMxNzF6CgkJIE00NC4zODkwNSwyNzguNDMyMjVsLTAuODc1Ny0wLjQ4MDM1bC0wLjY5NDAzLTIuMzgxMDFMNDQuMzg5MDUsMjc4LjQzMjI1eiBNNTUuNjAxMjYsMzE5LjQyMTI2bDE2LjEyODYzLDguODQ4MjFsOC44NDg2LDE2LjEyOTQ2CgkJbC0xOS4zMzk2OS01LjYzNzIxTDU1LjYwMTI2LDMxOS40MjEyNnogTTEyMi4wNDgzNiwzNTYuNDg2OTFsLTAuNDgwNjgtMC44NzYyMmwyLjg2MjczLDEuNTcwMzFMMTIyLjA0ODM2LDM1Ni40ODY5MXoKCQkgTTE0NS40MjcxNSwzNjUuNDkzNjJsLTAuOTU4ODYsMC4yNzk0OGwtMi4xNzQxLTEuMTkyOTNMMTQ1LjQyNzE1LDM2NS40OTM2MnogTTE4Mi4zMzgzMiwzODYuNTQ4NzdMMjAwLDM4MS40MDA2MwoJCWwxNy42NjE1Niw1LjE0ODEzTDIwMCwzOTYuMjM4MDFMMTgyLjMzODMyLDM4Ni41NDg3N3ogTTI1NS41Mjg4MiwzNjUuNzc0MzhsLTAuOTY2MDYtMC4yNzc5MmwzLjE0MjIzLTAuOTE1NzdMMjU1LjUyODgyLDM2NS43NzQzOAoJCXogTTI3OC40MzI1MywzNTUuNjA5OTJsLTAuNDgxMDgsMC44NzY5OGwtMi4zODM4NSwwLjY5NDg1TDI3OC40MzI1MywzNTUuNjA5OTJ6IE0zMzguNzYxMiwzMzguNzYxNzJsLTE5LjM0MDkxLDUuNjM3NDgKCQlsOC44NDkwNi0xNi4xMjk3M2wxNi4xMjkzOS04Ljg0ODcyTDMzOC43NjEyLDMzOC43NjE3MnogTTM1Ni40ODYyMSwyNzcuOTUyMTVsLTAuODc1NywwLjQ4MDM4bDEuNTY5NjEtMi44NjExMQoJCUwzNTYuNDg2MjEsMjc3Ljk1MjE1eiBNMzY1LjQ5Mjg2LDI1NC41NzMyOWwwLjI3OTcyLDAuOTU5NDRsLTEuMTkzNTcsMi4xNzU3N0wzNjUuNDkyODYsMjU0LjU3MzI5eiBNMzg2LjU0ODQ5LDIxNy42NjMwNAoJCUwzODEuMzk5OTksMjAwbDUuMTQ4MzItMTcuNjYyNTJsOS42OTAyMiwxNy42NjMwNEwzODYuNTQ4NDksMjE3LjY2MzA0eiIgZmlsbD0iI2VlY2FhZiIgc3R5bGU9IiI+PC9wYXRoPgo8L2c+CgoKPGRlc2M+Q3JlYXRlZCB3aXRoIFNuYXA8L2Rlc2M+PGRlZnM+PC9kZWZzPjwvZz48Zz48ZyB0cmFuc2Zvcm09Im1hdHJpeCgxLjAyNCwwLDAsLTEuMDI0LDAsMCkiPjxwYXRoIGQ9Ik0xOTkgLTg3UTEzNyAtODcgOTAgLTYyUTQzIC0zNiAxNyA2US04IDQ4IC04IDk5US04IDE0NCAxMSAxODdRMzEgMjMwIDY2IDI2NlExMDEgMzAyIDE0NyAzMjZRMTk0IDM1MCAyNDkgMzU3UTIxMiAzODkgMTkzIDQyOVExNzUgNDY5IDE3NSA1MTFRMTc1IDU2NCAyMDIgNjExUTIyOSA2NTkgMjc3IDY4OVEzMjYgNzE5IDM4OSA3MTlRNDQ4IDcxOSA0NzkgNjkwUTUxMSA2NjEgNTExIDYwNlE1MTEgNTY4IDQ5NyA1MzJRNDg0IDQ5NyA0NjUgNDc1UTQ0NiA0NTMgNDI3IDQ1M1E0MTQgNDUzIDQwMiA0NjRRMzkxIDQ3NiAzODMgNDkxUTQxOSA1MjIgNDQ0IDU1NlE0NzAgNTkwIDQ3MCA2MjdRNDcwIDY1NyA0NTAgNjczUTQzMSA2ODkgMzk4IDY4OVEzNTMgNjg5IDMyMiA2NjFRMjkxIDYzNCAyNzUgNTkwUTI1OSA1NDcgMjU5IDQ5OVEyNTkgNDU4IDI3MyA0MTVRMjg4IDM3MiAzMjggMzQxUTI1NyAzMzAgMjA1IDI5MVExNTQgMjUyIDEyNSAyMDBROTcgMTQ4IDk3IDk3UTk3IDY2IDEwOSAzMlExMjIgLTEgMTUwIC0yNFExNzggLTQ2IDIyNiAtNDZRMjgwIC00NiAzMzMgLTE2UTM4NiAxNSA0MzAgNjRRNDc1IDExNCA1MDEgMTcxTDUyNCAxNTZRNDg4IDg3IDQzOSAzMlEzOTAgLTIzIDMzMCAtNTVRMjcwIC04NyAxOTkgLTg3Wk02MzIgLTU2UTU4MSAtNTYgNTQ4IC0yNFE1MTUgOSA1MTUgNzVRNTE1IDEyNCA1MzQgMTcxUTU1NCAyMTggNTg2IDI1NlE2MTggMjk0IDY1NyAzMTZRNjk2IDMzOCA3MzYgMzM4UTc3OCAzMzggNzk1IDMxNlE4MTMgMjk0IDgxMyAyNjdRODEzIDIzOCA3OTkgMjEzUTc4NiAxODggNzYzIDE4OFE3NDQgMTg4IDczMiAyMDZRNzQ0IDIxMyA3NTUgMjM0UTc2NiAyNTUgNzY2IDI4MlE3NjYgMjkyIDc2MiAyOTdRNzU4IDMwMiA3NDYgMzAyUTcyMCAzMDIgNjkyIDI3OVE2NjUgMjU2IDY0MSAyMTlRNjE3IDE4MyA2MDIgMTQzUTU4NyAxMDMgNTg3IDY4UTU4NyAzOSA2MDIgMTVRNjE3IC05IDY1OSAtOVE2OTggLTkgNzM4IDEzUTc3OSAzNSA4MTUgNzVRODUxIDExNSA4NzIgMTcwTDg5MCAxNTRRODY2IDk0IDgyNCA0NlE3ODMgLTEgNzMyIC0yOVE2ODIgLTU2IDYzMiAtNTZaTTkxOCAtMzJRODc0IC0zMiA4NTcgLTRRODQwIDI1IDg0MCA2MVE4NDAgOTMgODUwIDEyNlE4NjAgMTU5IDg3NyAxODhRODk0IDIxNyA5MTUgMjM1UTkzNiAyNTMgOTU4IDI1M1E5NjQgMjUzIDk3MiAyNTBROTgxIDI0OCA5ODUgMjQ0UTk3NCAyMzIgOTYxIDIxMFE5NDkgMTg4IDkzOCAxNjJROTI4IDEzNyA5MjEgMTExUTkxNSA4NiA5MTUgNjVROTE1IDQyIDkyMyAyOVE5MzEgMTYgOTQ5IDE2UTk2OSAxNiA5OTYgMzdRMTAyNCA1OSAxMDQ5IDkwUTEwMTggMTE3IDEwMDMgMTUyUTk4OSAxODggOTg5IDIzM1E5ODkgMjU4IDEwMDAgMjg2UTEwMTEgMzE0IDEwMzQgMzMzUTEwNTcgMzUyIDEwOTQgMzUyUTExMzYgMzUyIDExNTIgMzI4UTExNjkgMzA1IDExNjkgMjcyUTExNjkgMjM1IDExNDkgMTg4UTExMzAgMTQyIDExMDMgMTAwUTExMTcgOTIgMTEzNCA5MlExMTQ5IDkyIDExNzAgOTlRMTE5MSAxMDYgMTIxMCAxMjJRMTIzMCAxMzkgMTI0MiAxNjZMMTI1OCAxNTRRMTIzNyAxMDUgMTIwMCA4MlExMTY0IDYwIDExMzAgNjBRMTExNyA2MCAxMTA0IDYyUTEwOTEgNjUgMTA4MCA3MFExMDQ2IDI4IDEwMDMgLTJROTYxIC0zMiA5MTggLTMyWk0xMDcyIDEyMFExMDk3IDE1NSAxMTEzIDE5NVExMTMwIDIzNiAxMTMwIDI3MFExMTMwIDI5NSAxMTIyIDMwNlExMTE1IDMxOCAxMTAyIDMxOFExMDgyIDMxOCAxMDYyIDI5MFExMDQyIDI2MyAxMDQyIDIyMVExMDQyIDE5NyAxMDQ5IDE2N1ExMDU3IDEzOCAxMDcyIDEyMFpNMTUyNyAtMjgwUTE1MDMgLTI4MCAxNDgyIC0yNjZRMTQ2MiAtMjUxIDE0NjIgLTIxOFExNDYyIC0xODcgMTQ4MCAtMTYyUTE0OTkgLTEzNiAxNTI5IC0xMTVRMTU1OSAtOTMgMTU5NCAtNzVRMTYyOSAtNTcgMTY2MSAtNDFRMTY3MyAtMTEgMTY4NCAyM1ExNjk1IDU3IDE3MDUgOThRMTY2OSA1MCAxNjI5IDE4UTE1OTAgLTEzIDE1NDkgLTEzUTE1MTEgLTEzIDE0ODggMTRRMTQ2NiA0MiAxNDY2IDg3UTE0NjYgMTQwIDE0OTIgMTg2UTE1MTkgMjMzIDE1NjAgMjY5UTE2MDIgMzA2IDE2NDkgMzI2UTE2OTcgMzQ3IDE3MzkgMzQ3UTE3NzAgMzQ3IDE3ODUgMzM2UTE4MDAgMzI1IDE4MDAgMzExUTE4MDAgMzAwIDE3OTMgMjkzUTE3ODcgMjg3IDE3ODUgMjg2UTE3NzcgMjk2IDE3NjYgMjk5UTE3NTYgMzAzIDE3NDIgMzAzUTE3MDMgMzAzIDE2NjcgMjgxUTE2MzEgMjU5IDE2MDMgMjI0UTE1NzUgMTg5IDE1NTkgMTUxUTE1NDMgMTE0IDE1NDMgODNRMTU0MyA2MiAxNTUyIDUwUTE1NjEgMzkgMTU3NSAzOVExNjA0IDM5IDE2NDQgNzZRMTY4NCAxMTQgMTcyMSAxNjdRMTcyNCAxNzcgMTcyNSAxODVRMTcyNyAxOTMgMTcyOSAyMDJRMTczNyAyMzQgMTc1MCAyNTJRMTc2MyAyNzEgMTc4OCAyNzFRMTc5MyAyNzEgMTgwMCAyNzBRMTgwNyAyNzAgMTgxNSAyNjhRMTgxNSAyNTAgMTgwNSAyMDhRMTc5NSAxNjcgMTc3OCAxMTJRMTc2MSA1NyAxNzM5IC0xUTE3NzEgMTMgMTgwMiAzN1ExODM0IDYxIDE4NjEgOTRRMTg4OCAxMjcgMTkwMiAxNjdMMTkxOCAxNTJRMTkwMyAxMDYgMTg2OSA2OFExODM2IDMxIDE3OTcgM1ExNzU5IC0yNCAxNzI3IC0zOVExNjk5IC0xMDUgMTY2OCAtMTYwUTE2MzcgLTIxNSAxNjAyIC0yNDhRMTU2NyAtMjgwIDE1MjcgLTI4MFpNMTUyMyAtMjM5UTE1NDIgLTIzOSAxNTc0IC0yMDNRMTYwNyAtMTY3IDE2NDUgLTgxUTE2MDcgLTEwMCAxNTc1IC0xMjBRMTU0MyAtMTM5IDE1MjMgLTE2MVExNTAzIC0xODMgMTUwMyAtMjA4UTE1MDMgLTIyMiAxNTA5IC0yMzFRMTUxNSAtMjM5IDE1MjMgLTIzOVpNMjA2MCAtMjZRMjAyNCAtMjYgMjAwMiAtN1ExOTgwIDEyIDE5ODAgNDRRMTk4MCA3MiAxOTk0IDEwNFEyMDA4IDEzNyAyMDIyIDE2OFEyMDM3IDIwMCAyMDM3IDIyNVEyMDM3IDI1MSAyMDIwIDI2NlEyMDA0IDI4MiAxOTg1IDI5M1ExOTYyIDIzNiAxOTM1IDE4NFExOTA5IDEzMiAxODkyIDEwNEwxODc5IDEyOVExODkzIDE1NSAxOTE2IDIwM1ExOTM5IDI1MiAxOTYwIDMxM1ExOTUwIDMyMyAxOTUwIDMzOVExOTUwIDM2NiAxOTY2IDM4OFExOTgzIDQxMCAxOTk2IDQxMFEyMDA3IDQxMCAyMDExIDM5N1EyMDE2IDM4NSAyMDE2IDM4MFEyMDE2IDM3NSAyMDExIDM2MVEyMDA2IDM0OCAyMDA1IDM0M1EyMDA1IDMzMSAyMDIxIDMyMFEyMDM4IDMxMCAyMDU4IDI5NVEyMDc5IDI4MSAyMDk1IDI2MFEyMTExIDI0MCAyMTExIDIwOFEyMTExIDE3OCAyMDk4IDE0OFEyMDg1IDExOCAyMDcyIDkxUTIwNTkgNjQgMjA1OSA0NVEyMDU5IDI5IDIwNjcgMjRRMjA3NSAxOSAyMDg2IDE5UTIxMTAgMTkgMjEzNiAzNFEyMTYyIDQ5IDIxODYgNzJRMjIxMSA5NSAyMjMwIDEyMFEyMjQ5IDE0NiAyMjU5IDE2N0wyMjc5IDE1MlEyMjYwIDEwOSAyMjI1IDY4UTIxOTAgMjcgMjE0NyAwUTIxMDQgLTI2IDIwNjAgLTI2Wk0yMzA0IC0zMlEyMjYwIC0zMiAyMjQzIC00UTIyMjYgMjUgMjIyNiA2MVEyMjI2IDkzIDIyMzYgMTI2UTIyNDYgMTU5IDIyNjMgMTg4UTIyODAgMjE3IDIzMDEgMjM1UTIzMjIgMjUzIDIzNDQgMjUzUTIzNTAgMjUzIDIzNTggMjUwUTIzNjcgMjQ4IDIzNzEgMjQ0UTIzNjAgMjMyIDIzNDcgMjEwUTIzMzUgMTg4IDIzMjQgMTYyUTIzMTQgMTM3IDIzMDcgMTExUTIzMDEgODYgMjMwMSA2NVEyMzAxIDQyIDIzMDkgMjlRMjMxNyAxNiAyMzM1IDE2UTIzNTUgMTYgMjM4MiAzN1EyNDEwIDU5IDI0MzUgOTBRMjQwNCAxMTcgMjM4OSAxNTJRMjM3NSAxODggMjM3NSAyMzNRMjM3NSAyNTggMjM4NiAyODZRMjM5NyAzMTQgMjQyMCAzMzNRMjQ0MyAzNTIgMjQ4MCAzNTJRMjUyMiAzNTIgMjUzOCAzMjhRMjU1NSAzMDUgMjU1NSAyNzJRMjU1NSAyMzUgMjUzNSAxODhRMjUxNiAxNDIgMjQ4OSAxMDBRMjUwMyA5MiAyNTIwIDkyUTI1MzUgOTIgMjU1NiA5OVEyNTc3IDEwNiAyNTk2IDEyMlEyNjE2IDEzOSAyNjI4IDE2NkwyNjQ0IDE1NFEyNjIzIDEwNSAyNTg2IDgyUTI1NTAgNjAgMjUxNiA2MFEyNTAzIDYwIDI0OTAgNjJRMjQ3NyA2NSAyNDY2IDcwUTI0MzIgMjggMjM4OSAtMlEyMzQ3IC0zMiAyMzA0IC0zMlpNMjQ1OCAxMjBRMjQ4MyAxNTUgMjQ5OSAxOTVRMjUxNiAyMzYgMjUxNiAyNzBRMjUxNiAyOTUgMjUwOCAzMDZRMjUwMSAzMTggMjQ4OCAzMThRMjQ2OCAzMTggMjQ0OCAyOTBRMjQyOCAyNjMgMjQyOCAyMjFRMjQyOCAxOTcgMjQzNSAxNjdRMjQ0MyAxMzggMjQ1OCAxMjBaTTI4OTUgLTM4UTI4NjIgLTM4IDI4NTAgLTlRMjgzOSAyMCAyODM4IDYxUTI4MzggNzUgMjgzOSA5N1EyODQwIDExOSAyODQyIDEzNlEyODIxIDk2IDI3OTUgNTdRMjc3MCAxOSAyNzQyIC02UTI3MTQgLTMwIDI2ODMgLTMwUTI2NTAgLTMwIDI2MjggMFEyNjA2IDMxIDI2MDYgNzNRMjYwNiAxMDIgMjYxNSAxNDBRMjYyNSAxNzggMjYzOSAyMTRRMjY1NCAyNTEgMjY2OSAyNzVRMjY4NSAyOTkgMjY5NiAyOTlRMjcwMyAyOTkgMjcyMCAyOTFRMjczNyAyODQgMjczOSAyNzNRMjcyOCAyNTYgMjcxMiAyMjJRMjY5NyAxODkgMjY4NSAxNTBRMjY3NCAxMTIgMjY3NCA4MFEyNjc0IDc0IDI2NzUgNThRMjY3NyA0MyAyNjg0IDMxUTI2OTEgMTkgMjcwNiAxOVEyNzI4IDE5IDI3NTMgNDZRMjc3OCA3NCAyODAzIDExNlEyODI5IDE1OCAyODUxIDIwMlEyODYwIDI0NCAyODY2IDI2M1EyODcyIDI4MiAyODc4IDI4N1EyODg0IDI5MiAyODkzIDI5MlEyOTEwIDI5MiAyOTIwIDI4NVEyOTMwIDI3OSAyOTMwIDI2NlEyOTMwIDI2NCAyOTI4IDI1OFEyOTI3IDI1MiAyOTI2IDI1MFEyOTE5IDIyOCAyOTEzIDE5NlEyOTA4IDE2NCAyOTA1IDEyOVEyOTAyIDk0IDI5MDIgNjBRMjkwMiAzNiAyOTA1IDIyUTI5MDkgOSAyOTIxIDlRMjkzNSA5IDI5NTQgMjZRMjk3MyA0NCAyOTk0IDczUTMwMTUgMTAyIDMwMzUgMTM2UTMwNTUgMTcxIDMwNzEgMjA1UTMwNzEgMjU3IDMwNzggMjg0UTMwODYgMzExIDMwOTggMzIxUTMxMTAgMzMyIDMxMjQgMzMyUTMxNDcgMzMyIDMxNTYgMzE3UTMxNjUgMzAyIDMxNjUgMjkxUTMxNjUgMjgyIDMxNjEgMjczUTMxNTcgMjY1IDMxNTMgMjU4UTMxNDYgMjQzIDMxMzkgMjIxUTMxMzIgMTk5IDMxMzIgMTY0UTMxMzIgMTQ3IDMxMzUgMTI5UTMxMzggMTEyIDMxNDggMTAwUTMxNTggODkgMzE3NyA4OVEzMTk2IDg5IDMyMTQgMTA1UTMyMzMgMTIyIDMyNTQgMTY1TDMyNzEgMTUxUTMyNDkgMTAwIDMyMjEgODFRMzE5NCA2MyAzMTY5IDYzUTMxMzcgNjMgMzExNCA4NlEzMDkyIDEwOSAzMDgwIDE0NlEzMDU1IDEwMiAzMDI0IDU5UTI5OTMgMTcgMjk2MCAtMTFRMjkyNyAtMzggMjg5NSAtMzhaIiBmaWxsPSIjMWQ4YWMwIiBzdHlsZT0iIj48L3BhdGg+PC9nPjwvZz48L2c+PC9zdmc+" alt="EcoGrow Logo">
+                    <h1>EcoGrow</h1>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#products">Products</a></li>
+                    <li><a href="#process">How It Works</a></li>
+                    <li><a href="#impact">Impact</a></li>
+                    <li><a href="#blog">Blog</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                <div class="mobile-menu">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-nav">
+        <div class="close-menu">
+            <i class="fas fa-times"></i>
+        </div>
+        <ul class="mobile-nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#products">Products</a></li>
+            <li><a href="#process">How It Works</a></li>
+            <li><a href="#impact">Impact</a></li>
+            <li><a href="#blog">Blog</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </div>
+
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content" data-aos="fade-up" data-aos-delay="200">
+                <h1>Turning Food Waste into a Greener Future</h1>
+                <p>Sustainable solutions for waste management & organic farming. Join us in creating a circular economy
+                    and healthier planet.</p>
+                <a href="#contact" class="cta-button">Get Started</a>
+            </div>
+        </div>
+        <div class="scroll-down">
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </section>
+
+    <section class="highlights">
+        <div class="container">
+            <div class="section-title" data-aos="fade-up">
+                <h2>Why Choose EcoGrow</h2>
+                <p class="section-subtitle">Our unique approach combines innovation and sustainability to turn food
+                    waste into valuable resources</p>
+            </div>
+            <div class="highlights-container">
+                <div class="highlight-box" data-aos="fade-up" data-aos-delay="100">
+                    <div class="highlight-icon">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <h3>100% Eco-Friendly</h3>
+                    <p>Our processes and products are fully sustainable, reducing landfill waste and carbon emissions
+                        while creating nutrient-rich soil amendments.</p>
+                </div>
+                <div class="highlight-box" data-aos="fade-up" data-aos-delay="200">
+                    <div class="highlight-icon">
+                        <i class="fas fa-dollar-sign"></i>
+                    </div>
+                    <h3>Cost-Effective</h3>
+                    <p>Save money on waste disposal while creating valuable resources. Our fertilizers enhance soil
+                        quality and reduce the need for chemical inputs.</p>
+                </div>
+                <div class="highlight-box" data-aos="fade-up" data-aos-delay="300">
+                    <div class="highlight-icon">
+                        <i class="fas fa-seedling"></i>
+                    </div>
+                    <h3>Premium Quality</h3>
+                    <p>Scientifically formulated fertilizers that improve soil structure, increase water retention, and
+                        promote healthier plant growth.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="stats">
+        <div class="container">
+            <div class="stats-container">
+                <div class="stat-item" data-aos="fade-up" data-aos-delay="100">
+                    <div class="stat-number" data-counter="5000">0</div>
+                    <div class="stat-label">Tons of Waste Recycled</div>
+                </div>
+                <div class="stat-item" data-aos="fade-up" data-aos-delay="200">
+                    <div class="stat-number" data-counter="500">0</div>
+                    <div class="stat-label">Farms Served</div>
+                </div>
+                <div class="stat-item" data-aos="fade-up" data-aos-delay="300">
+                    <div class="stat-number" data-counter="2500">0</div>
+                    <div class="stat-label">CO₂ Tons Reduced</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="about">
+        <div class="container">
+            <div class="section-title" data-aos="fade-up">
+                <h2>About EcoGrow</h2>
+                <p class="section-subtitle">We're on a mission to revolutionize waste management and sustainable
+                    agriculture</p>
+            </div>
+            <div class="about-container">
+                <div class="about-content" data-aos="fade-right">
+                    <p>EcoGrow started with a simple idea: what if we could transform food waste into something
+                        valuable? Our founders, passionate about sustainability and agriculture, saw the opportunity to
+                        address two major issues simultaneously - food waste management and soil depletion.</p>
+                    <p>Today, we've grown into a leading provider of organic fertilizers made from recycled food waste,
+                        serving farms of all sizes with sustainable and effective solutions.</p>
+                    <div class="mission-vision">
+                        <div class="mission-box" data-aos="fade-up" data-aos-delay="100">
+                            <h3><i class="fas fa-bullseye"></i> Our Mission</h3>
+                            <p>To transform food waste into high-quality organic fertilizers while reducing
+                                environmental impact and promoting sustainable agriculture.</p>
+                        </div>
+                        <div class="vision-box" data-aos="fade-up" data-aos-delay="200">
+                            <h3><i class="fas fa-eye"></i> Our Vision</h3>
+                            <p>A world where food waste is seen as a valuable resource and sustainable farming practices
+                                are the norm rather than the exception.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-image" data-aos="fade-left">
+                    <img src="https://images.unsplash.com/photo-1523348837708-15d4a09cfac2?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                        alt="About EcoGrow">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="products" class="products">
+        <div class="container">
+            <div class="section-title" data-aos="fade-up">
+                <h2>Our Products</h2>
+                <p class="section-subtitle">High-quality organic fertilizers derived from recycled food waste</p>
+            </div>
+            <div class="products-container">
+                <div class="product-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1492496913980-501348b61469?q=80&w=3087&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                            alt="EcoGrow Standard Compost">
+                    </div>
+                    <div class="product-details">
+                        <h3>EcoGrow Standard Compost</h3>
+                        <p>All-purpose organic compost perfect for gardens, lawns, and potted plants. Rich in nutrients
+                            and beneficial microorganisms.</p>
+                        <div class="product-price">$12.99 / 5kg bag</div>
+                        <a href="#" class="product-button">View Details</a>
+                    </div>
+                </div>
+                <div class="product-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1648090229186-6188eaefcc6a?q=80&w=3174&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                            alt="Premium Vegetable Fertilizer">
+                    </div>
+                    <div class="product-details">
+                        <h3>Premium Vegetable Fertilizer</h3>
+                        <p>Specially formulated for vegetable gardens, this fertilizer promotes high yields and
+                            nutrient-dense produce.</p>
+                        <div class="product-price">$18.99 / 5kg bag</div>
+                        <a href="#" class="product-button">View Details</a>
+                    </div>
+                </div>
+                <div class="product-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1519985176271-adb1088fa94c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                            alt="Liquid Bio-Fertilizer">
+                    </div>
+                    <div class="product-details">
+                        <h3>Liquid Bio-Fertilizer</h3>
+                        <p>Fast-acting liquid fertilizer with beneficial microbes for immediate nutrient uptake and
+                            plant vigor.</p>
+                        <div class="product-price">$24.99 / 1L bottle</div>
+                        <a href="#" class="product-button">View Details</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="process" class="how-it-works">
+        <div class="container">
+            <div class="section-title" data-aos="fade-up">
+                <h2>How It Works</h2>
+                <p class="section-subtitle">Our innovative process turns food waste into valuable, nutrient-rich
+                    fertilizer</p>
+            </div>
+            <div class="process-container">
+                <div class="process-line"></div>
+                <div class="process-step" data-aos="fade-up" data-aos-delay="100">
+                    <div class="step-number">1</div>
+                    <h3>Collect</h3>
+                    <p>We collect food waste from homes, restaurants, and supermarkets, diverting valuable organic
+                        material from landfills.</p>
+                </div>
+                <div class="process-step" data-aos="fade-up" data-aos-delay="300">
+                    <div class="step-number">2</div>
+                    <h3>Compost</h3>
+                    <p>Using advanced composting techniques, we transform food waste into nutrient-rich organic matter
+                        under controlled conditions.</p>
+                </div>
+                <div class="process-step" data-aos="fade-up" data-aos-delay="500">
+                    <div class="step-number">3</div>
+                    <h3>Fertilize</h3>
+                    <p>The finished compost becomes premium organic fertilizer, enriching soil and completing the cycle
+                        from waste to growth.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="impact" class="impact">
+        <div class="container">
+            <div class="section-title" data-aos="fade-up">
+                <h2>Our Impact</h2>
+                <p class="section-subtitle">Making a difference for our planet and communities</p>
+            </div>
+            <div class="impact-container">
+                <div class="impact-content" data-aos="fade-right">
+                    <h3>Environmental & Social Benefits</h3>
+                    <div class="impact-item">
+                        <div class="impact-icon">
+                            <i class="fas fa-globe-americas"></i>
+                        </div>
+                        <div class="impact-text">
+                            <h4>Reduced Carbon Footprint</h4>
+                            <p>By diverting food waste from landfills, we prevent methane emissions - a greenhouse gas
+                                25 times more potent than CO₂.</p>
+                        </div>
+                    </div>
+                    <div class="impact-item">
+                        <div class="impact-icon">
+                            <i class="fas fa-recycle"></i>
+                        </div>
+                        <div class="impact-text">
+                            <h4>Circular Economy</h4>
+                            <p>We close the loop by turning what was once considered waste into a valuable resource for
+                                growing food.</p>
+                        </div>
+                    </div>
+                    <div class="impact-item">
+                        <div class="impact-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="impact-text">
+                            <h4>Community Development</h4>
+                            <p>Our operations create local jobs and provide educational opportunities about sustainable
+                                practices.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="impact-graphic" data-aos="fade-left">
+                    <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                        alt="Environmental Impact">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials">
+        <div class="container">
+            <div class="section-title" data-aos="fade-up">
+                <h2>What Our Customers Say</h2>
+                <p class="section-subtitle">Stories from farmers and gardeners who use our products</p>
+            </div>
+            <div class="testimonial-container" data-aos="fade-up">
+                <div class="testimonial-card">
+                    <div class="testimonial-quote">
+                        Since switching to EcoGrow fertilizers, the quality and yield of our organic vegetables has
+                        improved dramatically. The soil is healthier and we've noticed fewer pest issues.
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-image">
+                            <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Sarah Johnson">
+                        </div>
+                        <div class="author-info">
+                            <h4>Sarah Johnson</h4>
+                            <p>Organic Farmer, Green Valley Farm</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-quote">
+                        As a landscaping company, we've tried many products. EcoGrow consistently delivers exceptional
+                        results for our clients' gardens and lawns while allowing us to promote sustainable practices.
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-image">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Michael Torres">
+                        </div>
+                        <div class="author-info">
+                            <h4>Michael Torres</h4>
+                            <p>Owner, Torres Landscaping</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-quote">
+                        Our community garden partners with EcoGrow for both waste collection and fertilizer. It's a
+                        perfect cycle - our food scraps return as nutrients for next season's crops.
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-image">
+                            <img src="https://randomuser.me/api/portraits/women/42.jpg" alt="Lisa Chen">
+                        </div>
+                        <div class="author-info">
+                            <h4>Lisa Chen</h4>
+                            <p>Director, Urban Roots Community Garden</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-nav">
+                <div class="testimonial-dot active"></div>
+                <div class="testimonial-dot"></div>
+                <div class="testimonial-dot"></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="blog" class="blog">
+        <div class="container">
+            <div class="section-title" data-aos="fade-up">
+                <h2>Our Blog</h2>
+                <p class="section-subtitle">Latest articles, tips, and news about sustainable farming</p>
+            </div>
+            <div class="blog-container">
+                <div class="blog-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="blog-image">
+                        <img src="https://images.unsplash.com/photo-1464226184884-fa280b87c399?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                            alt="Composting 101">
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-date">March 15, 2025</div>
+                        <h3 class="blog-title">Composting 101: Getting Started at Home</h3>
+                        <p class="blog-excerpt">Learn the basics of home composting with this beginner-friendly guide to
+                            turning your kitchen scraps into garden gold.</p>
+                        <a href="#" class="read-more">Read More →</a>
+                    </div>
+                </div>
+                <div class="blog-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="blog-image">
+                        <img src="https://images.unsplash.com/photo-1530836369250-ef72a3f5cda8?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                            alt="Food Waste Crisis">
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-date">April 2, 2025</div>
+                        <h3 class="blog-title">The Food Waste Crisis: Facts and Solutions</h3>
+                        <p class="blog-excerpt">A deep dive into the global food waste problem, its environmental
+                            impact, and innovative solutions being implemented worldwide.</p>
+                        <a href="#" class="read-more">Read More →</a>
+                    </div>
+                </div>
+                <div class="blog-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="blog-image">
+                        <img src="https://images.unsplash.com/photo-1559660499-41de8b38a6b2?q=80&w=3131&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                            alt="Soil Health">
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-date">March 8, 2025</div>
+                        <h3 class="blog-title">Soil Health: The Foundation of Sustainable Farming</h3>
+                        <p class="blog-excerpt">Why healthy soil is crucial for growing nutritious food and how organic
+                            fertilizers play a vital role in maintaining soil biodiversity.</p>
+                        <a href="#" class="read-more">Read More →</a>
+                    </div>
+                </div>
+            </div>
+            <div class="view-all-btn" data-aos="fade-up">
+                <a href="#" class="cta-button">View All Articles</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact-preview">
+        <div class="container">
+            <h2 data-aos="fade-up">Ready to Join the Movement?</h2>
+            <p data-aos="fade-up" data-aos-delay="100">Whether you're interested in our products, waste collection
+                services, or learning more about our mission, we'd love to hear from you.</p>
+            <a href="#contact" class="cta-button" data-aos="fade-up" data-aos-delay="200">Contact Us Today</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-column">
+                    <h3>About EcoGrow</h3>
+                    <p>EcoGrow is dedicated to creating sustainable solutions for food waste management and providing
+                        high-quality organic fertilizers for a healthier planet.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home"><i class="fas fa-chevron-right"></i> Home</a></li>
+                        <li><a href="#about"><i class="fas fa-chevron-right"></i> About Us</a></li>
+                        <li><a href="#products"><i class="fas fa-chevron-right"></i> Products</a></li>
+                        <li><a href="#process"><i class="fas fa-chevron-right"></i> How It Works</a></li>
+                        <li><a href="#impact"><i class="fas fa-chevron-right"></i> Impact</a></li>
+                        <li><a href="#blog"><i class="fas fa-chevron-right"></i> Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Jain university</p>
+                    <p><i class="fas fa-phone"></i> 6361200780</p>
+                    <p><i class="fas fa-envelope"></i>www.ecogrow.com</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Newsletter</h3>
+                    <p>Subscribe to our newsletter for updates on sustainability practices and special offers.</p>
+                    <form class="footer-form">
+                        <input type="email" placeholder="Your Email">
+                        <button type="submit">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 EcoGrow. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        // Initialize AOS animation library
+        AOS.init({
+            duration: 800,
+            once: false
+        });
+
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu');
+        const closeMenuBtn = document.querySelector('.close-menu');
+        const mobileNav = document.querySelector('.mobile-nav');
+        const mobileLinks = document.querySelectorAll('.mobile-nav-links a');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileNav.classList.add('active');
+        });
+
+        closeMenuBtn.addEventListener('click', () => {
+            mobileNav.classList.remove('active');
+        });
+
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileNav.classList.remove('active');
+            });
+        });
+
+        // Scroll Effects for Header
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Animated Counter for Stats
+        const animateCounters = () => {
+            const counters = document.querySelectorAll('.stat-number');
+
+            counters.forEach(counter => {
+                const target = parseInt(counter.getAttribute('data-counter'));
+                const duration = 2000;
+                const step = target / duration * 10;
+                let current = 0;
+
+                const updateCounter = () => {
+                    if (current < target) {
+                        current += step;
+                        counter.textContent = Math.floor(current);
+                        setTimeout(updateCounter, 10);
+                    } else {
+                        counter.textContent = target;
+                    }
+                };
+
+                updateCounter();
+            });
+        };
+
+        // Trigger counter animation when stats section is in view
+        const statsSection = document.querySelector('.stats');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounters();
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        observer.observe(statsSection);
+
+        // Testimonial Navigation
+        const dots = document.querySelectorAll('.testimonial-dot');
+        const testimonialContainer = document.querySelector('.testimonial-container');
+        const testimonials = document.querySelectorAll('.testimonial-card');
+
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                // Update active dot
+                document.querySelector('.testimonial-dot.active').classList.remove('active');
+                dot.classList.add('active');
+
+                // Scroll to the corresponding testimonial
+                const testimonialWidth = testimonials[0].offsetWidth + 30; // Card width + margin
+                testimonialContainer.scrollLeft = index * testimonialWidth;
+            });
+        });
+
+        // Scroll down button
+        const scrollDownBtn = document.querySelector('.scroll-down');
+
+        scrollDownBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: window.innerHeight,
+                behavior: 'smooth'
+            });
+        });
+    </script>
+
+</form>
+</div>
+</section>
+</div></body>
+
+</html>

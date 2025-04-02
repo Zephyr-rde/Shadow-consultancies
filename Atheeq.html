@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Turning Food Waste into a Greener Future</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Reset & basic setup */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Update the card-icon class */
+        .card-icon {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--white);
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2em;
+            margin: 20px auto;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        /* Update the card-content for consistent spacing */
+        .card-content {
+            padding: 0 25px 30px;
+            text-align: center;
+        }
+
+        /* Adding some top padding to the card */
+        .card {
+            padding-top: 50px;
+        }
+
+
+        :root {
+            --primary-color: #4CAF50;
+            --secondary-color: #2E7D32;
+            --accent-color: #8BC34A;
+            --light-accent: #C5E1A5;
+            --earth-brown: #795548;
+            --sky-blue: #03A9F4;
+            --text-color: #263238;
+            --light-bg: #F9FBE7;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: "Poppins", sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background: var(--light-bg);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        .leaf-bg {
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" opacity="0.05"><path fill="%234CAF50" d="M30,50 Q50,20 70,50 T30,50Z"/></svg>');
+            background-size: 200px;
+        }
+
+        /* Header & Navigation */
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--white);
+            padding: 15px 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        header .container {
+            width: 90%;
+            margin: auto;
+            max-width: 1200px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo i {
+            margin-right: 10px;
+            font-size: 1.5em;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+        }
+
+        nav ul li {
+            margin-left: 20px;
+            position: relative;
+        }
+
+        nav ul li a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 8px 0;
+            transition: all 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: var(--light-accent);
+        }
+
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: var(--light-accent);
+            left: 0;
+            bottom: 0;
+            transition: width 0.3s;
+        }
+
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-toggle {
+            display: none;
+            font-size: 1.5em;
+            background: none;
+            border: none;
+            color: var(--white);
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        #home {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.3)), url('https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1474&q=80') no-repeat center center/cover;
+            height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0 20px;
+            color: var(--white);
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            z-index: 2;
+        }
+
+        #home h1 {
+            font-size: 3.5em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+            margin-bottom: 20px;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        #home p {
+            font-size: 1.4em;
+            margin-top: 10px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
+            animation: fadeInUp 1.2s ease-out;
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--accent-color);
+            color: var(--white);
+            padding: 12px 28px;
+            margin-top: 30px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s;
+            border: 2px solid transparent;
+            animation: fadeInUp 1.4s ease-out;
+        }
+
+        .btn:hover {
+            background: transparent;
+            border-color: var(--white);
+            transform: translateY(-3px);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Section styles */
+        section {
+            padding: 80px 20px;
+            position: relative;
+        }
+
+        section:nth-child(odd) {
+            background-color: var(--white);
+        }
+
+        .container {
+            width: 90%;
+            margin: auto;
+            max-width: 1200px;
+            position: relative;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .section-title h2 {
+            color: var(--secondary-color);
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--accent-color);
+        }
+
+        .section-title p {
+            color: var(--text-color);
+            font-size: 1.1em;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Highlight Cards */
+        .highlight {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            gap: 25px;
+        }
+
+        .card {
+            flex: 1 1 300px;
+            background: var(--white);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-icon {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--white);
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2em;
+            margin: -35px auto 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-content {
+            padding: 20px 25px 30px;
+            text-align: center;
+        }
+
+        .card h3 {
+            color: var(--secondary-color);
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+
+        .card p {
+            color: var(--text-color);
+            margin-bottom: 20px;
+        }
+
+        /* Process Steps */
+        .process-steps {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            position: relative;
+            margin: 60px 0;
+        }
+
+        .process-steps::before {
+            content: '';
+            position: absolute;
+            top: 50px;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--light-accent);
+            z-index: 1;
+        }
+
+        .step {
+            flex: 1;
+            text-align: center;
+            padding: 0 15px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .step-number {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--white);
+            border-radius: 50%;
+            font-size: 1.8em;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            position: relative;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .step h3 {
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+        }
+
+        /* Contact Form */
+        .contact-form {
+            max-width: 600px;
+            margin: auto;
+            background: var(--white);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-form label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--secondary-color);
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 12px 15px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: "Poppins", sans-serif;
+            transition: border-color 0.3s;
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
+        }
+
+        .contact-form button {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--white);
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-form button:hover {
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            transform: translateY(-3px);
+        }
+
+        /* Contact Info */
+        .contact-info {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .social-links {
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: var(--primary-color);
+            color: var(--white);
+            border-radius: 50%;
+            margin: 0 8px;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            background: var(--secondary-color);
+            transform: translateY(-3px);
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, var(--secondary-color), #1B5E20);
+            color: var(--white);
+            padding: 40px 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto 30px;
+        }
+
+        .footer-section {
+            flex: 1 1 300px;
+            margin-bottom: 20px;
+            padding: 0 15px;
+        }
+
+        .footer-section h3 {
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-section a {
+            color: var(--light-accent);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: var(--white);
+        }
+
+        .copyright {
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Back to top button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--accent-color);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2em;
+            text-decoration: none;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+            z-index: 99;
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background: var(--secondary-color);
+            transform: translateY(-5px);
+        }
+
+        /* Eco-friendly decorative elements */
+        .eco-decoration {
+            position: absolute;
+            opacity: 0.07;
+            z-index: 0;
+        }
+
+        .leaf1 {
+            top: 10%;
+            left: 5%;
+            transform: rotate(30deg);
+            font-size: 8em;
+            color: var(--primary-color);
+        }
+
+        .leaf2 {
+            bottom: 10%;
+            right: 5%;
+            transform: rotate(-15deg);
+            font-size: 6em;
+            color: var(--accent-color);
+        }
+
+        /* Responsive design */
+        @media (max-width: 1200px) {
+            .process-steps::before {
+                display: none;
+            }
+
+            .step {
+                flex: 1 1 300px;
+                margin-bottom: 40px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            #home h1 {
+                font-size: 2.8em;
+            }
+
+            .section-title h2 {
+                font-size: 2.2em;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header .container {
+                width: 95%;
+            }
+
+            .mobile-toggle {
+                display: block;
+            }
+
+            nav ul {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--secondary-color);
+                flex-direction: column;
+                padding: 20px 0;
+                text-align: center;
+                transform: translateY(-150%);
+                transition: transform 0.4s;
+                box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+            }
+
+            nav ul.show {
+                transform: translateY(0);
+            }
+
+            nav ul li {
+                margin: 10px 0;
+            }
+
+            #home h1 {
+                font-size: 2.5em;
+            }
+
+            #home p {
+                font-size: 1.2em;
+            }
+
+            .card {
+                flex: 1 1 100%;
+                margin-bottom: 40px;
+            }
+
+            .footer-section {
+                flex: 1 1 100%;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 576px) {
+            #home {
+                height: 80vh;
+            }
+
+            #home h1 {
+                font-size: 2em;
+            }
+
+            .btn {
+                padding: 10px 20px;
+            }
+
+            section {
+                padding: 60px 15px;
+            }
+
+            .section-title h2 {
+                font-size: 1.8em;
+            }
+
+            .contact-form {
+                padding: 20px;
+            }
+
+            .back-to-top {
+                right: 15px;
+                bottom: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body class="leaf-bg">
+
+    <!-- Header & Navigation -->
+    <header>
+        <div class="container">
+            <div class="logo">
+                <i class="fas fa-leaf"></i>
+                <h1>EcoFertilize</h1>
+            </div>
+            <button class="mobile-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav>
+                <ul id="mainMenu">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#products">Products</a></li>
+                    <li><a href="#how-it-works">Process</a></li>
+                    <li><a href="#sustainability">Impact</a></li>
+                    <li><a href="#blog">Blog</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home">
+        <div class="eco-decoration leaf1"><i class="fas fa-leaf"></i></div>
+        <div class="hero-content">
+            <h1>Turning Food Waste into a Greener Future</h1>
+            <p>Sustainable solutions for waste management & organic farming</p>
+            <a href="#about" class="btn">Learn More <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <div class="eco-decoration leaf2"><i class="fas fa-seedling"></i></div>
+    </section>
+
+    <!-- Key Highlights Section -->
+    <section id="highlights">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Process & Impact</h2>
+                <p>Discover how we're revolutionizing the way we handle food waste and support sustainable agriculture.
+                </p>
+            </div>
+            <div class="highlight">
+                <div class="card">
+                    <div class="card-icon">
+                        <i class="fas fa-recycle"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>How It Works</h3>
+                        <p>Our innovative three-step process transforms food waste into nutrient-rich fertilizer.</p>
+                        <p><i class="fas fa-arrow-right"></i> Collect → Compost → Fertilize</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-icon">
+                        <i class="fas fa-award"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Why Choose Us?</h3>
+                        <p>We provide eco-friendly, cost-effective solutions with proven results.</p>
+                        <p>100% organic and certified for sustainable farming</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Success Stats</h3>
+                        <p>Our impact in numbers speaks volumes about our commitment.</p>
+                        <p>5000+ tons of waste recycled, 800+ farms served, 2000+ tons of CO₂ reduction</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section id="about">
+        <div class="eco-decoration leaf1"><i class="fas fa-leaf"></i></div>
+        <div class="container">
+            <div class="section-title">
+                <h2>About Us</h2>
+                <p>Committed to a sustainable and zero-waste future</p>
+            </div>
+            <div class="highlight">
+                <div class="card">
+                    <div class="card-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Our Mission</h3>
+                        <p>To transform food waste into valuable resources while promoting sustainable agriculture and
+                            reducing environmental impact.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Our Team</h3>
+                        <p>Passionate experts in environmental science, agriculture, and sustainability working together
+                            to create innovative solutions.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-icon">
+                        <i class="fas fa-certificate"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Certifications</h3>
+                        <p>Our processes and products are certified organic, eco-friendly, and meet the highest industry
+                            standards for quality.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products & Services Section -->
+    <section id="products">
+        <div class="container">
+            <div class="section-title">
+                <h2>Products & Services</h2>
+                <p>Sustainable solutions for farms, gardens, and businesses</p>
+            </div>
+            <div class="highlight">
+                <div class="card">
+                    <div class="card-icon">
+                        <i class="fas fa-seedling"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Organic Fertilizers</h3>
+                        <p>Our compost-based fertilizers offer natural nutrients for your plants. Bulk orders available
+                            for farmers and retailers.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-icon">
+                        <i class="fas fa-tint"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Liquid Bio-fertilizers</h3>
+                        <p>Innovative liquid fertilizers to boost growth efficiently. Perfect for hydroponic systems and
+                            traditional farming.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-icon">
+                        <i class="fas fa-trash-restore"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Waste Collection</h3>
+                        <p>From residential food waste to large-scale business collections — we've got you covered with
+                            tailored plans and partnerships.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section id="how-it-works">
+        <div class="eco-decoration leaf2"><i class="fas fa-seedling"></i></div>
+        <div class="container">
+            <div class="section-title">
+                <h2>How It Works</h2>
+                <p>Our simple yet effective process from waste to fertilizer</p>
+            </div>
+            <div class="process-steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Waste Collection</h3>
+                    <p>We collect food waste from homes, restaurants, and supermarkets using our eco-friendly vehicles
+                        and specialized containers.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Processing & Composting</h3>
+                    <p>At our facilities, waste is sorted and then processed through advanced composting techniques that
+                        optimize nutrient retention.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Fertilizer Production</h3>
+                    <p>The compost is refined, enriched, and packaged into various fertilizer products designed for
+                        different agricultural needs.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sustainability & Impact Section -->
+    <section id="sustainability">
+        <div class="container">
+            <div class="section-title">
+                <h2>Sustainability & Impact</h2>
+                <p>Making a difference for our planet and communities</p>
+            </div>
+            <div class="highlight">
+                <div class="card">
+                    <div class="card-icon">
+                        <i class="fas fa-globe-americas"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Environmental Benefits</h3>
+                        <p>Our practices reduce landfill waste, cut CO₂ emissions, and promote biodiversity by
+                            supporting organic farming methods.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-icon">
+                        <i class="fas fa-hands-helping"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Community Impact</h3>
+                        <p>We create local jobs, support educational initiatives, and partner with communities to build
+                            awareness about sustainability.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-icon">
+                        <i class="fas fa-comment-dots"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Testimonials</h3>
+                        <p>"EcoFertilize has transformed our farming practices. The quality of their products is
+                            excellent, and the environmental benefits are real." - Jane D., Organic Farmer</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section id="blog">
+        <div class="eco-decoration leaf1"><i class="fas fa-leaf"></i></div>
+        <div class="container">
+            <div class="section-title">
+                <h2>Blog</h2>
+                <p>Insights and news on sustainable farming and waste management</p>
+            </div>
+            <div class="highlight">
+                <div class="card">
+                    <div class="card-content">
+                        <h3>The Future of Organic Farming</h3>
+                        <p>Discover how regenerative agriculture is changing the way we think about food production and
+                            sustainability.</p>
+                        <a href="#" class="btn">Read More</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-content">
+                        <h3>Waste Reduction Tips for Home</h3>
+                        <p>Simple yet effective strategies to minimize food waste in your kitchen and start composting
+                            at home.</p>
+                        <a href="#" class="btn">Read More</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-content">
+                        <h3>Policy Updates: Composting Incentives</h3>
+                        <p>New government initiatives are making it easier and more rewarding to participate in
+                            community composting programs.</p>
+                        <a href="#" class="btn">Read More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Us Section -->
+    <section id="contact">
+        <div class="eco-decoration leaf2"><i class="fas fa-seedling"></i></div>
+        <div class="container">
+            <div class="section-title">
+                <h2>Contact Us</h2>
+                <p>Get in touch with our team for inquiries, partnerships, or services</p>
+            </div>
+            <div class="contact-form">
+                <form action="#" method="post">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" required>
+
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+
+                    <label for="subject">Subject</label>
+                    <input type="text" id="subject" name="subject" required>
+
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" rows="6" required></textarea>
+
+                    <button type="submit">Send Message <i class="fas fa-paper-plane"></i></button>
+                </form>
+            </div>
+            <div class="contact-info">
+                <p>
+                    <i class="fas fa-map-marker-alt"></i> 123 Green Way, Eco City<br>
+                    <i class="fas fa-envelope"></i> info@ecofertilize.com<br>
+                    <i class="fas fa-phone"></i> (123) 456-7890
+                </p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#products">Products</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Resources</h3>
+                <ul>
+                    <li><a href="#">Sustainability Report</a></li>
+                    <li><a href="#">Composting Guide</a></li>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Careers</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Newsletter</h3>
+                <p>Subscribe to our newsletter for updates on sustainable practices and special offers.</p>
+                <form>
+                    <input type="email" placeholder="Enter your email"
+                        style="width: 70%; padding: 8px; border-radius: 4px; border: none; margin-top: 10px;">
+                    <button type="submit"
+                        style="background: var(--accent-color); border: none; padding: 8px; color: white; border-radius: 4px; cursor: pointer;">Subscribe</button>
+                </form>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2023 EcoFertilize. All rights reserved. | Sustainable Solutions for a Greener Tomorrow</p>
+        </div>
+    </footer>
+
+    <a href="#" class="back-to-top" id="backToTop"><i class="fas fa-arrow-up"></i></a>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('menuToggle').addEventListener('click', function () {
+            document.getElementById('mainMenu').classList.toggle('show');
+        });
+
+        // Back to top button
+        window.addEventListener('scroll', function () {
+            var backToTopBtn = document.getElementById('backToTop');
+            if (window.pageYOffset > 300) {
+                backToTopBtn.classList.add('visible');
+            } else {
+                backToTopBtn.classList.remove('visible');
+            }
+        });
+
+        document.getElementById('backToTop').addEventListener('click', function (e) {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+</body>
+
+</html>
