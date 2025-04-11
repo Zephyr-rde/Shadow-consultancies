@@ -72,628 +72,880 @@
     </footer>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // Initialize lotus background
-            initLotusBackground();
-            
-            // Create floating particles
-            createParticles();
-            
-            // Create blood drip effect
-            createBloodDrips();
-            
-            // Fade out loader
-            setTimeout(() => {
-                document.querySelector('.loader').classList.add('fade-out');
-            }, 1800);
-            
-            // Add 3D tilt effect to buttons
-            const buttons = document.querySelectorAll('.btn');
-            buttons.forEach(btn => {
-                btn.addEventListener('mousemove', e => {
-                    const rect = btn.getBoundingClientRect();
-                    const x = e.clientX - rect.left;
-                    const y = e.clientY - rect.top;
-                    
-                    const xc = rect.width / 2;
-                    const yc = rect.height / 2;
-                    
-                    const dx = x - xc;
-                    const dy = y - yc;
-                    
-                    btn.style.transform = `perspective(1000px) rotateX(${-dy / 10}deg) rotateY(${dx / 10}deg) translateY(-10px) scale(1.03)`;
-                });
+    // Initialize the lotus background when the document is loaded
+    document.addEventListener('DOMContentLoaded', function() {
+        initLotusBackground();
+    });
+    
+    // Hide loader when the page is fully loaded
+    window.addEventListener('load', function() {
+        const loader = document.querySelector('.loader');
+        if (loader) {
+            loader.style.display = 'none';
+        }
+    });
+    
+    function initLotusBackground() {
+        const canvas = document.getElementById('lotusCanvas');
+        const ctx = canvas.getContext('2d');
+        
+        // Set canvas size
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+        
+        // Background lotuses - evenly distributed
+        const lotusCount = 12;
+        const lotuses = [];
+        
+        // Grid spacing for even distribution
+        const gridCols = 4;
+        const gridRows = 3;
+        const cellWidth = canvas.width / gridCols;
+        const cellHeight = canvas.height / gridRows;
+        
+        // Create evenly distributed lotuses
+        for (let row = 0; row < gridRows; row++) {
+            for (let col = 0; col < gridCols; col++) {
+                const baseX = cellWidth * col + cellWidth / 2;
+                const baseY = cellHeight * row + cellHeight / 2;
                 
-                btn.addEventListener('mouseleave', () => {
-                    btn.style.transform = '';
+                // Add random variation within the cell
+                const x = baseX + (Math.random() - 0.5) * cellWidth * 0.5;
+                const y = baseY + (Math.random() - 0.5) * cellHeight * 0.5;
+                
+                lotuses.push({
+                    x: x,
+                    y: y,
+                    scale: 0.4 + Math.random() * 0.4,
+                    rotation: Math.random() * Math.PI * 2,
+                    petals: [],
+                    petalCount: 10 + Math.floor(Math.random() * 6),
+                    bloomSpeed: 0.5 + Math.random() * 0.5,
+                    bloomPhase: Math.random() * Math.PI * 2,
+                    ripples: [],
+                    color: Math.random() > 0.7 ? 'darkred' : 'bloodred',
+                    isCenter: false,
+                    z: Math.random() * 200 - 100, // 3D depth
+                    depthPhase: Math.random() * Math.PI * 2
                 });
-            });
+            }
+        }
+        
+        // Add the large black lotus in the center - now more ominous
+        const centerLotus = {
+            x: canvas.width / 2,
+            y: canvas.height / 2,
+            scale: 1.8, // Larger for more dominance
+            rotation: 0,
+            petals: [],
+            petalCount: 18, // More petals for complexity
+            bloomSpeed: 0.25, // Slower, more hypnotic bloom
+            bloomPhase: 0,
+            ripples: [],
+            color: 'void', // Even darker than black
+            isCenter: true,
+            pulsePhase: 0,
+            energyWaves: [], // New effect
+            symbols: Array(5).fill().map(() => ({
+                opacity: 0,
+                rotation: Math.random() * Math.PI * 2,
+                scale: 0,
+                type: Math.floor(Math.random() * 3)
+            })),
+            z: 50 // Always in front
+        };
+        
+        lotuses.push(centerLotus);
+        
+        // Create petals with 3D effects
+        lotuses.forEach(lotus => {
+            for (let i = 0; i < lotus.petalCount; i++) {
+                const angle = (i / lotus.petalCount) * Math.PI * 2;
+                lotus.petals.push({
+                    angle,
+                    length: (150 + Math.random() * 30) * lotus.scale,
+                    width: (70 + Math.random() * 20) * lotus.scale,
+                    offset: Math.random() * 1000,
+                    curve: 0.3 + Math.random() * 0.2,
+                    heightMap: Array(5).fill().map(() => Math.random() * 0.5 + 0.5), // 3D height map
+                    shimmerPhase: Math.random() * Math.PI * 2,
+                    shimmerSpeed: Math.random() * 0.02 + 0.01
+                });
+            }
+            
+            // Create initial ripples
+            if (!lotus.isCenter) {
+                for (let i = 0; i < 3; i++) {
+                    createRipple(lotus);
+                }
+            } else {
+                // More ripples for center lotus
+                for (let i = 0; i < 8; i++) {
+                    createRipple(lotus, true);
+                }
+                
+                // Create energy waves for center lotus
+                for (let i = 0; i < 3; i++) {
+                    createEnergyWave(lotus);
+                }
+            }
         });
         
-        // Create blood drip effect
-        function createBloodDrips() {
-            const container = document.getElementById('blood-container');
-            const dripCount = Math.min(Math.floor(window.innerWidth / 50), 30);
-            
-            for (let i = 0; i < dripCount; i++) {
-                const drip = document.createElement('div');
-                drip.className = 'blood-drip';
-                
-                const posX = Math.random() * window.innerWidth;
-                const height = Math.random() * 120 + 60;
-                const delay = Math.random() * 5;
-                const duration = Math.random() * 10 + 10;
-                
-                drip.style.left = `${posX}px`;
-                drip.style.height = `${height}px`;
-                drip.style.opacity = Math.random() * 0.5 + 0.3;
-                drip.style.animation = `bloodDrip ${duration}s ${delay}s infinite`;
-                
-                container.appendChild(drip);
-            }
-            
-            // Add blood drip animation
-            const bloodDripKeyframes = `
-                @keyframes bloodDrip {
-                    0%, 100% {
-                        height: 0;
-                        top: 0;
-                        opacity: 0;
-                    }
-                    10% {
-                        opacity: 0.7;
-                    }
-                    30%, 40% {
-                        height: ${Math.random() * 150 + 100}px;
-                        top: 0;
-                        opacity: 0.7;
-                    }
-                    70%, 100% {
-                        height: ${Math.random() * 100 + 50}px;
-                        top: 100%;
-                        opacity: 0;
-                    }
-                }
-            `;
-            
-            const styleSheet = document.createElement('style');
-            styleSheet.type = 'text/css';
-            styleSheet.innerText = bloodDripKeyframes;
-            document.head.appendChild(styleSheet);
+        function createEnergyWave(lotus) {
+            lotus.energyWaves.push({
+                radius: 10 * lotus.scale,
+                maxRadius: (150 + Math.random() * 100) * lotus.scale,
+                thickness: (3 + Math.random() * 3) * lotus.scale,
+                speed: (0.8 + Math.random() * 0.7) * lotus.scale,
+                opacity: 0.7 + Math.random() * 0.3,
+                hue: Math.random() * 60, // Red to dark red
+                pattern: Math.floor(Math.random() * 3) // Different wave patterns
+            });
         }
         
-        // Create floating particles
-        function createParticles() {
-            const container = document.getElementById('particles-container');
-            const particleCount = window.innerWidth < 768 ? 40 : 70;
+        function createRipple(lotus, isOminous = false) {
+            const distance = Math.random() * 100 * lotus.scale + 50 * lotus.scale;
+            const angle = Math.random() * Math.PI * 2;
             
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                
-                const size = Math.random() * 6 + 2;
-                const posX = Math.random() * window.innerWidth;
-                const posY = Math.random() * window.innerHeight;
-                const duration = Math.random() * 40 + 20;
-                const delay = Math.random() * 10;
-                
-                particle.style.width = `${size}px`;
-                particle.style.height = `${size}px`;
-                particle.style.left = `${posX}px`;
-                particle.style.top = `${posY}px`;
-                particle.style.opacity = Math.random() * 0.5 + 0.2;
-                
-                particle.style.animation = `float-particle ${duration}s ${delay}s infinite linear`;
-                container.appendChild(particle);
-            }
-        }
-        
-        // Custom animation for floating particles
-        const floatParticleKeyframes = `
-            @keyframes float-particle {
-                0% {
-                    transform: translateY(0) translateX(0) rotate(0deg);
-                }
-                33% {
-                    transform: translateY(-100px) translateX(100px) rotate(120deg);
-                }
-                66% {
-                    transform: translateY(-200px) translateX(-50px) rotate(240deg);
-                }
-                100% {
-                    transform: translateY(-300px) translateX(0) rotate(360deg);
-                }
-            }
-        `;
-        
-        const styleSheet = document.createElement('style');
-        styleSheet.type = 'text/css';
-        styleSheet.innerText = floatParticleKeyframes;
-        document.head.appendChild(styleSheet);
-        
-        // Enhanced lotus background with evenly spread lotuses and center black lotus
-        function initLotusBackground() {
-            const canvas = document.getElementById('lotusCanvas');
-            const ctx = canvas.getContext('2d');
-            
-            // Set canvas size
-            function resizeCanvas() {
-                canvas.width = window.innerWidth;
-                canvas.height = window.innerHeight;
-            }
-            
-            resizeCanvas();
-            window.addEventListener('resize', resizeCanvas);
-            
-            // Background lotuses - evenly distributed
-            const lotusCount = 12; // More lotuses for better distribution
-            const lotuses = [];
-            
-            // Grid spacing for even distribution
-            const gridCols = 4;
-            const gridRows = 3;
-            const cellWidth = canvas.width / gridCols;
-            const cellHeight = canvas.height / gridRows;
-            
-            // Create evenly distributed lotuses
-            for (let row = 0; row < gridRows; row++) {
-                for (let col = 0; col < gridCols; col++) {
-                    // Calculate cell center with some random offset
-                    const baseX = cellWidth * col + cellWidth / 2;
-                    const baseY = cellHeight * row + cellHeight / 2;
-                    
-                    // Add random variation within the cell
-                    const x = baseX + (Math.random() - 0.5) * cellWidth * 0.5;
-                    const y = baseY + (Math.random() - 0.5) * cellHeight * 0.5;
-                    
-                    lotuses.push({
-                        x: x,
-                        y: y,
-                        scale: 0.4 + Math.random() * 0.4, // Smaller scale for background lotuses
-                        rotation: Math.random() * Math.PI * 2,
-                        petals: [],
-                        petalCount: 10 + Math.floor(Math.random() * 6),
-                        bloomSpeed: 0.5 + Math.random() * 0.5,
-                        bloomPhase: Math.random() * Math.PI * 2,
-                        ripples: [],
-                        color: Math.random() > 0.5 ? 'red' : 'darkred', // Varying colors
-                        isCenter: false
-                    });
-                }
-            }
-            
-            // Add the large black lotus in the center
-            const centerLotus = {
-                x: canvas.width / 2,
-                y: canvas.height / 2,
-                scale: 1.5, // 1.5x larger than regular lotuses
-                rotation: 0,
-                petals: [],
-                petalCount: 16, // More petals for the center lotus
-                bloomSpeed: 0.3, // Slower bloom for dramatic effect
-                bloomPhase: 0,
-                ripples: [],
-                color: 'black',
-                isCenter: true,
-                pulsePhase: 0
+            const ripple = {
+                x: lotus.x + Math.cos(angle) * distance,
+                y: lotus.y + Math.sin(angle) * distance,
+                radius: 5 * lotus.scale,
+                maxRadius: (30 + Math.random() * 50) * lotus.scale,
+                speed: (0.5 + Math.random() * 0.5) * lotus.scale,
+                opacity: 0.8,
+                color: isOminous ? '#330000' : undefined,
+                pulsePhase: Math.random() * Math.PI * 2,
+                // Distortion for unsettling effect
+                distort: isOminous ? {
+                    amount: 0.2 + Math.random() * 0.3,
+                    frequency: 3 + Math.random() * 5,
+                    speed: 0.01 + Math.random() * 0.02
+                } : null
             };
             
-            lotuses.push(centerLotus);
+            lotus.ripples.push(ripple);
+        }
+        
+        // Draw dark water background with more depth and movement
+        function drawWater(time) {
+            // Create a very dark background gradient with subtle movement
+            const offset = Math.sin(time / 10000) * canvas.width * 0.1;
             
-            // Create petals for each lotus
+            const gradient = ctx.createLinearGradient(offset, 0, canvas.width - offset, canvas.height);
+            gradient.addColorStop(0, 'rgba(5, 0, 0, 1)');
+            gradient.addColorStop(0.4, 'rgba(15, 0, 0, 0.95)');
+            gradient.addColorStop(0.6, 'rgba(20, 0, 0, 0.9)');
+            gradient.addColorStop(1, 'rgba(10, 0, 0, 0.95)');
+            
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Add subtle blood texture with depth and movement
+            ctx.globalAlpha = 0.04;
+            for (let i = 0; i < 25; i++) {
+                const x = (Math.random() * canvas.width * 2 + time / (1000 + i * 100)) % (canvas.width * 1.5) - canvas.width * 0.25;
+                const y = (Math.random() * canvas.height * 2 + time / (1500 + i * 150)) % (canvas.height * 1.5) - canvas.height * 0.25;
+                const size = Math.random() * 400 + 100;
+                
+                ctx.beginPath();
+                ctx.arc(x, y, size, 0, Math.PI * 2);
+                
+                // Create blood curdle effect
+                if (i % 3 === 0) {
+                    const bloodGradient = ctx.createRadialGradient(x, y, 0, x, y, size);
+                    bloodGradient.addColorStop(0, 'rgba(120, 0, 0, 0.7)');
+                    bloodGradient.addColorStop(0.3, 'rgba(70, 0, 0, 0.5)');
+                    bloodGradient.addColorStop(0.7, 'rgba(40, 0, 0, 0.3)');
+                    bloodGradient.addColorStop(1, 'rgba(20, 0, 0, 0)');
+                    ctx.fillStyle = bloodGradient;
+                } else {
+                    ctx.fillStyle = i % 2 === 0 ? 'rgba(80, 0, 0, 0.5)' : 'rgba(40, 0, 0, 0.6)';
+                }
+                ctx.fill();
+            }
+            
+            // Add deep, swirling abyss effect
+            const abyssX = canvas.width / 2 + Math.sin(time/8000) * canvas.width * 0.1;
+            const abyssY = canvas.height / 2 + Math.cos(time/7000) * canvas.height * 0.1;
+            
+            const abyssGradient = ctx.createRadialGradient(
+                abyssX, abyssY, 0,
+                abyssX, abyssY, canvas.height * 0.7
+            );
+            abyssGradient.addColorStop(0, 'rgba(0, 0, 0, 0.3)');
+            abyssGradient.addColorStop(0.5, 'rgba(15, 0, 0, 0.2)');
+            abyssGradient.addColorStop(0.8, 'rgba(5, 0, 0, 0.1)');
+            abyssGradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
+            
+            ctx.fillStyle = abyssGradient;
+            ctx.globalAlpha = 0.8 + Math.sin(time/5000) * 0.2;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.globalAlpha = 1;
+        }
+        
+        // Animation loop
+        function animate() {
+            // Update time
+            time += 16;
+            
+            // Clear canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Update lotus centers with 3D movement
             lotuses.forEach(lotus => {
-                for (let i = 0; i < lotus.petalCount; i++) {
-                    const angle = (i / lotus.petalCount) * Math.PI * 2;
-                    lotus.petals.push({
-                        angle,
-                        length: (150 + Math.random() * 30) * lotus.scale,
-                        width: (70 + Math.random() * 20) * lotus.scale,
-                        offset: Math.random() * 1000,
-                        curve: 0.3 + Math.random() * 0.2
+                if (!lotus.isCenter) {
+                    // 3D floating motion
+                    lotus.z += Math.sin(time / 4000 + lotus.depthPhase) * 0.5;
+                    
+                    // Calculate 3D projection scale
+                    const depthScale = 1 + (lotus.z / 500); // -100 to 100 range
+                    lotus.projectedScale = lotus.scale * depthScale;
+                    
+                    // Apply 3D motion
+                    lotus.x += Math.sin(time / 3000 + lotus.bloomPhase) * 0.3 * depthScale;
+                    lotus.y += Math.cos(time / 2800 + lotus.bloomPhase) * 0.2 * depthScale;
+                    
+                    // Keep lotuses on screen
+                    if (lotus.x < -100) lotus.x = canvas.width + 100;
+                    if (lotus.x > canvas.width + 100) lotus.x = -100;
+                    if (lotus.y < -100) lotus.y = canvas.height + 100;
+                    if (lotus.y > canvas.height + 100) lotus.y = -100;
+                } else {
+                    // Center lotus subtle movement
+                    lotus.x = canvas.width / 2 + Math.sin(time / 9000) * 20;
+                    lotus.y = canvas.height / 2 + Math.sin(time / 7000) * 15;
+                    lotus.projectedScale = lotus.scale;
+                    
+                    // Update symbols
+                    lotus.symbols.forEach(symbol => {
+                        if (Math.random() < 0.005) {
+                            symbol.opacity = 0.7 + Math.random() * 0.3;
+                            symbol.scale = 0;
+                        }
+                        
+                        if (symbol.opacity > 0) {
+                            symbol.scale += (0.5 - symbol.scale) * 0.05;
+                            symbol.opacity -= 0.005;
+                            symbol.rotation += 0.01;
+                        }
                     });
                 }
+            });
+            
+            // Draw the scene with enhanced darkness
+            drawWater(time);
+            
+            // Sort lotuses by 3D depth
+            lotuses.sort((a, b) => {
+                // Always draw center lotus last (on top)
+                if (a.isCenter) return 1;
+                if (b.isCenter) return -1;
+                return a.z - b.z;
+            }).forEach(lotus => {
+                // Calculate bloom factor with offset phase
+                const normalizedTime = (time / (10000 * (lotus.isCenter ? 1.5 : 1)) + lotus.bloomPhase) % 1;
+                let bloomFactor;
                 
-                // Create initial ripples
-                if (!lotus.isCenter) {
-                    for (let i = 0; i < 3; i++) {
-                        createRipple(lotus);
-                    }
+                if (lotus.isCenter) {
+                    // More complex breathing pattern for center lotus
+                    bloomFactor = 0.7 + Math.sin(time / 5000) * 0.1 + Math.sin(time / 7000) * 0.1 + Math.sin(time / 13000) * 0.1;
+                } else if (normalizedTime < 0.5) {
+                    // Opening phase (0 to 1)
+                    bloomFactor = normalizedTime * 2;
                 } else {
-                    // More ripples for center lotus
-                    for (let i = 0; i < 5; i++) {
-                        createRipple(lotus);
+                    // Closing phase (1 to 0)
+                    bloomFactor = 2 - normalizedTime * 2;
+                }
+                
+                drawEnhancedLotus(lotus, bloomFactor, time);
+                
+                // Random chance to create new ripples
+                if (Math.random() < 0.01) {
+                    createRipple(lotus);
+                } else if (lotus.isCenter && Math.random() < 0.05) {
+                    createRipple(lotus, true);
+                    
+                    // Occasionally create energy wave
+                    if (Math.random() < 0.3 && lotus.energyWaves.length < 8) {
+                        createEnergyWave(lotus);
                     }
                 }
             });
             
-            function createRipple(lotus) {
-                const distance = Math.random() * 100 * lotus.scale + 50 * lotus.scale;
-                const angle = Math.random() * Math.PI * 2;
-                
-                lotus.ripples.push({
-                    x: lotus.x + Math.cos(angle) * distance,
-                    y: lotus.y + Math.sin(angle) * distance,
-                    radius: 5 * lotus.scale,
-                    maxRadius: (30 + Math.random() * 50) * lotus.scale,
-                    speed: (0.5 + Math.random() * 0.5) * lotus.scale,
-                    opacity: 0.8
-                });
-            }
+            // Continue animation loop
+            requestAnimationFrame(animate);
+        }
+        
+        // Enhanced lotus drawing with 3D effects and darkness
+        function drawEnhancedLotus(lotus, bloomFactor, time) {
+            const { x, y, color, isCenter, projectedScale } = lotus;
+            const scale = projectedScale || lotus.scale;
             
-            // Animation variables
-            let time = 0;
-            const bloomingLoop = 10000; // total loop time in ms
-            
-            // Draw dark water background
-            function drawWater() {
-                // Create a very dark background gradient
-                const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-                gradient.addColorStop(0, 'rgba(10, 0, 0, 1)');
-                gradient.addColorStop(0.5, 'rgba(20, 0, 0, 0.9)');
-                gradient.addColorStop(1, 'rgba(30, 0, 0, 0.8)');
+            // Special effects for center lotus
+            if (isCenter) {
+                // Hypnotic pulsing glow
+                lotus.pulsePhase += 0.01;
+                const glowSize = 80 + Math.sin(lotus.pulsePhase) * 30 + Math.sin(lotus.pulsePhase * 0.5) * 20;
                 
-                ctx.fillStyle = gradient;
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
-                
-                // Add subtle blood texture
-                ctx.globalAlpha = 0.03;
-                for (let i = 0; i < 20; i++) {
-                    ctx.beginPath();
-                    ctx.arc(
-                        Math.random() * canvas.width,
-                        Math.random() * canvas.height,
-                        Math.random() * 300 + 50,
-                        0,
-                        Math.PI * 2
-                    );
-                    ctx.fillStyle = i % 2 === 0 ? 'rgba(100, 0, 0, 0.5)' : 'rgba(50, 0, 0, 0.5)';
-                    ctx.fill();
-                }
-                ctx.globalAlpha = 1;
-            }
-            
-            // Draw lotus flower with enhanced details
-            function drawLotus(lotus, bloomFactor) {
-                const { x, y, scale, rotation, petals, color, isCenter } = lotus;
-                
-                // Special effects for center lotus
-                if (isCenter) {
-                    // Pulsing glow for center lotus
-                    lotus.pulsePhase += 0.01;
-                    const glowSize = 50 + Math.sin(lotus.pulsePhase) * 20;
-                    
-                    // Draw dark glow around center lotus
-                    const glow = ctx.createRadialGradient(
-                        x, y, 10 * scale,
-                        x, y, glowSize * scale
-                    );
-                    glow.addColorStop(0, 'rgba(0, 0, 0, 0.7)');
-                    glow.addColorStop(0.6, 'rgba(80, 0, 0, 0.3)');
-                    glow.addColorStop(1, 'rgba(0, 0, 0, 0)');
-                    
-                    ctx.fillStyle = glow;
-                    ctx.beginPath();
-                    ctx.arc(x, y, glowSize * scale, 0, Math.PI * 2);
-                    ctx.fill();
-                    
-                    // Blood drips from center lotus
-                    if (Math.random() < 0.05) {
-                        lotus.ripples.push({
-                            x: x + (Math.random() - 0.5) * 100 * scale,
-                            y: y + (Math.random() - 0.5) * 100 * scale,
-                            radius: 3 * scale,
-                            maxRadius: 15 * scale,
-                            speed: 0.3 * scale,
-                            opacity: 0.9,
-                            color: '#8a0000'
-                        });
-                    }
-                }
-                
-                // Draw lotus petals
-                for (let i = 0; i < petals.length; i++) {
-                    const petal = petals[i];
-                    const angle = petal.angle + rotation;
-                    
-                    // Special bloom for center lotus
-                    let petalBloomFactor = bloomFactor;
-                    if (isCenter) {
-                        // Make center lotus fluctuate more dramatically
-                        petalBloomFactor = 0.7 + Math.sin(time / 2000 + i / 3) * 0.3;
-                    }
-                    
-                    // Calculate petal opening based on bloomFactor
-                    const openAmount = Math.sin(petalBloomFactor * Math.PI) * petal.length;
-                    
-                    // Starting point at the center
-                    const startX = x;
-                    const startY = y;
-                    
-                    // Control points for the curve
-                    const cp1x = startX + Math.cos(angle) * (openAmount * 0.3);
-                    const cp1y = startY + Math.sin(angle) * (openAmount * 0.3);
-                    
-                    const cp2x = startX + Math.cos(angle) * (openAmount * 0.7);
-                    const cp2y = startY + Math.sin(angle) * (openAmount * 0.7);
-                    
-                    // End point
-                    const endX = startX + Math.cos(angle) * openAmount;
-                    const endY = startY + Math.sin(angle) * openAmount;
-                    
-                    // Width control points
-                    const widthFactor = petal.width * (0.5 + petalBloomFactor * 0.5);
-                    
-                    // Draw petal
-                    ctx.beginPath();
-                    ctx.moveTo(startX, startY);
-                    
-                    // Create more realistic petal curve
-                    const curve = petal.curve;
-                    
-                    // First side of petal
-                    ctx.bezierCurveTo(
-                        cp1x - Math.sin(angle) * widthFactor * 0.3, 
-                        cp1y + Math.cos(angle) * widthFactor * 0.3,
-                        cp2x - Math.sin(angle) * widthFactor * 0.7, 
-                        cp2y + Math.cos(angle) * widthFactor * 0.7,
-                        endX - Math.sin(angle) * widthFactor * curve, 
-                        endY + Math.cos(angle) * widthFactor * curve
-                    );
-                    
-                    // Petal tip curve
-                    ctx.quadraticCurveTo(
-                        endX, 
-                        endY,
-                        endX + Math.sin(angle) * widthFactor * curve, 
-                        endY - Math.cos(angle) * widthFactor * curve
-                    );
-                    
-                    // Second side of petal
-                    ctx.bezierCurveTo(
-                        cp2x + Math.sin(angle) * widthFactor * 0.7, 
-                        cp2y - Math.cos(angle) * widthFactor * 0.7,
-                        cp1x + Math.sin(angle) * widthFactor * 0.3, 
-                        cp1y - Math.cos(angle) * widthFactor * 0.3,
-                        startX, startY
-                    );
-                    
-                    // Enhanced gradient for petal with darker colors
-                    const petalGradient = ctx.createLinearGradient(
-                        startX, startY,
-                        endX, endY
-                    );
-                    
-                    // Colors based on lotus type
-                    if (color === 'black') {
-                        // For black center lotus
-                        petalGradient.addColorStop(0, 'rgba(0, 0, 0, 0.95)');
-                        petalGradient.addColorStop(0.7, `rgba(30, 0, 0, 0.9)`);
-                        petalGradient.addColorStop(1, `rgba(60, 0, 0, 0.8)`);
-                    } else if (color === 'darkred') {
-                        // For dark red lotuses
-                        petalGradient.addColorStop(0, `rgba(80, 0, 0, 0.9)`);
-                        petalGradient.addColorStop(0.7, `rgba(100, 0, 0, 0.8)`);
-                        petalGradient.addColorStop(1, `rgba(120, 0, 0, 0.7)`);
-                    } else {
-                        // For red lotuses
-                        petalGradient.addColorStop(0, `rgba(120, 0, 0, 0.9)`);
-                        petalGradient.addColorStop(0.7, `rgba(150, 0, 0, 0.8)`);
-                        petalGradient.addColorStop(1, `rgba(180, 0, 0, 0.7)`);
-                    }
-                    
-                    ctx.fillStyle = petalGradient;
-                    ctx.fill();
-                    
-                    // Add veins to petals
-                    const veinColor = color === 'black' ? 'rgba(80, 0, 0, 0.7)' : 'rgba(60, 0, 0, 0.5)';
-                    ctx.strokeStyle = veinColor;
-                    ctx.lineWidth = 0.5 * scale;
-                    
-                    // Main vein
-                    ctx.beginPath();
-                    ctx.moveTo(startX, startY);
-                    ctx.lineTo(endX, endY);
-                    ctx.stroke();
-                    
-                    // Side veins
-                    const veinsCount = 3;
-                    for (let v = 1; v <= veinsCount; v++) {
-                        const vPos = v / (veinsCount + 1);
-                        const vX = startX + (endX - startX) * vPos;
-                        const vY = startY + (endY - startY) * vPos;
-                        
-                        const vLength = widthFactor * 0.7 * vPos;
-                        
-                        ctx.beginPath();
-                        ctx.moveTo(vX, vY);
-                        ctx.lineTo(
-                            vX + Math.sin(angle + Math.PI/4) * vLength,
-                            vY - Math.cos(angle + Math.PI/4) * vLength
-                        );
-                        ctx.stroke();
-                        
-                        ctx.beginPath();
-                        ctx.moveTo(vX, vY);
-                        ctx.lineTo(
-                            vX - Math.sin(angle - Math.PI/4) * vLength,
-                            vY + Math.cos(angle - Math.PI/4) * vLength
-                        );
-                        ctx.stroke();
-                    }
-                    
-                    // Add subtle highlight to petal edges
-                    if (color === 'black') {
-                        ctx.strokeStyle = 'rgba(130, 0, 0, 0.4)';
-                    } else {
-                        ctx.strokeStyle = 'rgba(200, 50, 50, 0.3)';
-                    }
-                    ctx.lineWidth = 1 * scale;
-                    ctx.stroke();
-                    
-                    // Add blood drops on center lotus petals
-                    if (isCenter && Math.random() < 0.02) {
-                        const dropX = startX + (endX - startX) * (0.4 + Math.random() * 0.5);
-                        const dropY = startY + (endY - startY) * (0.4 + Math.random() * 0.5);
-                        
-                        ctx.beginPath();
-                        ctx.arc(dropX, dropY, (2 + Math.random() * 3) * scale, 0, Math.PI * 2);
-                        ctx.fillStyle = 'rgba(150, 0, 0, 0.8)';
-                        ctx.fill();
-                        
-                        // Blood drip effect
-                        ctx.beginPath();
-                        ctx.moveTo(dropX, dropY);
-                        ctx.lineTo(dropX + Math.random() * 10 - 5, dropY + (5 + Math.random() * 10));
-                        ctx.strokeStyle = 'rgba(150, 0, 0, 0.6)';
-                        ctx.lineWidth = (1 + Math.random()) * scale;
-                        ctx.stroke();
-                    }
-                }
-                
-                // Draw lotus center with more detail
-                ctx.beginPath();
-                ctx.arc(x, y, 20 * scale, 0, Math.PI * 2);
-                
-                let centerColor1, centerColor2, centerColor3;
-                
-                if (color === 'black') {
-                    centerColor1 = 'rgba(0, 0, 0, 1)';
-                    centerColor2 = 'rgba(30, 0, 0, 0.9)';
-                    centerColor3 = 'rgba(50, 0, 0, 0.8)';
-                } else if (color === 'darkred') {
-                    centerColor1 = 'rgba(60, 0, 0, 1)';
-                    centerColor2 = 'rgba(30, 0, 0, 0.9)';
-                    centerColor3 = 'rgba(10, 0, 0, 0.8)';
-                } else {
-                    centerColor1 = 'rgba(80, 0, 0, 1)';
-                    centerColor2 = 'rgba(40, 0, 0, 0.9)';
-                    centerColor3 = 'rgba(20, 0, 0, 0.8)';
-                }
-                
-                const centerGradient = ctx.createRadialGradient(
-                    x, y, 5 * scale,
-                    x, y, 20 * scale
+                // Draw dark vortex around center lotus
+                const glow = ctx.createRadialGradient(
+                    x, y, 10 * scale,
+                    x, y, glowSize * scale
                 );
-                centerGradient.addColorStop(0, centerColor1);
-                centerGradient.addColorStop(0.7, centerColor2);
-                centerGradient.addColorStop(1, centerColor3);
-                ctx.fillStyle = centerGradient;
+                glow.addColorStop(0, 'rgba(0, 0, 0, 0.9)');
+                glow.addColorStop(0.4, 'rgba(30, 0, 0, 0.7)');
+                glow.addColorStop(0.7, 'rgba(60, 0, 0, 0.4)');
+                glow.addColorStop(1, 'rgba(0, 0, 0, 0)');
+                
+                ctx.fillStyle = glow;
+                ctx.beginPath();
+                ctx.arc(x, y, glowSize * scale, 0, Math.PI * 2);
                 ctx.fill();
                 
-                // Add texture to center
-                const dotColor = color === 'black' ? 'rgba(100, 0, 0, 0.3)' : 'rgba(200, 50, 50, 0.2)';
-                ctx.fillStyle = dotColor;
-                for (let i = 0; i < 12; i++) {
-                    const dotAngle = i * Math.PI / 6;
-                    const dotRadius = 10 * scale;
+                // Draw energy waves (mystical aura)
+                lotus.energyWaves.forEach((wave, index) => {
+                    // Calculate wave distortion
+                    const distortion = wave.pattern === 0 ? 
+                        Math.sin(time / 1000 + wave.radius / 20) * 5 : 
+                        wave.pattern === 1 ? 
+                            Math.cos(time / 800) * 3 + Math.sin(time / 500) * 2 : 
+                            0;
+                    
+                    ctx.beginPath();
+                    
+                    // Create jagged, mystical wave pattern
+                    if (wave.pattern === 2) {
+                        for (let i = 0; i < 36; i++) {
+                            const angle = i * Math.PI / 18;
+                            const radiusVariation = Math.sin(angle * 8 + time / 600) * (wave.thickness * 0.5);
+                            const waveRadius = wave.radius + radiusVariation;
+                            
+                            const px = x + Math.cos(angle) * waveRadius;
+                            const py = y + Math.sin(angle) * waveRadius;
+                            
+                            if (i === 0) ctx.moveTo(px, py);
+                            else ctx.lineTo(px, py);
+                        }
+                        ctx.closePath();
+                    } else {
+                        ctx.arc(
+                            x + Math.cos(time / 2000) * distortion, 
+                            y + Math.sin(time / 1800) * distortion, 
+                            wave.radius, 
+                            0, 
+                            Math.PI * 2
+                        );
+                    }
+                    
+                    // Wave color with subtle glow
+                    const waveAlpha = wave.opacity * (1 - wave.radius / wave.maxRadius);
+                    ctx.strokeStyle = `hsla(${wave.hue}, 100%, ${20 + (wave.pattern * 5)}%, ${waveAlpha})`;
+                    ctx.lineWidth = wave.thickness * (0.7 + Math.sin(time / 1000 + wave.radius / 50) * 0.3);
+                    ctx.stroke();
+                    
+                    // Update wave
+                    wave.radius += wave.speed;
+                    
+                    // Remove faded waves
+                    if (wave.radius >= wave.maxRadius) {
+                        lotus.energyWaves.splice(index, 1);
+                    }
+                });
+                
+                // Draw mystical symbols that occasionally appear
+                lotus.symbols.forEach(symbol => {
+                    if (symbol.opacity > 0) {
+                        ctx.save();
+                        ctx.translate(x, y);
+                        ctx.rotate(symbol.rotation);
+                        ctx.globalAlpha = symbol.opacity;
+                        
+                        const symbolSize = 20 * scale * symbol.scale;
+                        const symbolColor = `rgba(120, 0, 0, ${symbol.opacity})`;
+                        ctx.strokeStyle = symbolColor;
+                        ctx.lineWidth = 2 * scale;
+                        
+                        // Different symbol types
+                        if (symbol.type === 0) { // Pentagram
+                            drawStar(0, 0, symbolSize, 5, 0.5);
+                        } else if (symbol.type === 1) { // Circle with inscriptions
+                            ctx.beginPath();
+                            ctx.arc(0, 0, symbolSize, 0, Math.PI * 2);
+                            ctx.stroke();
+                            
+                            // Add runes/marks
+                            for (let i = 0; i < 8; i++) {
+                                const angle = i * Math.PI / 4;
+                                const markX = Math.cos(angle) * symbolSize * 0.7;
+                                const markY = Math.sin(angle) * symbolSize * 0.7;
+                                
+                                ctx.beginPath();
+                                ctx.moveTo(markX - 5 * scale, markY);
+                                ctx.lineTo(markX + 5 * scale, markY);
+                                ctx.stroke();
+                            }
+                        } else { // Triangle with eye
+                            ctx.beginPath();
+                            ctx.moveTo(0, -symbolSize);
+                            ctx.lineTo(symbolSize, symbolSize);
+                            ctx.lineTo(-symbolSize, symbolSize);
+                            ctx.closePath();
+                            ctx.stroke();
+                            
+                            // Eye in center
+                            ctx.beginPath();
+                            ctx.arc(0, 0, symbolSize * 0.3, 0, Math.PI * 2);
+                            ctx.stroke();
+                        }
+                        
+                        ctx.globalAlpha = 1;
+                        ctx.restore();
+                    }
+                });
+                
+                // Blood drips from center lotus - more visceral
+                if (Math.random() < 0.08) {
+                    lotus.ripples.push({
+                        x: x + (Math.random() - 0.5) * 100 * scale,
+                        y: y + (Math.random() - 0.5) * 100 * scale,
+                        radius: 3 * scale,
+                        maxRadius: 15 * scale,
+                        speed: 0.3 * scale,
+                        opacity: 0.9,
+                        color: '#8a0000',
+                        pulsePhase: Math.random() * Math.PI * 2,
+                        distort: {
+                            amount: 0.3 + Math.random() * 0.3,
+                            frequency: 3 + Math.random() * 5,
+                            speed: 0.01 + Math.random() * 0.02,
+                            timeOffset: Math.random() * 1000
+                        }
+                    });
+                }
+            }
+            
+            // Draw lotus petals with enhanced 3D effect
+            for (let i = 0; i < lotus.petals.length; i++) {
+                const petal = lotus.petals[i];
+                const angle = petal.angle + lotus.rotation;
+                
+                // Special bloom for center lotus
+                let petalBloomFactor = bloomFactor;
+                if (isCenter) {
+                    // Make center lotus fluctuate more dramatically
+                    petalBloomFactor = 0.7 + Math.sin(time / 2000 + i / 3) * 0.3;
+                }
+                
+                // Calculate petal opening based on bloomFactor
+                const openAmount = Math.sin(petalBloomFactor * Math.PI) * petal.length;
+                
+                // Calculate 3D rotation effect
+                const rotationX = isCenter ? 
+                    Math.sin(time / 3000 + i / lotus.petalCount * Math.PI * 2) * 0.2 : 
+                    Math.sin(time / 4000 + petal.offset) * 0.1;
+                
+                const perspective = 800;
+                const zOffset = Math.sin(petal.shimmerPhase + time * petal.shimmerSpeed) * 20;
+                const depthScale = perspective / (perspective - zOffset);
+                
+                // Starting point at the center
+                const startX = x;
+                const startY = y;
+                
+                // Control points for the curve with depth effect
+                const cp1x = startX + Math.cos(angle) * (openAmount * 0.3) * depthScale;
+                const cp1y = startY + Math.sin(angle) * (openAmount * 0.3) * depthScale;
+                
+                const cp2x = startX + Math.cos(angle) * (openAmount * 0.7) * depthScale;
+                const cp2y = startY + Math.sin(angle) * (openAmount * 0.7) * depthScale;
+                
+                // End point with 3D effect
+                const endX = startX + Math.cos(angle) * openAmount * depthScale;
+                const endY = startY + Math.sin(angle) * openAmount * depthScale;
+                
+                // Width control points with 3D effect
+                const widthFactor = petal.width * (0.5 + petalBloomFactor * 0.5) * depthScale;
+                
+                // Draw petal with 3D lighting
+                ctx.beginPath();
+                ctx.moveTo(startX, startY);
+                
+                // Create more realistic petal curve with 3D lighting
+                const curve = petal.curve * (1 + rotationX * 0.2);
+                
+                // First side of petal
+                ctx.bezierCurveTo(
+                    cp1x - Math.sin(angle) * widthFactor * 0.3, 
+                    cp1y + Math.cos(angle) * widthFactor * 0.3,
+                    cp2x - Math.sin(angle) * widthFactor * 0.7, 
+                    cp2y + Math.cos(angle) * widthFactor * 0.7,
+                    endX - Math.sin(angle) * widthFactor * curve, 
+                    endY + Math.cos(angle) * widthFactor * curve
+                );
+                
+                // Petal tip curve
+                ctx.quadraticCurveTo(
+                    endX, 
+                    endY,
+                    endX + Math.sin(angle) * widthFactor * curve, 
+                    endY - Math.cos(angle) * widthFactor * curve
+                );
+                
+                // Second side of petal
+                ctx.bezierCurveTo(
+                    cp2x + Math.sin(angle) * widthFactor * 0.7, 
+                    cp2y - Math.cos(angle) * widthFactor * 0.7,
+                    cp1x + Math.sin(angle) * widthFactor * 0.3, 
+                    cp1y - Math.cos(angle) * widthFactor * 0.3,
+                    startX, startY
+                );
+                
+                // Enhanced gradient for petal with 3D lighting effect
+                const lightAngle = Math.PI * 1.2; // Light coming from top-right
+                const lightDot = Math.cos(angle - lightAngle);
+                const lightIntensity = 0.2 + (lightDot * 0.3);
+                
+                // 3D height map for texture effect
+                const heightVariation = petal.heightMap.reduce((acc, h, idx) => {
+                    return acc + h * Math.sin(time / 3000 + angle * 2 + idx);
+                }, 0) / petal.heightMap.length * 0.3;
+                
+                const petalGradient = ctx.createLinearGradient(
+                    startX, startY,
+                    endX + Math.cos(lightAngle) * widthFactor * 0.5,
+                    endY + Math.sin(lightAngle) * widthFactor * 0.5
+                );
+                
+                // Colors based on lotus type with 3D lighting effect
+                if (color === 'void') {
+                    // For void center lotus - deeper, more ominous black
+                    petalGradient.addColorStop(0, `rgba(0, 0, 0, 1)`);
+                    petalGradient.addColorStop(0.4, `rgba(10, 0, 0, 0.98)`);
+                    petalGradient.addColorStop(0.7, `rgba(20, 0, 0, ${0.95 + heightVariation})`);
+                    petalGradient.addColorStop(0.9, `rgba(40, 0, 0, ${0.9 + lightIntensity * 0.3})`);
+                    petalGradient.addColorStop(1, `rgba(60, 0, 0, ${0.8 + lightIntensity * 0.3})`);
+                } else if (color === 'darkred') {
+                    // For dark red lotuses
+                    petalGradient.addColorStop(0, `rgba(60, 0, 0, 0.95)`);
+                    petalGradient.addColorStop(0.4, `rgba(70, 0, 0, ${0.9 + heightVariation})`);
+                    petalGradient.addColorStop(0.7, `rgba(80, 0, 0, ${0.85 + lightIntensity * 0.3})`);
+                    petalGradient.addColorStop(0.9, `rgba(100, 0, 0, ${0.8 + lightIntensity * 0.3})`);
+                    petalGradient.addColorStop(1, `rgba(120, 0, 0, ${0.75 + lightIntensity * 0.3})`);
+                } else {
+                    // For blood red lotuses
+                    petalGradient.addColorStop(0, `rgba(100, 0, 0, 0.95)`);
+                    petalGradient.addColorStop(0.4, `rgba(120, 0, 0, ${0.9 + heightVariation})`);
+                    petalGradient.addColorStop(0.7, `rgba(140, 0, 0, ${0.85 + lightIntensity * 0.3})`);
+                    petalGradient.addColorStop(0.9, `rgba(160, 0, 0, ${0.8 + lightIntensity * 0.3})`);
+                    petalGradient.addColorStop(1, `rgba(180, 0, 0, ${0.75 + lightIntensity * 0.3})`);
+                }
+                
+                ctx.fillStyle = petalGradient;
+                ctx.fill();
+                
+                // Add veins to petals with 3D effect
+                const veinColor = color === 'void' ? 
+                    `rgba(100, 0, 0, ${0.7 + lightIntensity * 0.3})` : 
+                    `rgba(${color === 'darkred' ? '50' : '80'}, 0, 0, ${0.6 + lightIntensity * 0.3})`;
+                    
+                ctx.strokeStyle = veinColor;
+                ctx.lineWidth = 0.5 * scale * depthScale;
+                
+                // Main vein with 3D curvature
+                ctx.beginPath();
+                const veinCurveX = Math.sin(angle + Math.PI/2) * rotationX * 10;
+                const veinCurveY = Math.cos(angle + Math.PI/2) * rotationX * 10;
+                
+                ctx.moveTo(startX, startY);
+                ctx.quadraticCurveTo(
+                    (startX + endX) / 2 + veinCurveX,
+                    (startY + endY) / 2 + veinCurveY,
+                    endX, endY
+                );
+                ctx.stroke();
+                
+                // Side veins with 3D effect
+                const veinsCount = 4;
+                for (let v = 1; v <= veinsCount; v++) {
+                    const vPos = v / (veinsCount + 1);
+                    const midX = startX + (endX - startX) * vPos;
+                    const midY = startY + (endY - startY) * vPos;
+                    
+                    const vX = midX + veinCurveX * vPos * (1 - vPos) * 2;
+                    const vY = midY + veinCurveY * vPos * (1 - vPos) * 2;
+                    
+                    const vLength = widthFactor * 0.7 * vPos;
+                    
+                    ctx.beginPath();
+                    ctx.moveTo(vX, vY);
+                    ctx.lineTo(
+                        vX + Math.sin(angle + Math.PI/4 + rotationX) * vLength,
+                        vY - Math.cos(angle + Math.PI/4 + rotationX) * vLength
+                    );
+                    ctx.stroke();
+                    
+                    ctx.beginPath();
+                    ctx.moveTo(vX, vY);
+                    ctx.lineTo(
+                        vX - Math.sin(angle - Math.PI/4 - rotationX) * vLength,
+                        vY + Math.cos(angle - Math.PI/4 - rotationX) * vLength
+                    );
+                    ctx.stroke();
+                }
+                
+                // Add subtle highlight to petal edges
+                const edgeHighlight = color === 'void' ? 
+                    `rgba(150, 0, 0, ${0.3 + lightIntensity * 0.3})` : 
+                    `rgba(220, 50, 50, ${0.2 + lightIntensity * 0.3})`;
+                    
+                ctx.strokeStyle = edgeHighlight;
+                ctx.lineWidth = 0.8 * scale * depthScale;
+                ctx.stroke();
+                
+                // Add subtle texture pattern to petal surface
+                if (isCenter) {
+                    ctx.save();
+                    ctx.clip(); // Keep texture inside petal
+                    
+                    // Draw branching vein patterns
+                    const branchPattern = (x, y, angle, length, depth) => {
+                        if (depth <= 0) return;
+                        
+                        const endX = x + Math.cos(angle) * length;
+                        const endY = y + Math.sin(angle) * length;
+                        
+                        ctx.beginPath();
+                        ctx.moveTo(x, y);
+                        ctx.lineTo(endX, endY);
+                        ctx.strokeStyle = `rgba(70, 0, 0, ${0.1 + depth * 0.05})`;
+                        ctx.lineWidth = depth * 0.3 * scale;
+                        ctx.stroke();
+                        
+                        const branchAngle = 0.5; // About 30 degrees
+                        branchPattern(endX, endY, angle + branchAngle, length * 0.7, depth - 1);
+                        branchPattern(endX, endY, angle - branchAngle, length * 0.7, depth - 1);
+                    };
+                    
+                    if (Math.random() < 0.5) {
+                        branchPattern(
+                            startX + (endX - startX) * 0.3,
+                            startY + (endY - startY) * 0.3,
+                            angle + (Math.random() - 0.5) * 0.3,
+                            petal.length * 0.4 * scale,
+                            2
+                        );
+                    }
+                    
+                    ctx.restore();
+                }
+                
+                // Add blood drops/marks on petals
+                if ((isCenter && Math.random() < 0.07) || Math.random() < 0.01) {
+                    const dropX = startX + (endX - startX) * (0.4 + Math.random() * 0.5);
+                    const dropY = startY + (endY - startY) * (0.4 + Math.random() * 0.5);
+                    const dropSize = (isCenter ? 3 : 2) + Math.random() * (isCenter ? 3 : 2);
+                    
+                    // Blood droplet with volume
+                    const dropGradient = ctx.createRadialGradient(
+                        dropX, dropY, 0,
+                        dropX, dropY, dropSize * scale
+                    );
+                    dropGradient.addColorStop(0, 'rgba(180, 0, 0, 0.9)');
+                    dropGradient.addColorStop(0.7, 'rgba(120, 0, 0, 0.8)');
+                    dropGradient.addColorStop(1, 'rgba(80, 0, 0, 0.7)');
+                    
+                    ctx.beginPath();
+                    ctx.arc(dropX, dropY, dropSize * scale, 0, Math.PI * 2);
+                    ctx.fillStyle = dropGradient;
+                    ctx.fill();
+                    
+                    // Reflective highlight
                     ctx.beginPath();
                     ctx.arc(
-                        x + Math.cos(dotAngle) * dotRadius,
-                        y + Math.sin(dotAngle) * dotRadius,
-                        2 * scale,
+                        dropX - dropSize * 0.3 * scale, 
+                        dropY - dropSize * 0.3 * scale, 
+                        dropSize * 0.4 * scale, 
+                        0, Math.PI * 2
+                    );
+                    ctx.fillStyle = "rgba(255, 50, 50, 0.4)";
+                    ctx.fill();
+                    
+                    // Blood drip effect
+                    if (Math.random() < 0.7) {
+                        const dripLength = 5 + Math.random() * (isCenter ? 20 : 10);
+                        const dripWidth = (1 + Math.random() * 1.5) * scale;
+                        const dripAngle = angle + (Math.random() - 0.5) * 0.5;
+                        
+                        // Create a curving drip
+                        ctx.beginPath();
+                        ctx.moveTo(dropX, dropY);
+                        
+                        const cp1x = dropX + Math.cos(dripAngle) * dripLength * 0.5;
+                        const cp1y = dropY + Math.sin(dripAngle) * dripLength * 0.5 + dripLength * 0.2;
+                        const dripEndX = dropX + Math.cos(dripAngle) * dripLength;
+                        const dripEndY = dropY + Math.sin(dripAngle) * dripLength + dripLength * 0.3;
+                        
+                        ctx.quadraticCurveTo(cp1x, cp1y, dripEndX, dripEndY);
+                        
+                        // Drip gradient
+                        const dripGradient = ctx.createLinearGradient(dropX, dropY, dripEndX, dripEndY);
+                        dripGradient.addColorStop(0, 'rgba(150, 0, 0, 0.8)');
+                        dripGradient.addColorStop(1, 'rgba(100, 0, 0, 0)');
+                        
+                        ctx.strokeStyle = dripGradient;
+                        ctx.lineWidth = dripWidth;
+                        ctx.stroke();
+                    }
+                }
+            }
+            
+            // Draw lotus center with more detail and depth
+            ctx.beginPath();
+            ctx.arc(x, y, 20 * scale, 0, Math.PI * 2);
+            
+            let centerColor1, centerColor2, centerColor3;
+            
+            if (color === 'void') {
+                centerColor1 = 'rgba(0, 0, 0, 1)';
+                centerColor2 = 'rgba(20, 0, 0, 0.95)';
+                centerColor3 = 'rgba(40, 0, 0, 0.9)';
+            } else if (color === 'darkred') {
+                centerColor1 = 'rgba(50, 0, 0, 1)';
+                centerColor2 = 'rgba(30, 0, 0, 0.95)';
+                centerColor3 = 'rgba(10, 0, 0, 0.9)';
+            } else {
+                centerColor1 = 'rgba(80, 0, 0, 1)';
+                centerColor2 = 'rgba(40, 0, 0, 0.95)';
+                centerColor3 = 'rgba(20, 0, 0, 0.9)';
+            }
+            
+            const centerGradient = ctx.createRadialGradient(
+                x - 5 * scale, y - 5 * scale, 5 * scale, // Offset for 3D lighting
+                x, y, 20 * scale
+            );
+            centerGradient.addColorStop(0, centerColor1);
+            centerGradient.addColorStop(0.7, centerColor2);
+            centerGradient.addColorStop(1, centerColor3);
+            ctx.fillStyle = centerGradient;
+            ctx.fill();
+            
+            // Add texture to center with 3D effect
+            const dotColor = color === 'void' ? 
+                'rgba(100, 0, 0, 0.4)' : 
+                'rgba(200, 50, 50, 0.25)';
+                
+            ctx.fillStyle = dotColor;
+            
+            // Create spiral pattern in center
+            const spiralArms = 5;
+            const spiralRotation = time / 10000;
+            
+            for (let arm = 0; arm < spiralArms; arm++) {
+                const baseAngle = (arm / spiralArms) * Math.PI * 2 + spiralRotation;
+                
+                for (let i = 0; i < 8; i++) {
+                    const dist = (i / 8) * 20 * scale;
+                    const dotAngle = baseAngle + (i / 8) * Math.PI * 0.5;
+                    const dotSize = (3 - (i / 8) * 2) * scale;
+                    
+                    ctx.beginPath();
+                    ctx.arc(
+                        x + Math.cos(dotAngle) * dist,
+                        y + Math.sin(dotAngle) * dist,
+                        dotSize,
                         0,
                         Math.PI * 2
                     );
                     ctx.fill();
                 }
+            }
+            
+            // Draw ripples with distortion effects
+            lotus.ripples.forEach((ripple, index) => {
+                ctx.beginPath();
                 
-                // Draw ripples
-                let rippleColor;
-                if (color === 'black') {
-                    rippleColor = 'rgba(120, 0, 0, 0.6)';
-                } else if (color === 'darkred') {
-                    rippleColor = 'rgba(150, 20, 20, 0.5)';
+                if (ripple.distort) {
+                    // Create distorted, unsettling ripple
+                    const segments = 36;
+                    for (let i = 0; i <= segments; i++) {
+                        const angle = (i / segments) * Math.PI * 2;
+                        const distortAmount = ripple.distort.amount * Math.sin(
+                            angle * ripple.distort.frequency + 
+                            time * ripple.distort.speed + 
+                            (ripple.distort.timeOffset || 0)
+                        );
+                        
+                        const radiusOffset = ripple.radius * (1 + distortAmount);
+                        const px = ripple.x + Math.cos(angle) * radiusOffset;
+                        const py = ripple.y + Math.sin(angle) * radiusOffset;
+                        
+                        if (i === 0) ctx.moveTo(px, py);
+                        else ctx.lineTo(px, py);
+                    }
                 } else {
-                    rippleColor = 'rgba(180, 30, 30, 0.5)';
+                    ctx.arc(ripple.x, ripple.y, ripple.radius, 0, Math.PI * 2);
                 }
                 
-                ctx.strokeStyle = rippleColor;
+                // Pulsating ripple effect
+                const pulseEffect = ripple.pulsePhase ? 
+                    (0.7 + Math.sin(time / 500 + ripple.pulsePhase) * 0.3) : 1;
+                    
+                ctx.lineWidth = (1.5 * scale) * pulseEffect;
+                ctx.globalAlpha = ripple.opacity * pulseEffect;
                 
-                lotus.ripples.forEach((ripple, index) => {
-                    ctx.beginPath();
-                    ctx.arc(ripple.x, ripple.y, ripple.radius, 0, Math.PI * 2);
-                    ctx.lineWidth = 1 * scale;
-                    ctx.globalAlpha = ripple.opacity;
-                    ctx.stroke();
+                // Custom color for ominous ripples
+                if (ripple.color) {
+                    ctx.strokeStyle = ripple.color;
+                } else {
+                    const baseColor = lotus.isCenter ? '120, 0, 0' : 
+                        lotus.color === 'darkred' ? '80, 0, 0' : '150, 20, 20';
+                    ctx.strokeStyle = `rgba(${baseColor}, ${ripple.opacity})`;
+                }
+                
+                ctx.stroke();
+                
+                // Update ripple
+                ripple.radius += ripple.speed;
+                ripple.opacity -= 0.004;
+                
+                // Remove faded ripples
+                if (ripple.opacity <= 0 || ripple.radius >= ripple.maxRadius) {
+                    lotus.ripples.splice(index, 1);
                     
-                    // Update ripple
-                    ripple.radius += ripple.speed;
-                    ripple.opacity -= 0.004;
-                    
-                    // Remove faded ripples
-                    if (ripple.opacity <= 0 || ripple.radius >= ripple.maxRadius) {
-                        lotus.ripples.splice(index, 1);
-                        
-                        // Create new ripple to replace the old one
-                        if (Math.random() > 0.3 || lotus.isCenter) {
-                            createRipple(lotus);
-                        }
+                    // Create new ripple to replace the old one
+                    if ((Math.random() > 0.3 || lotus.isCenter) && lotus.ripples.length < 20) {
+                        createRipple(lotus, lotus.isCenter && Math.random() > 0.5);
                     }
-                });
-                
-                ctx.globalAlpha = 1;
-            }
+                }
+            });
             
-            // Animation loop
-            function animate() {
-                // Update time
-                time += 16;
-                
-                // Clear canvas
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                
-                // Update lotus centers (except center lotus)
-                lotuses.forEach(lotus => {
-                    if (!lotus.isCenter) {
-                        // Gentle floating motion
-                        lotus.x += Math.sin(time / 3000 + lotus.bloomPhase) * 0.3;
-                        lotus.y += Math.cos(time / 2800 + lotus.bloomPhase) * 0.2;
-                        
-                        // Keep lotuses on screen
-                        if (lotus.x < -100) lotus.x = canvas.width + 100;
-                        if (lotus.x > canvas.width + 100) lotus.x = -100;
-                        if (lotus.y < -100) lotus.y = canvas.height + 100;
-                        if (lotus.y > canvas.height + 100) lotus.y = -100;
-                    }
-                });
-                
-                // Draw the scene
-                drawWater();
-                
-                // Draw lotuses from back to front
-                lotuses.sort((a, b) => {
-                    // Always draw center lotus last (on top)
-                    if (a.isCenter) return 1;
-                    if (b.isCenter) return -1;
-                    return a.scale - b.scale;
-                }).forEach(lotus => {
-                    // Calculate bloom factor with offset phase
-                    const normalizedTime = (time / bloomingLoop + lotus.bloomPhase) % 1;
-                    let bloomFactor;
-                    
-                    if (normalizedTime < 0.5) {
-                        // Opening phase (0 to 1)
-                        bloomFactor = normalizedTime * 2;
-                    } else {
-                        // Closing phase (1 to 0)
-                        bloomFactor = 2 - normalizedTime * 2;
-                    }
-                    
-                    drawLotus(lotus, bloomFactor);
-                    
-                    // Random chance to create new ripples
-                    if (Math.random() < 0.01 || (lotus.isCenter && Math.random() < 0.05)) {
-                        createRipple(lotus);
-                    }
-                });
-                
-                // Continue animation loop
-                requestAnimationFrame(animate);
-            }
-            
-            // Start animation
-            animate();
+            ctx.globalAlpha = 1;
         }
+        
+        // Helper function to draw mystical star shapes
+        function drawStar(x, y, radius, points, inset) {
+            ctx.beginPath();
+            for (let i = 0; i < points * 2; i++) {
+                const angle = (i * Math.PI) / points;
+                const r = i % 2 === 0 ? radius : radius * inset;
+                const px = x + r * Math.sin(angle);
+                const py = y - r * Math.cos(angle);
+                if (i === 0) ctx.moveTo(px, py);
+                else ctx.lineTo(px, py);
+            }
+            ctx.closePath();
+        }
+        
+        // Start animation with time tracking
+        let time = 0;
+        animate();
+    }
     </script>
 </body>
 </html>
