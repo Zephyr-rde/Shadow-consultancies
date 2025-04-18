@@ -34,38 +34,45 @@
     <!-- Header -->
     <header>
         <div class="logo-container">
-            <div class="logo">Ray</div>
+            <div class="logo">Rây</div>
         </div>
+        
+        <div class="menu-toggle"></div>
+            
+        </div>
+        
+        <nav class="nav-menu"></nav>
+            <a href="#dreams" data-text="Dreams"><i class="fas fa-moon"></i> Dreams</a>
+            <a href="#portfolio" data-text="Portfolio"><i class="fas fa-gem"></i> Portfolio</a>
+            <a href="#contact" data-text="Contact"><i class="fas fa-envelope"></i> Contact</a>
+        </nav>
     </header>
 
     <!-- Main Content -->
     <div class="container">
-        <div class="content-box dream-content">
+        <div id="dreams" class="content-box">
             <h1 class="title">My Dreams</h1>
             <p class="subtitle">Eternal Connection of Souls</p>
 
             <h3 class="version-title">Journey Through The Subconscious</h3>
-            <p class="dream-description">Rôse & Rây</p>
+            <p class="version-title">Rôse & Rây</p>
 
-            <div class="buttons dream-buttons">
-                <a href="Dream.html" class="btn dream-btn" style="--i: 3">
+            <div class="buttons">
+               <a href="Dream.html" class="btn" style="--i: 3">
                 <i class="fas fa-moon btn-icon"></i>
-                <span class="btn-text">Rôse: The Eternal Soulmate</span>
+                <span class="btn-text">Rôse: My Eternal Soulmate</span>
                 <span class="btn-subtext">A journey of twin flames</span>
                 </a>
             
-                <a href="Memories.html" class="btn dream-btn" style="--i: 4">
+                <a href="Memories.html" class="btn" style="--i: 2">
                     <i class="fas fa-heart-pulse btn-icon"></i>
                     <span class="btn-text">Whispers of the Heart</span>
                     <span class="btn-subtext">Echoes across time</span>
                 </a>
             </div>
-
-
-
-
         </div>
-        <div class="content-box">
+        
+        <div id="portfolio" class="content-box">
             <h1 class="title">My Portfolio</h1>
             <p class="subtitle">Innovation, Creativity &amp; Technical Excellence</p>
 
@@ -95,6 +102,40 @@
         </div>
     </div>
 
+    <!-- Contact Section -->
+    <div id="contact" class="container">
+        <div class="content-box">
+            <h1 class="title">Connect With Me</h1>
+            <p class="subtitle">Let's Create Something Extraordinary</p>
+            
+            <div class="dream-buttons">
+                <a href="mailto:contact@example.com" class="dream-btn">
+                    <i class="fas fa-envelope btn-icon"></i>
+                    <div>
+                        <span class="btn-text">Email Me</span>
+                        <span class="btn-subtext">For professional inquiries</span>
+                    </div>
+                </a>
+                
+                <a href="https://github.com" target="_blank" class="dream-btn">
+                    <i class="fab fa-github btn-icon"></i>
+                    <div>
+                        <span class="btn-text">GitHub</span>
+                        <span class="btn-subtext">View my code repositories</span>
+                    </div>
+                </a>
+                
+                <a href="https://linkedin.com" target="_blank" class="dream-btn">
+                    <i class="fab fa-linkedin btn-icon"></i>
+                    <div>
+                        <span class="btn-text">LinkedIn</span>
+                        <span class="btn-subtext">My professional profile</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
     <!-- Footer -->
     <footer>
         <p>© 2025 Ray's Portfolio | All Rights Reserved</p>
@@ -104,15 +145,147 @@
         // Initialize the lotus background when the document is loaded
         document.addEventListener('DOMContentLoaded', function () {
             initLotusBackground();
+            initParticles();
+            initBloodDrips();
+            initMobileMenu();
+            initButtonEffects();
         });
 
         // Hide loader when the page is fully loaded
         window.addEventListener('load', function () {
             const loader = document.querySelector('.loader');
             if (loader) {
-                loader.style.display = 'none';
+                loader.classList.add('fade-out');
+                setTimeout(() => {
+                    loader.style.display = 'none';
+                }, 800);
             }
         });
+
+        // Mobile menu functionality
+        function initMobileMenu() {
+            const menuToggle = document.querySelector('.menu-toggle');
+            const navMenu = document.querySelector('.nav-menu');
+            
+            menuToggle.addEventListener('click', function() {
+                menuToggle.classList.toggle('active');
+                navMenu.classList.toggle('active');
+            });
+
+            // Close menu when clicking menu items
+            document.querySelectorAll('.nav-menu a').forEach(item => {
+                item.addEventListener('click', () => {
+                    menuToggle.classList.remove('active');
+                    navMenu.classList.remove('active');
+                });
+            });
+        }
+
+        // Enhanced button effects
+        function initButtonEffects() {
+            const buttons = document.querySelectorAll('.btn, .dream-btn');
+            
+            buttons.forEach(btn => {
+                btn.addEventListener('mousemove', function(e) {
+                    const rect = this.getBoundingClientRect();
+                    const x = e.clientX - rect.left; 
+                    const y = e.clientY - rect.top;
+                    
+                    // Calculate angles for 3D effect
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    const angleX = (y - centerY) / 15;
+                    const angleY = (centerX - x) / 15;
+                    
+                    this.style.transform = `perspective(1000px) rotateX(${angleX}deg) rotateY(${angleY}deg) translateZ(10px)`;
+                    
+                    // Create highlight effect
+                    this.style.setProperty('--highlight-x', `${x}px`);
+                    this.style.setProperty('--highlight-y', `${y}px`);
+                });
+                
+                btn.addEventListener('mouseleave', function() {
+                    this.style.transform = '';
+                });
+            });
+        }
+
+        // Initialize floating particles
+        function initParticles() {
+            const particlesContainer = document.getElementById('particles-container');
+            const particleCount = 30;
+            
+            for (let i = 0; i < particleCount; i++) {
+                createParticle(particlesContainer);
+            }
+            
+            // Add more particles periodically
+            setInterval(() => {
+                if (document.querySelectorAll('.particle').length < 50) {
+                    createParticle(particlesContainer);
+                }
+            }, 3000);
+        }
+        
+        function createParticle(container) {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+            
+            // Random size and position
+            const size = Math.random() * 15 + 5;
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+            particle.style.left = `${Math.random() * 100}vw`;
+            particle.style.top = `${Math.random() * 100}vh`;
+            
+            // Random animation duration and delay
+            const duration = Math.random() * 10 + 8;
+            const delay = Math.random() * 5;
+            particle.style.animationDuration = `${duration}s`;
+            particle.style.animationDelay = `${delay}s`;
+            
+            container.appendChild(particle);
+            
+            // Remove particle after animation completion
+            setTimeout(() => {
+                particle.remove();
+            }, (duration + delay) * 1000);
+        }
+
+        // Initialize blood drip effects
+        function initBloodDrips() {
+            const bloodContainer = document.getElementById('blood-container');
+            const dripCount = 15;
+            
+            // Initial blood drips
+            for (let i = 0; i < dripCount; i++) {
+                setTimeout(() => createBloodDrip(bloodContainer), i * 1000);
+            }
+            
+            // Continue creating drips at random intervals
+            setInterval(() => {
+                createBloodDrip(bloodContainer);
+            }, 3000);
+        }
+        
+        function createBloodDrip(container) {
+            const drip = document.createElement('div');
+            drip.classList.add('blood-drip');
+            
+            // Random position, height, and animation duration
+            drip.style.left = `${Math.random() * 100}%`;
+            drip.style.height = `${Math.random() * 150 + 50}px`;
+            
+            const duration = Math.random() * 8 + 7;
+            drip.style.animationDuration = `${duration}s`;
+            
+            container.appendChild(drip);
+            
+            // Remove drip after animation completion
+            setTimeout(() => {
+                drip.remove();
+            }, duration * 1000);
+        }
 
         function initLotusBackground() {
             const canvas = document.getElementById('lotusCanvas');
