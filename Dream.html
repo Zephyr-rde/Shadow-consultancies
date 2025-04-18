@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rôse: A Dream of Eternal Devotion</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #8a0303;
+            --secondary-color: #3e0101;
+            --text-color: #d8c9c9;
+            --background: #1a1111;
+            --accent-color: #b37676;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Cormorant Garamond', serif;
+            line-height: 1.8;
+            color: var(--text-color);
+            background-color: var(--background);
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23330e0e' fill-opacity='0.2' fill-rule='evenodd'/%3E%3C/svg%3E");
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            background-color: rgba(24, 14, 14, 0.9);
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
+        }
+
+        h1,
+        h2 {
+            font-family: 'Playfair Display', serif;
+            color: var(--accent-color);
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            text-align: center;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+            letter-spacing: 2px;
+            position: relative;
+        }
+
+        h1:after {
+            content: "❦";
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1.5rem;
+            color: var(--primary-color);
+        }
+
+        .title-container {
+            position: relative;
+            padding: 20px 0;
+            border-bottom: 1px solid var(--primary-color);
+            margin-bottom: 40px;
+        }
+
+        .title-container:before,
+        .title-container:after {
+            content: "✦";
+            position: absolute;
+            bottom: -5px;
+            color: var(--primary-color);
+            font-size: 1rem;
+        }
+
+        .title-container:before {
+            left: 0;
+        }
+
+        .title-container:after {
+            right: 0;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid rgba(179, 118, 118, 0.3);
+        }
+
+        p {
+            margin: 20px 0;
+            font-size: 1.1rem;
+            line-height: 1.9;
+            text-align: justify;
+        }
+
+        .intro {
+            font-style: italic;
+            color: var(--accent-color);
+            text-align: center;
+            margin: 40px 0;
+            font-size: 1.2rem;
+            line-height: 1.8;
+            padding: 20px;
+            border-top: 1px solid rgba(179, 118, 118, 0.3);
+            border-bottom: 1px solid rgba(179, 118, 118, 0.3);
+            position: relative;
+        }
+
+        .author {
+            text-align: right;
+            font-style: italic;
+            color: var(--accent-color);
+            margin-top: -20px;
+            margin-bottom: 40px;
+        }
+
+        .dialogue {
+            margin: 25px 30px;
+            font-style: italic;
+            position: relative;
+            color: #c9b6b6;
+        }
+
+        .dialogue:before {
+            content: "";
+            position: absolute;
+            left: -25px;
+            top: -10px;
+            font-size: 3rem;
+            color: var(--primary-color);
+            opacity: 0.7;
+        }
+
+        .highlight {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .rose-divider {
+            text-align: center;
+            margin: 30px 0;
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            opacity: 0.8;
+        }
+
+        .last-paragraph {
+            font-style: italic;
+            text-align: center;
+            margin: 40px 0 20px;
+            font-size: 1.2rem;
+            color: var(--accent-color);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 50px;
+            border-top: 1px solid rgba(179, 118, 118, 0.3);
+            font-style: italic;
+            color: var(--accent-color);
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            .container {
+                padding: 15px;
+            }
+
+            p {
+                font-size: 1rem;
+            }
+
+            .dialogue {
+                margin: 20px 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .intro {
+                font-size: 1rem;
+                padding: 15px 5px;
+            }
+
+            .dialogue:before {
+                font-size: 2rem;
+                left: -15px;
+            }
+
+            .container {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="title-container">
+            <h1>Rôse: A Dream of Eternal Devotion</h1>
+            <p class="author">By Rây</p>
+        </div>
+
+        <p class="intro">"This was my dream—a tale of Rôse, the love I can't find in waking life."</p>
+
+        <h2>Prologue</h2>
+        <p>"You were new to the city and its unfamiliar faces, staying for just a week while your father, a partner at
+            my boss's investment firm, handled business. I was handed a company card with one task: to make you feel
+            comfortable and happy, to show you a world you'd never seen."</p>
+
+        <p>I tried to just play around and let go as it would be fun for both of us, but you who were so passionate, one
+            of a kind, and naive to most things were so excited to be around me.</p>
+
+        <h2>Day 1: A Hesitant Dawn</h2>
+        <p>The first day, I didn't make any moves and was not even interested, which you didn't like.</p>
+
+        <h2>Day 2: A Whisper of Understanding</h2>
+        <p>The next day was also the same, but I tried to contact you and we talked for a few minutes, and I got to know
+            what kind of person you were, the things you like, dislike, and enjoy.</p>
+
+        <div class="rose-divider">✿ ❦ ✿</div>
+
+        <h2>Day 3: The Flame Awakens</h2>
+        <p>The third day, this is where our journey really starts. I took you to some of the best places I love, and I
+            started seeing you for the person you were. You made me feel special and you were starting to notice me and
+            understand me. We have had some huge developments, being past the acquaintance stage, developing a close
+            friendship bond… and that night I spent it with you, observing you so closely.</p>
+
+        <p class="dialogue">"When you grinned at me that night, your smile glowed so brightly that my chest tightened—I
+            knew I had to shield it forever."</p>
+
+        <p>I got this feeling that I should protect your <span class="highlight">SMILE</span> from the bottom of my
+            heart.</p>
+
+        <h2>Day 4: Love Forged in Adversity</h2>
+        <p>The fourth day, we had some bad encounters, and I, as I pledged to protect you, saved us from all those
+            instances, and I don't know where you got connected to me. We developed feelings for each other, and as I am
+            possessive of the people I love, I would show my intimacy in a very real manner, which you would like the
+            most. Holding you tight for so long that both of us didn't even notice the time, and we would hold hands
+            tightly and express our deep feelings through just our eyes and slowly we began leaning towards each other
+            along side the witnesses of Nature - we had our first kiss in my car— in a plain forest type where The trees
+            loomed dark against the moonlit starry sky. We would not let go of ourselves, even if we wanted to. I hoped
+            that time would stop for just the moment / just for us.</p>
+
+        <p>Then at midnight, we would go to your home. I would talk to your father, and he eyed me warily as if
+            disgusted seeing me beside you, well not that I cared much about it because at the end of the day all that
+            mattered to me was you, and there was another friend of mine, whom you didn't like as she was also trying to
+            be intimate with me. So you thought to take this a step further, and we went inside your room. You went
+            inside the washroom, and I would sit in your bed. I loved your room, bedsheets so much, as they constantly
+            had your fragrance on them, and I could smell it. After a few minutes, you came out of the washroom, with
+            just a white towel covering your body. I saw the look in your eyes, which were crying for me to hold you and
+            never let go. That moment I decided— that you are the love of my life, and I would go to any lengths just
+            for you… I would hold you so tight with you in the towel, and we both hugged each other. And lay on your
+            bed, and slept so good. [Nothing major happened.] All night we were holding onto each other as if we had
+            found what we wanted for the rest of our lives. That was one of the best days of my life— and the reason is
+            I found you.</p>
+
+        <div class="rose-divider">✿ ❦ ✿</div>
+
+        <h2>Day 5: Passion's Triumph</h2>
+        <p>The Fifth day was very good. We were both happy that we progressed so much from our initial start, and I take
+            you to one of my favorite hotels in the city, the top floor with a swimming pool on that. That day was also
+            special for us. We were all by ourselves in the hotel and we found just the right place to progress. I
+            stepped onto the pool, where you followed it, and you with your breathtaking eyes, and amazing expressions
+            were looking at me so intimately, as if to congratulate our progression - we were having the best time in
+            there. I slowly started approaching you, sliding my hands through your waist and neck, giving you a hickey.
+            With all my heart, we started kissing right after that. And that was the start of one of best moments of
+            both our lives. We progressed into a much further intimacy in nature and made some moves as an adult, as a
+            tribute to our love and the result of our relationship. Both of us had an unforgettable time, and each and
+            every thing we do makes our love stronger and stronger, more so than ever.</p>
+
+        <h2>Day 6: A Vision of Forever</h2>
+        <p>The Sixth day—though I wanted to spend all day with you— and I had decided to let go of everything for you—
+            and come wherever you were— I wanted to marry you and spend the rest of my life with you, where I will be
+            yours and you will solely be mine. I had made up my mind— and I was marveling at our miracle, that the love
+            we had was the result of many coincidences which is nothing short of a miracle. I was going to introduce you
+            to my parents— and was ready to tell goodbye to each and everyone I knew of, just to live with you.</p>
+
+        <h2>The Last Day: A Soul Torn Asunder</h2>
+        <p>The last day - when I was sorting out everything - I tried to contact you, and I couldn't. After 4 hours of
+            trying to reach you - I got a call from you. She, my love, had a cold tone to her beautiful warm voice. She
+            was trying to have some distance from me - and I was on the verge of breaking.</p>
+
+        <p class="dialogue">"Rôse, I know we didn't have the best start - of all things - but we had the best moments in
+            our life. You are not someone I would want to be with to gain anything - not your beauty - money or status.
+            Speaking to you in this manner and hearing you speak in that tone is making my heart beat so fast - making
+            me anxious for the first time in my life - and it is very hard to speak in this manner. You know I still
+            remember you texted for me on the third day - saying you love me so much but didn't want to tell it on text
+            but in person to me and make it so memorable for us - and now hearing what you're about to tell is going to
+            break my heart."</p>
+
+        <p>After listening to this, I heard her voice break. She was crying but trying to hold back, as if she is in a
+            situation where she thinks that I would be in danger - if I was with her - but I honestly don't care about
+            all that. I don't care if I die. If I get to spend my last breath with you beside me, that would make my
+            soul so happy and that is all I care for.</p>
+
+        <div class="rose-divider">✿ ❦ ✿</div>
+
+        <p>The last day - Rôse's father threatened her, saying he would make my life hell would kill all my parents,
+  all my           and close ones, and ultimately kill me too - My Rôse, she was so helpless, she didn't want to hurt me even
+            if she was faced with death | the only person I love in this world - proved to me that she loved me more
+            than me - But OH My love - if we are not allowed to live in this world - let's love each other in Heaven -
+            and even in Heaven,if someone tries to separate us, then Fuck Heaven and Live in HELL - I would want to be
+            with you even after my death - Our love is eternal - which even we don't have the right to discard - it is
+            so sacred and worthy of worship - This is ultimately my fault, I couldn't even take care of the only person
+            I love in the world, I am so useless and weak - what use is the current me, except a burden for both of us -
+            BUT Wait for me, MY Love - I would burn this world - if I heard a drop of tears from those mesmerizing eyes
+            - I will not fear even if the whole world is opposing us, I would fight until my last breath to see you
+            again - and wouldn't hesitate to spend my last breath for you, SO please wait for me.</p>
+
+        <h2>Epilogue</h2>
+        <p class="last-paragraph">"I woke up searching for you, Rôse, wondering if somewhere, somehow, you're waiting
+            for me too."
+        </p>
+<p class="last-paragraph">
+    "My Way of love scares most of the People but the only thing i am scared of is your Sacrificial Love"
+</p>
+        <div class="footer">
+            What dreams have you pursued, only to find them slip away? Share your reflections below.
+        </div>
+    </div>
+</body>
+
+</html>
+<script>
+// Visit counter functionality (simulated)
+let visitCount = localStorage.getItem('visitCount') || 0;
+visitCount = parseInt(visitCount) + 1;
+localStorage.setItem('visitCount', visitCount);
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize comments from localStorage
+    let comments = JSON.parse(localStorage.getItem('dreamComments')) || [];
+    const commentSection = document.getElementById('comment-section');
+    const commentForm = document.getElementById('comment-form');
+    const likedComments = JSON.parse(localStorage.getItem('likedComments')) || [];
+    
+    // Display visit count
+    document.getElementById('visit-counter').innerText = visitCount;
+    
+    // Render existing comments
+    renderComments();
+    
+    // Comment submission
+    commentForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const name = document.getElementById('commenter-name').value.trim();
+        const commentText = document.getElementById('comment-text').value.trim();
+        
+        if (name && commentText) {
+            const newComment = {
+                id: Date.now(),
+                name: name,
+                text: commentText,
+                date: new Date().toISOString(),
+                likes: 0,
+                pinned: false,
+                replies: []
+            };
+            
+            comments.unshift(newComment);
+            saveComments();
+            renderComments();
+            commentForm.reset();
+        }
+    });
+    
+    // Event delegation for comment actions (like, reply, pin)
+    commentSection.addEventListener('click', function(e) {
+        const target = e.target;
+        const commentId = parseInt(target.closest('.comment')?.dataset.id);
+        
+        if (target.classList.contains('like-button')) {
+            toggleLike(commentId);
+        } else if (target.classList.contains('reply-button')) {
+            showReplyForm(commentId);
+        } else if (target.classList.contains('pin-button')) {
+            togglePin(commentId);
+        } else if (target.classList.contains('submit-reply')) {
+            const replyForm = target.closest('.reply-form');
+            const replyText = replyForm.querySelector('.reply-text').value;
+            if (replyText.trim()) {
+                addReply(commentId, replyText);
+            }
+        }
+    });
+    
+    function toggleLike(commentId) {
+        if (likedComments.includes(commentId)) return;
+        
+        const comment = comments.find(c => c.id === commentId);
+        if (comment) {
+            comment.likes++;
+            likedComments.push(commentId);
+            localStorage.setItem('likedComments', JSON.stringify(likedComments));
+            saveComments();
+            renderComments();
+        }
+    }
+    
+    function showReplyForm(commentId) {
+        const replyContainer = document.querySelector(`.comment[data-id="${commentId}"] .reply-container`);
+        const replyForm = replyContainer.querySelector('.reply-form');
+        
+        if (replyForm.style.display === 'block') {
+            replyForm.style.display = 'none';
+        } else {
+            // Hide all other reply forms first
+            document.querySelectorAll('.reply-form').forEach(form => {
+                form.style.display = 'none';
+            });
+            replyForm.style.display = 'block';
+        }
+    }
+    
+    function addReply(commentId, replyText) {
+        const comment = comments.find(c => c.id === commentId);
+        if (comment) {
+            const newReply = {
+                id: Date.now(),
+                text: replyText,
+                name: document.getElementById('commenter-name').value || 'Anonymous',
+                date: new Date().toISOString()
+            };
+            
+            comment.replies.push(newReply);
+            saveComments();
+            renderComments();
+        }
+    }
+    
+    function togglePin(commentId) {
+        comments = comments.map(comment => {
+            if (comment.id === commentId) {
+                comment.pinned = !comment.pinned;
+            } else {
+                comment.pinned = false; // Ensure only one comment is pinned
+            }
+            return comment;
+        });
+        
+        saveComments();
+        renderComments();
+    }
+    
+    function saveComments() {
+        localStorage.setItem('dreamComments', JSON.stringify(comments));
+    }
+    
+    function renderComments() {
+        // Sort comments: pinned first, then by date
+        const sortedComments = [...comments].sort((a, b) => {
+            if (a.pinned && !b.pinned) return -1;
+            if (!a.pinned && b.pinned) return 1;
+            return 0;
+        });
+        
+        const commentsHtml = sortedComments.map(comment => {
+            const repliesHtml = comment.replies.map(reply => `
+                <div class="reply">
+                    <p class="reply-text">${reply.text}</p>
+                    <p class="reply-meta">Replied by ${reply.name} • ${formatDate(reply.date)}</p>
+                </div>
+            `).join('');
+            
+            const isPinned = comment.pinned ? '<span class="pinned-badge">Pinned</span>' : '';
+            const adminControls = `
+                <button class="pin-button" title="Pin Comment">📌</button>
+            `;
+            
+            return `
+                <div class="comment ${comment.pinned ? 'pinned' : ''}" data-id="${comment.id}">
+                    ${isPinned}
+                    <h4>${comment.name}</h4>
+                    <p>${comment.text}</p>
+                    <div class="comment-meta">
+                        <span>${formatDate(comment.date)}</span>
+                        <span>${comment.likes} likes</span>
+                        <button class="like-button ${likedComments.includes(comment.id) ? 'liked' : ''}" ${likedComments.includes(comment.id) ? 'disabled' : ''}>♥</button>
+                        <button class="reply-button">Reply</button>
+                        ${adminControls}
+                    </div>
+                    <div class="reply-container">
+                        ${repliesHtml}
+                        <div class="reply-form">
+                            <textarea class="reply-text" placeholder="Write your reply..."></textarea>
+                            <button class="submit-reply">Submit Reply</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }).join('');
+        
+        commentSection.innerHTML = commentsHtml || '<p class="no-comments">Be the first to share your thoughts about this dream...</p>';
+    }
+    
+    function formatDate(dateString) {
+        const date = new Date(dateString);
+        return date.toLocaleDateString('en-US', { 
+            year: 'numeric', 
+            month: 'short', 
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit'
+        });
+    }
+});
+</script>
+
+<style>
+/* Enhanced styling for existing elements */
+body {
+    background-color: var(--background);
+    background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23330e0e' fill-opacity='0.2' fill-rule='evenodd'/%3E%3C/svg%3E"), 
+        radial-gradient(circle, rgba(26,17,17,1) 0%, rgba(10,3,3,1) 100%);
+    animation: fadeIn 1.5s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 30px;
+    position: relative;
+    background-color: rgba(24, 14, 14, 0.92);
+    box-shadow: 0 0 40px rgba(138, 3, 3, 0.3);
+    border: 1px solid rgba(138, 3, 3, 0.1);
+    border-radius: 3px;
+    transition: all 0.3s ease;
+}
+
+.container:hover {
+    box-shadow: 0 0 50px rgba(138, 3, 3, 0.4);
+}
+
+h1 {
+    font-size: 3.2rem;
+    text-align: center;
+    letter-spacing: 3px;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    background: linear-gradient(to bottom, var(--accent-color), var(--primary-color));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    transition: all 0.5s ease;
+}
+
+h1:hover {
+    text-shadow: 2px 2px 8px rgba(179, 118, 118, 0.7);
+    transform: scale(1.02);
+}
+
+.author {
+    text-align: right;
+    font-style: italic;
+    color: var(--accent-color);
+    font-size: 1.5rem;
+    margin-top: -15px;
+    margin-bottom: 40px;
+    letter-spacing: 1px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
+    transition: all 0.3s ease;
+}
+
+.author:hover {
+    color: #d8a0a0;
+    transform: translateX(-5px);
+}
+
+p {
+    font-size: 1.15rem;
+    line-height: 2;
+    text-align: justify;
+    transition: all 0.3s ease;
+}
+
+p:hover {
+    color: #e0d1d1;
+}
+
+.dialogue {
+    margin: 30px 35px;
+    font-style: italic;
+    position: relative;
+    color: #d4c0c0;
+    padding: 10px 15px;
+    background-color: rgba(62, 1, 1, 0.2);
+    border-left: 3px solid var(--primary-color);
+    transition: all 0.3s ease;
+}
+
+.dialogue:hover {
+    background-color: rgba(62, 1, 1, 0.3);
+    transform: translateX(5px);
+}
+
+.highlight {
+    color: #ff9999;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.highlight:hover {
+    color: var(--primary-color);
+}
+
+.rose-divider {
+    text-align: center;
+    margin: 40px 0;
+    color: var(--primary-color);
+    font-size: 1.8rem;
+    opacity: 0.8;
+    text-shadow: 0 0 5px rgba(138, 3, 3, 0.3);
+    transition: all 0.5s ease;
+}
+
+.rose-divider:hover {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+.last-paragraph {
+    font-style: italic;
+    text-align: center;
+    margin: 40px 0 20px;
+    font-size: 1.3rem;
+    color: #d8a0a0;
+    padding: 15px 10px;
+    border-top: 1px solid rgba(179, 118, 118, 0.3);
+    border-bottom: 1px solid rgba(179, 118, 118, 0.3);
+    letter-spacing: 1px;
+    transition: all 0.5s ease;
+}
+
+.last-paragraph:hover {
+    background-color: rgba(138, 3, 3, 0.1);
+    letter-spacing: 1.5px;
+}
+
+.visit-counter {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    background-color: rgba(62, 1, 1, 0.7);
+    color: var(--text-color);
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    z-index: 100;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Comment section styling */
+.comment-container {
+    background-color: rgba(26, 17, 17, 0.95);
+    padding: 30px;
+    margin-top: 50px;
+    border-top: 1px solid var(--primary-color);
+    border-radius: 0 0 3px 3px;
+}
+
+.comment-header {
+    text-align: center;
+    margin-bottom: 30px;
+    position: relative;
+}
+
+.comment-header h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    color: var(--accent-color);
+    margin-bottom: 15px;
+}
+
+.comment-header:after {
+    content: "❦";
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.5rem;
+    color: var(--primary-color);
+}
+
+.comment-form {
+    margin-bottom: 40px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--accent-color);
+    font-size: 1.1rem;
+    font-family: 'Playfair Display', serif;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    background-color: rgba(62, 1, 1, 0.1);
+    border: 1px solid rgba(138, 3, 3, 0.3);
+    color: var(--text-color);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    border-radius: 3px;
+    transition: all 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 10px rgba(138, 3, 3, 0.3);
+    background-color: rgba(62, 1, 1, 0.2);
+}
+
+.submit-comment {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    cursor: pointer;
+    border-radius: 3px;
+    transition: all 0.3s ease;
+}
+
+.submit-comment:hover {
+    background-color: var(--secondary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.comment-section {
+    margin-top: 30px;
+}
+
+.comment {
+    background-color: rgba(62, 1, 1, 0.1);
+    padding: 20px;
+    margin-bottom: 25px;
+    border-left: 3px solid rgba(138, 3, 3, 0.5);
+    border-radius: 0 3px 3px 0;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.comment:hover {
+    background-color: rgba(62, 1, 1, 0.2);
+    transform: translateX(5px);
+}
+
+.comment h4 {
+    color: var(--accent-color);
+    font-family: 'Playfair Display', serif;
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+}
+
+.comment p {
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+}
+
+.comment-meta {
+    font-size: 0.9rem;
+    color: #a08686;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.like-button, .reply-button, .pin-button {
+    background: none;
+    border: none;
+    color: var(--accent-color);
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    padding: 5px 10px;
+}
+
+.like-button:hover, .reply-button:hover, .pin-button:hover {
+    color: var(--primary-color);
+    transform: scale(1.1);
+}
+
+.liked {
+    color: var(--primary-color);
+}
+
+.reply-container {
+    margin-top: 15px;
+    padding-left: 20px;
+    border-left: 1px dotted rgba(138, 3, 3, 0.3);
+}
+
+.reply {
+    padding: 15px;
+    margin-top: 10px;
+    background-color: rgba(26, 17, 17, 0.5);
+    border-radius: 3px;
+}
+
+.reply-meta {
+    font-size: 0.8rem;
+    color: #a08686;
+    margin-top: 5px;
+}
+
+.reply-form {
+    display: none;
+    margin-top: 15px;
+}
+
+.reply-text {
+    width: 100%;
+    padding: 10px;
+    background-color: rgba(62, 1, 1, 0.1);
+    border: 1px solid rgba(138, 3, 3, 0.3);
+    color: var(--text-color);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem;
+    border-radius: 3px;
+    margin-bottom: 10px;
+}
+
+.submit-reply {
+    background-color: rgba(138, 3, 3, 0.7);
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    font-family: 'Cormorant Garamond', serif;
+    cursor: pointer;
+    border-radius: 3px;
+    transition: all 0.3s ease;
+}
+
+.submit-reply:hover {
+    background-color: var(--primary-color);
+}
+
+.pinned {
+    border-left: 3px solid var(--primary-color);
+    background-color: rgba(138, 3, 3, 0.15);
+}
+
+.pinned-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 3px 8px;
+    font-size: 0.8rem;
+    border-radius: 10px;
+}
+
+.no-comments {
+    text-align: center;
+    font-style: italic;
+    color: #a08686;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 20px 15px;
+        margin: 1rem;
+    }
+    
+    h1 {
+        font-size: 2.4rem;
+    }
+    
+    .author {
+        font-size: 1.3rem;
+    }
+    
+    .comment-container {
+        padding: 20px 15px;
+    }
+    
+    .comment-header h3 {
+        font-size: 1.7rem;
+    }
+    
+    .form-group input,
+    .form-group textarea {
+        padding: 10px;
+    }
+    
+    .comment {
+        padding: 15px;
+    }
+    
+    .reply-container {
+        padding-left: 10px;
+    }
+    
+    .visit-counter {
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 2rem;
+    }
+    
+    .author {
+        font-size: 1.2rem;
+    }
+    
+    .comment-meta {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+    
+    .pinned-badge {
+        position: relative;
+        top: 0;
+        right: 0;
+        display: inline-block;
+        margin-bottom: 10px;
+    }
+}
+</style>
+
+<div class="visit-counter">
+    <span id="visit-counter">0</span> dreamers visited
+</div>
+
+<div class="comment-container">
+    <div class="comment-header">
+        <h3>Share Your Reflections</h3>
+        <p>Have you ever pursued a dream, only to find it slip away? Share your story.</p>
+    </div>
+
+    <form id="comment-form" class="comment-form">
+        <div class="form-group">
+            <label for="commenter-name">Your Name</label>
+            <input type="text" id="commenter-name" placeholder="Enter your name..." required>
+        </div>
+        <div class="form-group">
+            <label for="comment-text">Your Thoughts</label>
+            <textarea id="comment-text" rows="4" placeholder="Share your reflections on this tale of love..." required></textarea>
+        </div>
+        <button type="submit" class="submit-comment">Share</button>
+    </form>
+
+    <div id="comment-section" class="comment-section">
+        <!-- Comments will be populated dynamically -->
+        <p class="no-comments">Be the first to share your thoughts about this dream...</p>
+    </div>
+</div></div>

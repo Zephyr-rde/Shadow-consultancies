@@ -277,6 +277,125 @@ header {
     0%, 100% { width: 60%; left: 20%; }
     50% { width: 80%; left: 10%; }
 }
+.dream-content {
+    text-align: center;
+    padding: 2rem;
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(100, 0, 0, 0.5);
+    border: 1px solid rgba(120, 0, 0, 0.3);
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.dream-content .title {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.2rem;
+    color: #d00;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+    margin-bottom: 0.7rem;
+    letter-spacing: 2px;
+}
+
+.dream-content .subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem;
+    color: #aa0000;
+    font-style: italic;
+    margin-bottom: 2.5rem;
+    letter-spacing: 1px;
+}
+
+.dream-content .version-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.5rem;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin-bottom: 1rem;
+}
+
+.dream-description {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    color: #ccc;
+    max-width: 80%;
+    margin: 0 auto 2.5rem;
+    line-height: 1.6;
+    font-style: italic;
+}
+
+.dream-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: center;
+    margin-top: 1.5rem;
+}
+
+.dream-btn {
+    background: linear-gradient(45deg, rgba(50,0,0,0.9), rgba(100,0,0,0.8));
+    width: 90%;
+    max-width: 500px;
+    padding: 1.2rem;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(150, 0, 0, 0.5);
+    text-decoration: none;
+}
+
+.dream-btn:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(120, 0, 0, 0.4);
+    background: linear-gradient(45deg, rgba(80,0,0,0.9), rgba(140,0,0,0.8));
+}
+
+.dream-btn .btn-icon {
+    font-size: 1.8rem;
+    margin-right: 1.2rem;
+    color: #ff5a5a;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,0.3);
+    border-radius: 50%;
+    border: 1px solid rgba(150,0,0,0.5);
+}
+
+.dream-btn .btn-text {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 1.3rem;
+    color: #fff;
+    text-align: left;
+    margin-bottom: 0.3rem;
+}
+
+.dream-btn .btn-subtext {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.9rem;
+    color: #ccc;
+    display: block;
+    text-align: left;
+}
+
+@media (max-width: 768px) {
+    .dream-content .title {
+        font-size: 2.5rem;
+    }
+    .dream-content .subtitle {
+        font-size: 1.5rem;
+    }
+    .dream-description {
+        font-size: 1.2rem;
+        max-width: 95%;
+    }
+}
 
 /* Buttons */
 .buttons {
